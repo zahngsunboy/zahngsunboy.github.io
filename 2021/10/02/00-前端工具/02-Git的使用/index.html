@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前端工具," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="常见操作全局配置用户信息123git config --global user.name &quot;smyhvae&quot;git config --global user.email &quot;smyhvae@163.com&quot;   分支的合并场景：基于master分支的代码，开发一个新的特性如果你直接在master分支上开发这个新特性，是不好的，万一你在开发特性1的时候，领导突">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02-Git的使用">
+<meta property="og:url" content="http://example.com/2021/10/02/00-%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/02-Git%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="常见操作全局配置用户信息123git config --global user.name &quot;smyhvae&quot;git config --global user.email &quot;smyhvae@163.com&quot;   分支的合并场景：基于master分支的代码，开发一个新的特性如果你直接在master分支上开发这个新特性，是不好的，万一你在开发特性1的时候，领导突">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20180610_1650.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180610_1710.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180610_1740.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180623_1210.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180623_1305.png">
+<meta property="article:published_time" content="2021-10-02T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-11-29T13:11:21.000Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="前端工具">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180610_1650.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/10/02/00-前端工具/02-Git的使用/"/>
+
+
+
+
+
+  <title>02-Git的使用 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/00-%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/02-Git%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">02-Git的使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-02T13:01:00+08:00">
+                2021-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="常见操作"><a href="#常见操作" class="headerlink" title="常见操作"></a>常见操作</h2><h3 id="全局配置用户信息"><a href="#全局配置用户信息" class="headerlink" title="全局配置用户信息"></a>全局配置用户信息</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name &quot;smyhvae&quot;</span><br><span class="line"></span><br><span class="line">git config --global user.email &quot;smyhvae@163.com&quot;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="分支的合并"><a href="#分支的合并" class="headerlink" title="分支的合并"></a>分支的合并</h2><h3 id="场景：基于master分支的代码，开发一个新的特性"><a href="#场景：基于master分支的代码，开发一个新的特性" class="headerlink" title="场景：基于master分支的代码，开发一个新的特性"></a>场景：基于master分支的代码，开发一个新的特性</h3><p>如果你直接在master分支上开发这个新特性，是不好的，万一你在开发<code>特性1</code>的时候，领导突然又要叫你去开发<code>特性2</code>，就不好处理了。难道开发的两个特性都提交到master？一会儿提交特性1的commit，一会儿提交特性2的commit？这会导致commit记录很混乱。</p>
+<p>所以，我给你的建议做法是：给每个特性都单独建一个的新的分支。</p>
+<p>比如说，我专门给<code>特性1</code>建一个分支<code>feature_item_recommend</code>。具体做法如下：</p>
+<p>（1）基于master分支，创建一个新的分支，起名为<code>feature_item_recommend</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b feature_item_recommend</span><br><span class="line"></span><br><span class="line">Switched to a new branch &#x27;feature_item_recommend&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>上面这行命令，相当于：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git branch feature_item_recommend    // 创建新的分支</span><br><span class="line"></span><br><span class="line">$ git checkout feature_item_recommend  //切换到新的分支</span><br></pre></td></tr></table></figure>
+
+
+<p>（2）在新的分支<code>feature_item_recommend</code>上，完成开发工作，并 commit 、push。</p>
+<p>（3）将分支<code>feature_item_recommend</code>上的开发进度<strong>合并</strong>到master分支：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master  //切换到master分支</span><br><span class="line"></span><br><span class="line">$ git merge feature_item_recommend    //将分支 feature_item_recommend 的开发进度合并到 master 分支</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>合并之后，<code>master</code>分支和<code>feature_item_recommend</code>分支会指向同一个位置。</p>
+<p>（3）删除分支<code>feature_item_recommend</code>：</p>
+<blockquote>
+<p>既然 特性1 开发完了，也放心地提交到master了，那我们就可以将这个分支删除了。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -d feature_item_recommend</span><br></pre></td></tr></table></figure>
+
+<p>注意，我们当前是处于<code>master</code>分支的位置，来删除<code>feature_item_recommend</code>分支。如果当前是处于<code>feature_item_recommend</code>分支，是没办法删除它自己的。</p>
+<p>同理，当我转身去开发<code>特性2</code>的时候，也是采用同样的步骤。</p>
+<h3 id="合并分支时，如果存在分叉"><a href="#合并分支时，如果存在分叉" class="headerlink" title="合并分支时，如果存在分叉"></a>合并分支时，如果存在分叉</h3><p><img src="http://img.smyhvae.com/20180610_1650.png"></p>
+<p>比如说上面这张图中，最早的时候，master分支是位于<code>C2</code>节点。我基于<code>C2</code>节点，new出一个新的分支<code>iss53</code>，我在<code>iss53</code>上提交了好几个commit。</p>
+<p>现在，我准备把<code>iss53</code>上的几个commit合并到master上，此时发现，master分支已经前进到C4了。那该怎么合并呢？</p>
+<p>合并的命令仍然是：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br><span class="line"></span><br><span class="line">$ git merge iss53</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：</p>
+<p>这次合并的实现，并不同于简单的并入方式。这一次，我的开发历史是从更早的地方开始分叉的。</p>
+<p>由于当前 master 分支所指向的commit (C4)并非想要并入分支（iss53）的直接祖先，Git 不得不进行一些处理。就此例而言，Git 会用两个分支的末端（C4 和C5）和它们的共同祖先（C2）进行一次简单的三方合并计算。</p>
+<p>Git 没有简单地把分支指针右移，而是对三方合并的结果作一新的快照，并自动创建一个指向它的commit（C6）（如下图所示）。我们把这个特殊的commit 称作合并提交（mergecommit），因为它的祖先不止一个。</p>
+<p>值得一提的是Git 可以自己裁决哪个共同祖先才是最佳合并基础；这和CVS 或Subversion（1.5 以后的版本）不同，它们需要开发者手工指定合并基础。所以此特性让Git 的合并操作比其他系统都要简单不少。</p>
+<p><img src="http://img.smyhvae.com/20180610_1710.png"></p>
+<h3 id="解决合并时发生的冲突"><a href="#解决合并时发生的冲突" class="headerlink" title="解决合并时发生的冲突"></a>解决合并时发生的冲突</h3><p><img src="http://img.smyhvae.com/20180610_1740.png"></p>
+<p>如果 feature1和feature2修改的是同一个文件中<strong>代码的同一个位置</strong>，那么，把feature1合并到feature2时，就会产生冲突。这个冲突需要人工解决。步骤如下：</p>
+<p>（1）手动修改文件：手动修改冲突的那个文件，决定到底要用哪个分支的代码。</p>
+<p>（2）git add：解决好冲突后，输入<code>git status</code>，会提示<code>Unmerged paths</code>。这个时候，输入<code>git add</code>即可，表示：<strong>修改冲突成功，加入暂存区</strong>。</p>
+<p>（3）git commit 提交。</p>
+<p>然后，我们可以继续把 feature1 分支合并到 master分支，最后删除feature1、feature2。</p>
+<p><strong>注意</strong>：两个分支的同一个文件的不同地方合并时，git会自动合并，不会产生冲突。</p>
+<p>比如分支feture1对index.html原来的第二行之前加入了一段代码。<br>分支feature2对index.html在原来的最后一行的后面加入了一段代码。<br>这个时候在对两个分支合并，git不会产生冲突，因为两个分支是修改同一文件的不同位置。<br>git自动合并成功。不管是git自动合并成功，还是在人工解决冲突下合并成功，提交之前，都要对代码进行测试。</p>
+<h2 id="日常操作积累"><a href="#日常操作积累" class="headerlink" title="日常操作积累"></a>日常操作积累</h2><h3 id="修改密码（曲线救国）"><a href="#修改密码（曲线救国）" class="headerlink" title="修改密码（曲线救国）"></a>修改密码（曲线救国）</h3><blockquote>
+<p>网上查了很久，没找到答案。最终，在cld童鞋的提示下，采取如下方式进行曲线救国。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设置当前仓库的用户名为空</span></span><br><span class="line">git config  user.name <span class="string">&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后，当我们再输入<code>git pull</code>等命令行时，就会被要求重新输入<em>新的</em>账号密码。此时，密码就可以修改成功了。最后，我们还要输入如下命令，还原当前仓库的用户名：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config user.name &quot;smyhvae&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改已经push的某次commit的作者信息"><a href="#修改已经push的某次commit的作者信息" class="headerlink" title="修改已经push的某次commit的作者信息"></a>修改已经push的某次commit的作者信息</h3><p>已经push的记录，如果要修改作者信息的话，只能 通过–force命令。我反正是查了很久，但最终还是不敢用公司的仓库尝试。</p>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/q/1010000006999861">git 修改已提交的某一次的邮箱和用户信息</a></li>
+</ul>
+<p>看最后一条答案。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://baurine.github.io/2015/08/22/git_update_author.html">修改 git repo 历史提交的 author</a></li>
+</ul>
+<h3 id="将-branch1的某个commit1合并到branch2当中"><a href="#将-branch1的某个commit1合并到branch2当中" class="headerlink" title="将 branch1的某个commit1合并到branch2当中"></a>将 <code>branch1</code>的某个<code>commit1</code>合并到<code>branch2</code>当中</h3><p>切换到branch2中，然后执行如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick commit1</span><br></pre></td></tr></table></figure>
+
+<h3 id="20190118-修改GitHub已提交的用户名和邮箱"><a href="#20190118-修改GitHub已提交的用户名和邮箱" class="headerlink" title="20190118-修改GitHub已提交的用户名和邮箱"></a>20190118-修改GitHub已提交的用户名和邮箱</h3><p>参考链接：（亲测有效）</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1352623">修改Git全部Commit提交记录的用户名Name和邮箱Email</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/yusufolu9/article/details/53706269">Mac 运行sh文件，也就是传说中的shell脚本</a></p>
+</li>
+</ul>
+<p>在执行<code>./email.sh</code>后，如果出现<code>permission denied</code>的错误，可以先执行<code>chmod 777 email.sh</code>，修改文件的权限。</p>
+<h3 id="20200520-将Git-项目迁移到另一个仓库"><a href="#20200520-将Git-项目迁移到另一个仓库" class="headerlink" title="20200520-将Git 项目迁移到另一个仓库"></a>20200520-将Git 项目迁移到另一个仓库</h3><p>我们假设旧仓库的项目名称叫<code>old-repository</code>，新仓库的项目名称叫<code>new-repository</code>。操作如下：</p>
+<p>（1）创建旧仓库的裸克隆：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --bare https://github.com/exampleuser/old-repository.git</span><br></pre></td></tr></table></figure>
+<p>执行上述命令后，会在本地生成一个名叫 <code>old-repository.git</code>的文件夹。</p>
+<p>（2）迁移到新仓库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> old-repository.git</span><br><span class="line"></span><br><span class="line">git push --mirror https://github.com/exampleuser/new-repository.git</span><br></pre></td></tr></table></figure>
+
+<p>这样的话，项目就已经迁移到新仓库了。</p>
+<p>注意，我们<strong>不需要</strong>手动新建一个空的新仓库，当我们执行上述命令之后，新仓库就已经自动创建好了。</p>
+<p>参考链接：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://help.github.com/cn/github/creating-cloning-and-archiving-repositories/duplicating-a-repository">复制仓库</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://moelove.info/2016/12/04/Git-%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%92%8C%E8%A3%B8%E4%BB%93%E5%BA%93/">Git 本地仓库和裸仓库</a></p>
+</li>
+</ul>
+<h3 id="2021-11-10-提交代码时，绕过-eslint-检查"><a href="#2021-11-10-提交代码时，绕过-eslint-检查" class="headerlink" title="2021-11-10-提交代码时，绕过 eslint 检查"></a>2021-11-10-提交代码时，绕过 eslint 检查</h3><p>需求：提交代码时，绕过 eslint 检查</p>
+<p>解决办法：用命令行提交，在命令做 git commit 的时候，末尾追加<code>--no-verify</code>。例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;千古壹号的commit备注&#x27;</span> --no-verify</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="git客户端推荐"><a href="#git客户端推荐" class="headerlink" title="git客户端推荐"></a>git客户端推荐</h2><p>市面上的Git客户端我基本都用过了，我最推荐的一款Git客户端是：<a target="_blank" rel="noopener" href="https://www.git-tower.com/">Tower</a> 或者 <a target="_blank" rel="noopener" href="https://git-fork.com/">Fork</a>。</p>
+<ul>
+<li>GitUp：<a target="_blank" rel="noopener" href="https://gitup.co/">https://gitup.co/</a></li>
+</ul>
+<p>20180623时，网上看了下Git客户端的推荐排名：</p>
+<p><img src="http://img.smyhvae.com/20180623_1210.png"></p>
+<p><strong>SmartGit</strong>：</p>
+<p>商业用途收费， 个人用户免费：</p>
+<p><img src="http://img.smyhvae.com/20180623_1305.png"></p>
+<h2 id="推荐书籍"><a href="#推荐书籍" class="headerlink" title="推荐书籍"></a>推荐书籍</h2><ul>
+<li>《pro.git中文版》</li>
+</ul>
+<h2 id="推荐连接"><a href="#推荐连接" class="headerlink" title="推荐连接"></a>推荐连接</h2><h3 id="2018-06"><a href="#2018-06" class="headerlink" title="2018-06"></a>2018-06</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wangiqngpei557/p/6056624.html">聊下git pull –rebase</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/" rel="tag"># 前端工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/01/00-%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/01-VS%20Code%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="next" title="01-VS Code的使用">
+                <i class="fa fa-chevron-left"></i> 01-VS Code的使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/03/00-%E5%89%8D%E7%AB%AF%E5%B7%A5%E5%85%B7/03-%E7%BD%91%E7%BB%9C%E6%8A%93%E5%8C%85%E5%92%8C%E4%BB%A3%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%9AWhistle/" rel="prev" title="03-网络抓包和代理工具：Whistle">
+                03-网络抓包和代理工具：Whistle <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">常见操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">1.1.</span> <span class="nav-text">全局配置用户信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E5%90%88%E5%B9%B6"><span class="nav-number">2.</span> <span class="nav-text">分支的合并</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%EF%BC%9A%E5%9F%BA%E4%BA%8Emaster%E5%88%86%E6%94%AF%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">2.1.</span> <span class="nav-text">场景：基于master分支的代码，开发一个新的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E6%97%B6%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%AD%98%E5%9C%A8%E5%88%86%E5%8F%89"><span class="nav-number">2.2.</span> <span class="nav-text">合并分支时，如果存在分叉</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%90%88%E5%B9%B6%E6%97%B6%E5%8F%91%E7%94%9F%E7%9A%84%E5%86%B2%E7%AA%81"><span class="nav-number">2.3.</span> <span class="nav-text">解决合并时发生的冲突</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%B8%B8%E6%93%8D%E4%BD%9C%E7%A7%AF%E7%B4%AF"><span class="nav-number">3.</span> <span class="nav-text">日常操作积累</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81%EF%BC%88%E6%9B%B2%E7%BA%BF%E6%95%91%E5%9B%BD%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">修改密码（曲线救国）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%B7%B2%E7%BB%8Fpush%E7%9A%84%E6%9F%90%E6%AC%A1commit%E7%9A%84%E4%BD%9C%E8%80%85%E4%BF%A1%E6%81%AF"><span class="nav-number">3.2.</span> <span class="nav-text">修改已经push的某次commit的作者信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86-branch1%E7%9A%84%E6%9F%90%E4%B8%AAcommit1%E5%90%88%E5%B9%B6%E5%88%B0branch2%E5%BD%93%E4%B8%AD"><span class="nav-number">3.3.</span> <span class="nav-text">将 branch1的某个commit1合并到branch2当中</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20190118-%E4%BF%AE%E6%94%B9GitHub%E5%B7%B2%E6%8F%90%E4%BA%A4%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1"><span class="nav-number">3.4.</span> <span class="nav-text">20190118-修改GitHub已提交的用户名和邮箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20200520-%E5%B0%86Git-%E9%A1%B9%E7%9B%AE%E8%BF%81%E7%A7%BB%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E4%BB%93%E5%BA%93"><span class="nav-number">3.5.</span> <span class="nav-text">20200520-将Git 项目迁移到另一个仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2021-11-10-%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E6%97%B6%EF%BC%8C%E7%BB%95%E8%BF%87-eslint-%E6%A3%80%E6%9F%A5"><span class="nav-number">3.6.</span> <span class="nav-text">2021-11-10-提交代码时，绕过 eslint 检查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8E%A8%E8%8D%90"><span class="nav-number">4.</span> <span class="nav-text">git客户端推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E4%B9%A6%E7%B1%8D"><span class="nav-number">5.</span> <span class="nav-text">推荐书籍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E8%BF%9E%E6%8E%A5"><span class="nav-number">6.</span> <span class="nav-text">推荐连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06"><span class="nav-number">6.1.</span> <span class="nav-text">2018-06</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
