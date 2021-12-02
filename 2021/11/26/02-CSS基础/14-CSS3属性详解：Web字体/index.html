@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言开发人员可以为自已的网页指定特殊的字体（将指定字体提前下载到站点中），无需考虑用户电脑上是否安装了此特殊字体。从此，把特殊字体处理成图片的方式便成为了过去。 支持程度比较好，甚至 IE 低版本的浏览器也能支持。 字体的常见格式 不同浏览器所支持的字体格式是不一样的，我们有必要了解一下字体格式的知识。  TureTpe格式：(.ttf).ttf 字体是Windows和Mac的最常见的字体，是一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14-CSS3属性详解：Web字体">
+<meta property="og:url" content="http://example.com/2021/11/26/02-CSS%E5%9F%BA%E7%A1%80/14-CSS3%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3%EF%BC%9AWeb%E5%AD%97%E4%BD%93/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="前言开发人员可以为自已的网页指定特殊的字体（将指定字体提前下载到站点中），无需考虑用户电脑上是否安装了此特殊字体。从此，把特殊字体处理成图片的方式便成为了过去。 支持程度比较好，甚至 IE 低版本的浏览器也能支持。 字体的常见格式 不同浏览器所支持的字体格式是不一样的，我们有必要了解一下字体格式的知识。  TureTpe格式：(.ttf).ttf 字体是Windows和Mac的最常见的字体，是一">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1328.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1336.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1338.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1750.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1755.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1800.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180220_1815.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180223_2100.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180223_2105.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190101.png">
+<meta property="article:published_time" content="2021-11-26T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-01T14:03:32.947Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="CSS基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180220_1328.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/11/26/02-CSS基础/14-CSS3属性详解：Web字体/"/>
+
+
+
+
+
+  <title>14-CSS3属性详解：Web字体 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/26/02-CSS%E5%9F%BA%E7%A1%80/14-CSS3%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3%EF%BC%9AWeb%E5%AD%97%E4%BD%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">14-CSS3属性详解：Web字体</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-26T13:01:00+08:00">
+                2021-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发人员可以为自已的网页指定特殊的字体（将指定字体提前下载到站点中），无需考虑用户电脑上是否安装了此特殊字体。从此，把特殊字体处理成图片的方式便成为了过去。</p>
+<p>支持程度比较好，甚至 IE 低版本的浏览器也能支持。</p>
+<h2 id="字体的常见格式"><a href="#字体的常见格式" class="headerlink" title="字体的常见格式"></a>字体的常见格式</h2><blockquote>
+<p>不同浏览器所支持的字体格式是不一样的，我们有必要了解一下字体格式的知识。</p>
+</blockquote>
+<h4 id="TureTpe格式：-ttf"><a href="#TureTpe格式：-ttf" class="headerlink" title="TureTpe格式：(.ttf)"></a>TureTpe格式：(<strong>.ttf</strong>)</h4><p>.ttf 字体是Windows和Mac的最常见的字体，是一种RAW格式。</p>
+<p>支持这种字体的浏览器有IE9+、Firefox3.5+、Chrome4+、Safari3+、Opera10+、iOS Mobile、Safari4.2+。</p>
+<h4 id="OpenType格式：-otf"><a href="#OpenType格式：-otf" class="headerlink" title="OpenType格式：(.otf)"></a>OpenType格式：(<strong>.otf</strong>)</h4><p>.otf 字体被认为是一种原始的字体格式，其内置在TureType的基础上。</p>
+<p>支持这种字体的浏览器有Firefox3.5+、Chrome4.0+、Safari3.1+、Opera10.0+、iOS Mobile、Safari4.2+。</p>
+<h4 id="Web-Open-Font-Format格式：-woff"><a href="#Web-Open-Font-Format格式：-woff" class="headerlink" title="Web Open Font Format格式：(.woff)"></a>Web Open Font Format格式：(<strong>.woff</strong>)</h4><p>woff字体是Web字体中最佳格式，他是一个开放的TrueType/OpenType的压缩版本，同时也支持元数据包的分离。</p>
+<p>支持这种字体的浏览器有IE9+、Firefox3.5+、Chrome6+、Safari3.6+、Opera11.1+。</p>
+<h4 id="Embedded-Open-Type格式：-eot"><a href="#Embedded-Open-Type格式：-eot" class="headerlink" title="Embedded Open Type格式：(.eot)"></a>Embedded Open Type格式：(<strong>.eot</strong>)</h4><p>.eot字体是IE专用字体，可以从TrueType创建此格式字体，支持这种字体的浏览器有IE4+。</p>
+<h4 id="SVG格式：-svg"><a href="#SVG格式：-svg" class="headerlink" title="SVG格式：(.svg)"></a>SVG格式：(<strong>.svg</strong>)</h4><p>.svg字体是基于SVG字体渲染的一种格式。</p>
+<p>支持这种字体的浏览器有Chrome4+、Safari3.1+、Opera10.0+、iOS Mobile Safari3.2+。</p>
+<p><strong>总结：</strong></p>
+<p>了解了上面的知识后，<strong>我们就需要为不同的浏览器准备不同格式的字体</strong>。通常我们会通过字体生成工具帮我们生成各种格式的字体，因此无需过于在意字体格式之间的区别。</p>
+<p>下载字体的网站推荐：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://www.zhaozi.cn/">http://www.zhaozi.cn/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.youziku.com/">http://www.youziku.com/</a></p>
+</li>
+</ul>
+<h2 id="WebFont-的使用步骤"><a href="#WebFont-的使用步骤" class="headerlink" title="WebFont 的使用步骤"></a>WebFont 的使用步骤</h2><p>打开网站<a target="_blank" rel="noopener" href="http://iconfont.cn/webfont#!/webfont/index">http://iconfont.cn/webfont#!/webfont/index</a>，如下：</p>
+<p><img src="http://img.smyhvae.com/20180220_1328.png"></p>
+<p>上图中，比如我想要「思源黑体-粗」这个字体，那我就点击红框中的「本地下载」。</p>
+<p>下载完成后是一个压缩包，压缩包链接：<a target="_blank" rel="noopener" href="http://download.csdn.net/download/smyhvae/10253561">http://download.csdn.net/download/smyhvae/10253561</a></p>
+<p>解压后如下：</p>
+<p><img src="http://img.smyhvae.com/20180220_1336.png"></p>
+<p>上图中， 我们把箭头处的html文件打开，里面告诉了我们 webfont 的<strong>使用步骤</strong>：</p>
+<p><img src="http://img.smyhvae.com/20180220_1338.png"></p>
+<p>（1）第一步：使用font-face声明字体</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@font-face</span> &#123;<span class="attribute">font-family</span>: <span class="string">&#x27;webfont&#x27;</span>;</span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;webfont.eot&#x27;</span>); <span class="comment">/* IE9*/</span></span><br><span class="line">    <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;webfont.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), /* IE6-IE8 */</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&#x27;webfont.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>), /* chrome、firefox */</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&#x27;webfont.ttf&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), /* chrome、firefox、opera、Safari, Android, iOS <span class="number">4.2</span>+*/</span><br><span class="line">    <span class="built_in">url</span>(<span class="string">&#x27;webfont.svg#webfont&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* iOS 4.1- */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>（2）第二步：定义使用webfont的样式</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.web-font</span>&#123;</span><br><span class="line">    <span class="attribute">font-family</span>:<span class="string">&quot;webfont&quot;</span> <span class="meta">!important</span>;</span><br><span class="line">    <span class="attribute">font-size</span>:<span class="number">16px</span>;<span class="attribute">font-style</span>:normal;</span><br><span class="line">    -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span><br><span class="line">    -webkit-text-stroke-<span class="attribute">width</span>: <span class="number">0.2px</span>;</span><br><span class="line">    -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>（3）第三步：为文字加上对应的样式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">&quot;web-font&quot;</span>&gt;</span>这一分钟，你和我在一起，因为你，我会记得那一分钟。从现在开始，我们就是一分钟的朋友。这是事实，你改变不了，因为已经完成了。<span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>举例：</strong></p>
+<p>我们按照上图中的步骤来，引入这个字体。完整版代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">p</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-size</span>:<span class="number">30px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="comment">/*  如果要在网页中使用web字体（用户电脑上没有这种字体）*/</span></span></span><br><span class="line"><span class="css">        <span class="comment">/* 第一步：声明字体*/</span></span></span><br><span class="line"><span class="css">        <span class="comment">/* 告诉浏览器 去哪找这个字体*/</span></span></span><br><span class="line"><span class="css">        <span class="keyword">@font-face</span> &#123;<span class="attribute">font-family</span>: <span class="string">&#x27;my-web-font&#x27;</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;font/webfont.eot&#x27;</span>); <span class="comment">/* IE9*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;font/webfont.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), /* IE6-IE8 */</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/webfont.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>), /* chrome、firefox */</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/webfont.ttf&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), /* chrome、firefox、opera、Safari, Android, iOS <span class="number">4.2</span>+*/</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/webfont.svg#webfont&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* iOS 4.1- */</span></span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">        <span class="comment">/* 第二步：定义一个类名，谁加这类名，就会使用 webfont 字体*/</span></span></span><br><span class="line"><span class="css">        <span class="selector-class">.webfont</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-family</span>: <span class="string">&#x27;my-web-font&#x27;</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 第三步：引用 webfont 字体 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;webfont&quot;</span>&gt;</span>生命壹号，永不止步<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p>代码解释：</p>
+<p>（1）<code>my-web-font</code>这个名字是随便起的，只要保证第一步和第二步中的名字一样就行。</p>
+<p>（2）因为我把字体文件单独放在了font文件夹中，所以在src中引用字体资源时，写的路径是 <code>font/...</code></p>
+<p>工程文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://download.csdn.net/download/smyhvae/10253565">2018-02-20-WebFont举例.zip</a></li>
+</ul>
+<h2 id="字体图标（阿里的-iconfont-网站举例）"><a href="#字体图标（阿里的-iconfont-网站举例）" class="headerlink" title="字体图标（阿里的 iconfont 网站举例）"></a>字体图标（阿里的 iconfont 网站举例）</h2><p>我们其实可以把图片制作成字体。常见的做法是：把网页中一些小的图标，借助工具生成一个字体包，然后就可以像使用文字一样使用图标了。这样做的优点是：</p>
+<ul>
+<li><p>将所有图标打包成字体库，减少请求；</p>
+</li>
+<li><p>具有矢量性，可保证清晰度；</p>
+</li>
+<li><p>使用灵活，便于维护。</p>
+</li>
+</ul>
+<p>也就是说，我们可以把这些图标当作字体来看待，凡是字体拥有的属性（字体大小、颜色等），均适用于图标。</p>
+<p><strong>使用步骤如下：</strong>（和上一段的使用步骤是一样的）</p>
+<p>打开网站<a target="_blank" rel="noopener" href="http://iconfont.cn/">http://iconfont.cn/</a>，找到想要的图标，加入购物车。然后下载下来：</p>
+<p><img src="http://img.smyhvae.com/20180220_1750.png"></p>
+<p>压缩包下载之后，解压，打开里面的demo.html，里面告诉了我们怎样引用这些图标。</p>
+<p><img src="http://img.smyhvae.com/20180220_1755.png"></p>
+<p><strong>举例1</strong>：（图标字体引用）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="comment">/*申明字体*/</span></span></span><br><span class="line"><span class="css">        <span class="keyword">@font-face</span> &#123;<span class="attribute">font-family</span>: <span class="string">&#x27;iconfont&#x27;</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.eot&#x27;</span>); <span class="comment">/* IE9*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), /* IE6-IE8 */</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>), /* chrome、firefox */</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.ttf&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), /* chrome、firefox、opera、Safari, Android, iOS <span class="number">4.2</span>+*/</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.svg#iconfont&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* iOS 4.1- */</span></span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.iconfont</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-family</span>: iconfont;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">p</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">line-height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-size</span>:<span class="number">30px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>:<span class="number">100px</span> auto;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">p</span> <span class="selector-tag">span</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">color</span>:red;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 【重要】编码代表图标 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;iconfont&quot;</span>&gt;</span><span class="symbol">&amp;#xe628;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>扫码付款<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180220_1800.png"></p>
+<p><strong>举例2</strong>：（伪元素的方式使用图标字体）</p>
+<p>如果想要在文字的前面加图标字体，我们更习惯采用<strong>伪元素</strong>的方式进行添加。</p>
+<p>代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="comment">/*申明字体*/</span></span></span><br><span class="line"><span class="css">        <span class="keyword">@font-face</span> &#123;<span class="attribute">font-family</span>: <span class="string">&#x27;iconfont&#x27;</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.eot&#x27;</span>); <span class="comment">/* IE9*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.eot?#iefix&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;embedded-opentype&#x27;</span>), /* IE6-IE8 */</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.woff&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>), /* chrome、firefox */</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.ttf&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>), /* chrome、firefox、opera、Safari, Android, iOS <span class="number">4.2</span>+*/</span></span><br><span class="line"><span class="css">            <span class="built_in">url</span>(<span class="string">&#x27;font/iconfont.svg#iconfont&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;svg&#x27;</span>); <span class="comment">/* iOS 4.1- */</span></span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">p</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">line-height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-size</span>:<span class="number">30px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>:<span class="number">100px</span> auto;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.icon</span><span class="selector-pseudo">::before</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="comment">/*&amp;#xe628;*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">content</span>:<span class="string">&quot;\e628&quot;</span>;</span></span><br><span class="line"><span class="css">            <span class="comment">/*position: absolute;*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*left:10px;*/</span></span></span><br><span class="line"><span class="css">            <span class="comment">/*top:0px;*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">font-family</span>: iconfont;</span></span><br><span class="line"><span class="css">            <span class="attribute">color</span>:red;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">span</span>&#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>扫码付款<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span> &gt;</span>我是span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span>&gt;</span>divvvvvvvvvvv<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180220_1815.png"></p>
+<p>工程文件：</p>
+<ul>
+<li>2018-02-20-图标字体demo.zip</li>
+</ul>
+<h2 id="其他相相关网站介绍"><a href="#其他相相关网站介绍" class="headerlink" title="其他相相关网站介绍"></a>其他相相关网站介绍</h2><ul>
+<li>Font Awesome 使用介绍：<a target="_blank" rel="noopener" href="http://fontawesome.dashgame.com/">http://fontawesome.dashgame.com/</a></li>
+</ul>
+<p>定制自已的字体图标库：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="http://iconfont.cn/">http://iconfont.cn/</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://icomoon.io/">https://icomoon.io/</a></p>
+</li>
+</ul>
+<p>SVG素材：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.iconfont.cn/">https://www.iconfont.cn/</a></li>
+</ul>
+<h2 id="360浏览器网站案例"><a href="#360浏览器网站案例" class="headerlink" title="360浏览器网站案例"></a>360浏览器网站案例</h2><p>暂略。</p>
+<p>这里涉及到：jQuery fullPage   全屏滚动插件。</p>
+<ul>
+<li><p>中文网址:<a target="_blank" rel="noopener" href="http://www.dowebok.com/">http://www.dowebok.com</a></p>
+</li>
+<li><p>相关说明:<a target="_blank" rel="noopener" href="http://www.dowebok.com/77.html">http://www.dowebok.com/77.html</a></p>
+</li>
+</ul>
+<h2 id="使用-Bootstrap-网站的图标字体"><a href="#使用-Bootstrap-网站的图标字体" class="headerlink" title="使用 Bootstrap 网站的图标字体"></a>使用 Bootstrap 网站的图标字体</h2><p>打开如下网站：<a target="_blank" rel="noopener" href="http://www.bootcss.com/p/font-awesome/">http://www.bootcss.com/p/font-awesome/</a>。</p>
+<p><img src="http://img.smyhvae.com/20180223_2100.png"></p>
+<p>如上图所示，下载字体后，进行解压：</p>
+<p><img src="http://img.smyhvae.com/20180223_2105.png"></p>
+<p>使用步骤如下：</p>
+<p>（1）如图只是想要字体的话，可以把<code>css</code>和<code>font</code>这两个文件夹拷贝到项目里。</p>
+<p>（2）在html文档中的 <head> 标签里，引入 font-awesome.min.css 文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css/font-awesome.min.css&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）想在哪个标签里用这个图标，直接在这个标签里加className就行（className都在<a target="_blank" rel="noopener" href="http://www.bootcss.com/p/font-awesome/">网站</a>上列出来了）。</p>
+<p>完整版代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css/font-awesome.min.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;icon-play&quot;</span>&gt;</span>播放<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<strong>更多技能</strong>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="http://img.smyhvae.com/20190101.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS%E5%9F%BA%E7%A1%80/" rel="tag"># CSS基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/25/02-CSS%E5%9F%BA%E7%A1%80/13-CSS3%E5%B1%9E%E6%80%A7%EF%BC%9AFlex%E5%B8%83%E5%B1%80%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3/" rel="next" title="13-CSS3属性：Flex布局图文详解">
+                <i class="fa fa-chevron-left"></i> 13-CSS3属性：Flex布局图文详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/27/02-CSS%E5%9F%BA%E7%A1%80/15-Sass%E5%85%A5%E9%97%A8/" rel="prev" title="15-Sass入门">
+                15-Sass入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E7%9A%84%E5%B8%B8%E8%A7%81%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">字体的常见格式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TureTpe%E6%A0%BC%E5%BC%8F%EF%BC%9A-ttf"><span class="nav-number">2.0.1.</span> <span class="nav-text">TureTpe格式：(.ttf)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenType%E6%A0%BC%E5%BC%8F%EF%BC%9A-otf"><span class="nav-number">2.0.2.</span> <span class="nav-text">OpenType格式：(.otf)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Web-Open-Font-Format%E6%A0%BC%E5%BC%8F%EF%BC%9A-woff"><span class="nav-number">2.0.3.</span> <span class="nav-text">Web Open Font Format格式：(.woff)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Embedded-Open-Type%E6%A0%BC%E5%BC%8F%EF%BC%9A-eot"><span class="nav-number">2.0.4.</span> <span class="nav-text">Embedded Open Type格式：(.eot)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVG%E6%A0%BC%E5%BC%8F%EF%BC%9A-svg"><span class="nav-number">2.0.5.</span> <span class="nav-text">SVG格式：(.svg)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WebFont-%E7%9A%84%E4%BD%BF%E7%94%A8%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">WebFont 的使用步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87%EF%BC%88%E9%98%BF%E9%87%8C%E7%9A%84-iconfont-%E7%BD%91%E7%AB%99%E4%B8%BE%E4%BE%8B%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">字体图标（阿里的 iconfont 网站举例）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9B%B8%E7%9B%B8%E5%85%B3%E7%BD%91%E7%AB%99%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.</span> <span class="nav-text">其他相相关网站介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#360%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BD%91%E7%AB%99%E6%A1%88%E4%BE%8B"><span class="nav-number">6.</span> <span class="nav-text">360浏览器网站案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Bootstrap-%E7%BD%91%E7%AB%99%E7%9A%84%E5%9B%BE%E6%A0%87%E5%AD%97%E4%BD%93"><span class="nav-number">7.</span> <span class="nav-text">使用 Bootstrap 网站的图标字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">8.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="代码块用&amp;#123;&amp;#125;包围起来的代码，就是代码块。 在 ES5 语法中，代码块，只具有分组的作用，没有其他的用途。代码块中的内容，在外部是完全可见的。举例： 1234567&amp;#123;    var a &#x3D; 2;    alert(&amp;#x27;qianguyihao&amp;#x27;);    console.log(&amp;#x27;永不止步&amp;#x27;);&amp;#125;console.log(&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11-流程控制语句：选择结构（if和switch）">
+<meta property="og:url" content="http://example.com/2021/12/20/04-JavaScript%E5%9F%BA%E7%A1%80/11-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%EF%BC%9A%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84%EF%BC%88if%E5%92%8Cswitch%EF%BC%89/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="代码块用&amp;#123;&amp;#125;包围起来的代码，就是代码块。 在 ES5 语法中，代码块，只具有分组的作用，没有其他的用途。代码块中的内容，在外部是完全可见的。举例： 1234567&amp;#123;    var a &#x3D; 2;    alert(&amp;#x27;qianguyihao&amp;#x27;);    console.log(&amp;#x27;永不止步&amp;#x27;);&amp;#125;console.log(&amp;">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20181227_1200.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180117_2232.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190815_1501.png">
+<meta property="og:image" content="https://img.smyhvae.com/20200102.png">
+<meta property="article:published_time" content="2021-12-20T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T04:52:32.420Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="JavaScript基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20181227_1200.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/20/04-JavaScript基础/11-流程控制语句：选择结构（if和switch）/"/>
+
+
+
+
+
+  <title>11-流程控制语句：选择结构（if和switch） | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/20/04-JavaScript%E5%9F%BA%E7%A1%80/11-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%EF%BC%9A%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84%EF%BC%88if%E5%92%8Cswitch%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">11-流程控制语句：选择结构（if和switch）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-20T13:01:00+08:00">
+                2021-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>用<code>&#123;&#125;</code>包围起来的代码，就是代码块。</p>
+<p>在 ES5 语法中，代码块，只具有<strong>分组</strong>的作用，没有其他的用途。代码块中的内容，在外部是完全可见的。举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line">    alert(<span class="string">&#x27;qianguyihao&#x27;</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;永不止步&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;a = &#x27;</span> + a);</span><br></pre></td></tr></table></figure>
+
+<p>打印结果：（可以看出，虽然变量 a 是定义在代码块中的，但是在外部依然可以访问）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">永不止步</span><br><span class="line">a = 2</span><br></pre></td></tr></table></figure>
+
+<h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2><p>在一个程序执行的过程中，各条语句的执行顺序对程序的结果是有直接影响的。所以，我们必须清楚每条语句的执行流程。而且，很多时候我们要通过控制语句的执行顺序来实现我们要完成的功能。</p>
+<h3 id="流程控制语句分类"><a href="#流程控制语句分类" class="headerlink" title="流程控制语句分类"></a>流程控制语句分类</h3><ul>
+<li><p>  顺序结构</p>
+</li>
+<li><p>  选择结构：if 语句、switch 语句</p>
+</li>
+<li><p>  循环结构：while 语句、for 语句</p>
+</li>
+</ul>
+<h2 id="顺序结构"><a href="#顺序结构" class="headerlink" title="顺序结构"></a>顺序结构</h2><p>按照代码的先后顺序，依次执行。结构图如下：</p>
+<p><img src="http://img.smyhvae.com/20181227_1200.png"></p>
+<h2 id="if-语句"><a href="#if-语句" class="headerlink" title="if 语句"></a>if 语句</h2><p>if 语句有以下三种。</p>
+<h3 id="1、条件判断语句"><a href="#1、条件判断语句" class="headerlink" title="1、条件判断语句"></a>1、条件判断语句</h3><blockquote>
+<p>条件成立才执行。如果条件不成立，那就什么都不做。</p>
+</blockquote>
+<p>格式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (条件表达式) &#123;</span><br><span class="line">    <span class="comment">// 条件为真时，做的事情</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、条件分支语句"><a href="#2、条件分支语句" class="headerlink" title="2、条件分支语句"></a>2、条件分支语句</h3><p>格式 1：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (条件表达式) &#123;</span><br><span class="line">    <span class="comment">// 条件为真时，做的事情</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 条件为假时，做的事情</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>格式 2：（多分支的 if 语句）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (条件表达式<span class="number">1</span>) &#123;</span><br><span class="line">    <span class="comment">// 条件1为真时，做的事情</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (条件表达式<span class="number">2</span>) &#123;</span><br><span class="line">    <span class="comment">// 条件1不满足，条件2满足时，做的事情</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (条件表达式<span class="number">3</span>) &#123;</span><br><span class="line">    <span class="comment">// 条件1、2不满足，条件3满足时，做的事情</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 条件1、2、3都不满足时，做的事情</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上所有的语句体中，只执行其中一个。</p>
+<h3 id="做个题目"><a href="#做个题目" class="headerlink" title="做个题目"></a>做个题目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">根据BMI（身体质量指数）显示一个人的体型。</span><br><span class="line">BMI指数，就是体重、身高的一个计算公式。公式是：</span><br><span class="line">BMI =体重÷身高的平方</span><br><span class="line"></span><br><span class="line">比如，老师的体重是81.6公斤，身高是1.71米。</span><br><span class="line">那么老师的BMI就是  81.6 ÷ 1.712     等于 27.906022365856163</span><br><span class="line"></span><br><span class="line">过轻：低于18.5</span><br><span class="line">正常：18.5-24.99999999</span><br><span class="line">过重：25-27.9999999</span><br><span class="line">肥胖：28-32</span><br><span class="line">非常肥胖, 高于32</span><br><span class="line"></span><br><span class="line">用JavaScript开发一个程序，让用户先输入自己的体重，然后输入自己的身高（弹出两次prompt框）。</span><br><span class="line">计算它的BMI，根据上表，弹出用户的身体情况。比如“过轻” 、 “正常” 、“过重” 、 “肥胖” 、“非常肥胖”。</span><br></pre></td></tr></table></figure>
+
+<p><strong>答案</strong>：</p>
+<p>写法 1：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一步，输入身高和体重</span></span><br><span class="line"><span class="keyword">var</span> height = <span class="built_in">parseFloat</span>(prompt(<span class="string">&#x27;请输入身高，单位是米&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> weight = <span class="built_in">parseFloat</span>(prompt(<span class="string">&#x27;请输入体重，单位是公斤&#x27;</span>));</span><br><span class="line"><span class="comment">//第二步，计算BMI指数</span></span><br><span class="line"><span class="keyword">var</span> BMI = weight / <span class="built_in">Math</span>.pow(height, <span class="number">2</span>);</span><br><span class="line"><span class="comment">//第三步，if语句来判断。注意跳楼现象</span></span><br><span class="line"><span class="keyword">if</span> (BMI &lt; <span class="number">18.5</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;偏瘦&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (BMI &lt; <span class="number">25</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;正常&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (BMI &lt; <span class="number">28</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;过重&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (BMI &lt;= <span class="number">32</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;肥胖&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">&#x27;非常肥胖&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>写法 2：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一步，输入身高和体重</span></span><br><span class="line"><span class="keyword">var</span> height = <span class="built_in">parseFloat</span>(prompt(<span class="string">&#x27;请输入身高，单位是米&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> weight = <span class="built_in">parseFloat</span>(prompt(<span class="string">&#x27;请输入体重，单位是公斤&#x27;</span>));</span><br><span class="line"><span class="comment">//第二步，计算BMI指数</span></span><br><span class="line"><span class="keyword">var</span> BMI = weight / <span class="built_in">Math</span>.pow(height, <span class="number">2</span>);</span><br><span class="line"><span class="comment">//第三步，if语句来判断。注意跳楼现象</span></span><br><span class="line"><span class="keyword">if</span> (BMI &gt; <span class="number">32</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;非常肥胖&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (BMI &gt;= <span class="number">28</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;肥胖&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (BMI &gt;= <span class="number">25</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;过重&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (BMI &gt;= <span class="number">18.5</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;正常&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">&#x27;偏瘦&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="if-语句的嵌套"><a href="#if-语句的嵌套" class="headerlink" title="if 语句的嵌套"></a>if 语句的嵌套</h3><p>我们通过下面这个例子来引出 if 语句的嵌套。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">一个加油站为了鼓励车主多加油，所以加的多有优惠。</span><br><span class="line">92号汽油，每升6元；如果大于等于20升，那么每升5.9；</span><br><span class="line">97号汽油，每升7元；如果大于等于30升，那么每升6.95</span><br><span class="line">编写JS程序，用户输入自己的汽油编号，然后输入自己加多少升，弹出价格。</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.smyhvae.com/20180117_2232.png"></p>
+<p>代码实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一步，输入</span></span><br><span class="line"><span class="keyword">var</span> bianhao = <span class="built_in">parseInt</span>(prompt(<span class="string">&#x27;您想加什么油？填写92或者97&#x27;</span>));</span><br><span class="line"><span class="keyword">var</span> sheng = <span class="built_in">parseFloat</span>(prompt(<span class="string">&#x27;您想加多少升？&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//第二步，判断</span></span><br><span class="line"><span class="keyword">if</span> (bianhao == <span class="number">92</span>) &#123;</span><br><span class="line">    <span class="comment">//编号是92的时候做的事情</span></span><br><span class="line">    <span class="keyword">if</span> (sheng &gt;= <span class="number">20</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> price = sheng * <span class="number">5.9</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> price = sheng * <span class="number">6</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (bianhao == <span class="number">97</span>) &#123;</span><br><span class="line">    <span class="comment">//编号是97的时候做的事情</span></span><br><span class="line">    <span class="keyword">if</span> (sheng &gt;= <span class="number">30</span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> price = sheng * <span class="number">6.95</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> price = sheng * <span class="number">7</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">&#x27;不好意思，没有这个编号的汽油！&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">alert(<span class="string">&#x27;价格是&#x27;</span> + price);</span><br></pre></td></tr></table></figure>
+
+<h2 id="switch-语句（条件分支语句）"><a href="#switch-语句（条件分支语句）" class="headerlink" title="switch 语句（条件分支语句）"></a>switch 语句（条件分支语句）</h2><p>switch 语句也叫条件分支语句。</p>
+<h3 id="语法格式"><a href="#语法格式" class="headerlink" title="语法格式"></a>语法格式</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(表达式) &#123;</span><br><span class="line">	<span class="keyword">case</span> 值<span class="number">1</span>：</span><br><span class="line">		语句体<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">case</span> 值<span class="number">2</span>：</span><br><span class="line">		语句体<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line">	...</span><br><span class="line"></span><br><span class="line">	<span class="keyword">default</span>：</span><br><span class="line">		语句体 n+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：switch 可以理解为“开关、转换” 。case 可以理解为“案例、选项”。</p>
+<h3 id="switch-语句的执行流程"><a href="#switch-语句的执行流程" class="headerlink" title="switch 语句的执行流程"></a>switch 语句的执行流程</h3><p>流程图如下：</p>
+<p><img src="http://img.smyhvae.com/20190815_1501.png"></p>
+<p>执行流程如下：</p>
+<p>（1）首先，计算出表达式的值，和 case 依次比较，一旦有对应的值，就会执行相应的语句，在执行的过程中，遇到 break 就会结束。</p>
+<p>（2）然后，如果所有的 case 都和表达式的值不匹配，就会执行 default 语句体部分。</p>
+<h3 id="switch-和-case-后面的值（含代码举例）"><a href="#switch-和-case-后面的值（含代码举例）" class="headerlink" title="switch 和 case 后面的值（含代码举例）"></a>switch 和 case 后面的值（含代码举例）</h3><p>switch 后面的<strong>括号里</strong>可以是<strong>表达式</strong>或者<strong>值</strong>， 通常是一个<strong>变量</strong>（通常做法是：先把表达式或者值存放到变量中）。</p>
+<p>JS 是属于弱类型语言，case 后面的<code>值1</code>、<code>值2</code>可以是 <code>&#39;a&#39;</code>、<code>6</code>、<code>true</code> 等任意数据类型的值，也可以是<strong>表达式</strong>。注意，在这里，<strong>字符串<code>&#39;6&#39;</code>和 数字 <code>6</code> 是不一样的</strong>。</p>
+<p>举例 1：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> msg = <span class="string">&#x27;notice&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (msg) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;notice&#x27;</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;提示&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;warning&#x27;</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;警告&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;error&#x27;</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;错误&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;默认文案&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>举例 2：（case 后面的是表达式）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> age = <span class="number">28</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> age &lt; <span class="number">18</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;未成年人&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> age &gt;= <span class="number">18</span> &amp;&amp; age &lt;= <span class="number">65</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;还能干活儿&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> age &gt; <span class="number">65</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;该退休了&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;默认文案&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码解释：由于 switch 里的值是 true，所以，在众多的 case 语句中，会去匹配第一个符合 <code>case true</code>的语句，然后命中这条语句。</p>
+<h3 id="switch-语句的结束条件【非常重要】"><a href="#switch-语句的结束条件【非常重要】" class="headerlink" title="switch 语句的结束条件【非常重要】"></a>switch 语句的结束条件【非常重要】</h3><ul>
+<li><p>  情况 a：遇到 break 就结束，而不是遇到 default 就结束。（因为 break 在此处的作用就是退出 switch 语句）</p>
+</li>
+<li><p>  情况 b：执行到程序的末尾就结束。</p>
+</li>
+</ul>
+<p>我们来看下面的两个例子就明白了。</p>
+<h3 id="case-穿透"><a href="#case-穿透" class="headerlink" title="case 穿透"></a>case 穿透</h3><p>switch 语句中的<code>break</code>可以省略，但一般不建议（对于新手而言）。否则结果可能不是你想要的，会出现一个现象：<strong>case 穿透</strong>。</p>
+<p>当然，如果你能利用好 case 穿透，会让代码写得十分优雅。</p>
+<p><strong>举例 1</strong>：（case 穿透的情况）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//switch判断语句</span></span><br><span class="line"><span class="keyword">switch</span> (num) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期一&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期二&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期三&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期四&#x27;</span>);</span><br><span class="line">    <span class="comment">//break;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期五&#x27;</span>);</span><br><span class="line">    <span class="comment">//break;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期六&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;星期日&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;你输入的数据有误&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上方代码的运行结果，可能会令你感到意外：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">星期四</span><br><span class="line">星期五</span><br><span class="line">星期六</span><br></pre></td></tr></table></figure>
+
+<p>上方代码的解释：因为在 case 4 和 case 5 中都没有 break，那语句走到 case 6 的 break 才会停止。</p>
+<p><strong>举例 2</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//switch判断语句</span></span><br><span class="line"><span class="keyword">var</span> number = <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (number) &#123;</span><br><span class="line">    <span class="attr">default</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;我是defaul语句&#x27;</span>);</span><br><span class="line">    <span class="comment">// break;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;第二个呵呵:&#x27;</span> + number);</span><br><span class="line">    <span class="comment">//break;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;第三个呵呵:&#x27;</span> + number);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;第四个呵呵:&#x27;</span> + number);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上方代码的运行结果，你也许会意外：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">我是defaul语句</span><br><span class="line">第二个呵呵:5</span><br><span class="line">第三个呵呵:5</span><br></pre></td></tr></table></figure>
+
+<p>上方代码的解释：代码走到 default 时，因为没有遇到 break，所以会继续往下走，直到遇见 break 或者走到程序的末尾。 从这个例子可以看出：switch 语句的结束与 default 的顺序无关。</p>
+<h2 id="switch-语句的实战举例：替换-if-语句"><a href="#switch-语句的实战举例：替换-if-语句" class="headerlink" title="switch 语句的实战举例：替换 if 语句"></a>switch 语句的实战举例：替换 if 语句</h2><p>我们实战开发中，经常需要根据接口的返回码 retCode ，来让前端做不同的展示。</p>
+<p>这种场景是业务开发中经常出现的，请一定要掌握。然而，很多人估计会这么写：</p>
+<h3 id="写法-1（不推荐。这种写法太挫了）"><a href="#写法-1（不推荐。这种写法太挫了）" class="headerlink" title="写法 1（不推荐。这种写法太挫了）"></a>写法 1（不推荐。这种写法太挫了）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> retCode = <span class="number">1003</span>; <span class="comment">// 返回码 retCode 的值可能有很多种情况</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (retCode == <span class="number">0</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;接口联调成功&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">101</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;活动不存在&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">103</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;活动未开始&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">104</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;活动已结束&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">1001</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;参数错误&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">1002</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;接口频率限制&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">1003</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;未登录&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (retCode == <span class="number">1004</span>) &#123;</span><br><span class="line">    alert(<span class="string">&#x27;（风控用户）提示 活动太火爆啦~军万马都在挤，请稍后再试&#x27;</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 其他异常返回码</span></span><br><span class="line">    alert(<span class="string">&#x27;系统君失联了，请稍候再试&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你是按照上面的 <code>if else</code>的方式来写各种条件判断，说明你的代码水平太初级了，会被人喷的，千万不要这么写。这种写法，容易导致<strong>嵌套太深，可读性很差</strong>。</p>
+<p>那要怎么改进呢？继续往下看。</p>
+<h3 id="写法-2（推荐。通过-return-的方式，将上面的写法进行改进）"><a href="#写法-2（推荐。通过-return-的方式，将上面的写法进行改进）" class="headerlink" title="写法 2（推荐。通过 return 的方式，将上面的写法进行改进）"></a>写法 2（推荐。通过 return 的方式，将上面的写法进行改进）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> retCode = <span class="number">1003</span>; <span class="comment">// 返回码 retCode 的值可能有很多种情况</span></span><br><span class="line">handleRetCode(retCode);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法：根据接口不同的返回码，处理前端不同的显示状态</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handleRetCode</span>(<span class="params">retCode</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">0</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;接口联调成功&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">101</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;活动不存在&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">103</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;活动未开始&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">104</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;活动已结束&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">1001</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;参数错误&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">1002</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;接口频率限制&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">1003</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;未登录&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (retCode == <span class="number">1004</span>) &#123;</span><br><span class="line">        alert(<span class="string">&#x27;（风控用户）提示 活动太火爆啦~军万马都在挤，请稍后再试&#x27;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他异常返回码</span></span><br><span class="line">    alert(<span class="string">&#x27;系统君失联了，请稍候再试&#x27;</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的写法 2，是比较推荐的写法：直接通过 return 的方式，让 function 里的代码不再继续往下走，这就达到目的了。对了，因为要用到 return ，所以整段代码是封装到一个 function 里的。</p>
+<p>如果你以后看到有前端小白采用的是<strong>写法 1</strong>，请一定要把<strong>写法 2</strong>传授给他：不需要那么多的 if else，直接用 return 返回就行了。</p>
+<h3 id="写法-3（推荐。将-if-else-改为-switch）"><a href="#写法-3（推荐。将-if-else-改为-switch）" class="headerlink" title="写法 3（推荐。将 if else 改为 switch）"></a>写法 3（推荐。将 if else 改为 switch）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> retCode = <span class="number">1003</span>; <span class="comment">// 返回码 retCode 的值可能有很多种情况</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (retCode) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">        alert(<span class="string">&#x27;接口联调成功&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">101</span>:</span><br><span class="line">        alert(<span class="string">&#x27;活动不存在&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">103</span>:</span><br><span class="line">        alert(<span class="string">&#x27;活动未开始&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">104</span>:</span><br><span class="line">        alert(<span class="string">&#x27;活动已结束&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">1001</span>:</span><br><span class="line">        alert(<span class="string">&#x27;参数错误&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">1002</span>:</span><br><span class="line">        alert(<span class="string">&#x27;接口频率限制&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">1003</span>:</span><br><span class="line">        alert(<span class="string">&#x27;未登录&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">1004</span>:</span><br><span class="line">        alert(<span class="string">&#x27;（风控用户）提示 活动太火爆啦~军万马都在挤，请稍后再试&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 其他异常返回码</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        alert(<span class="string">&#x27;系统君失联了，请稍候再试&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在实战开发中，方式 3 是非常推荐的写法，甚至比方式 2 还要好。我们尽量不要写太多的 if 语句，避免代码嵌套过深。</p>
+<h3 id="switch-语句的优雅写法：适时地去掉-break"><a href="#switch-语句的优雅写法：适时地去掉-break" class="headerlink" title="switch 语句的优雅写法：适时地去掉 break"></a>switch 语句的优雅写法：适时地去掉 break</h3><p>我们先来看看下面这段代码：（不推荐）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> day = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (day) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;work&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;work&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;work&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;work&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;work&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;relax&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;relax&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，咋一看，好像没啥毛病。但你有没有发现，重复代码太多了？</p>
+<p>实战开发中，凡是有重复的地方，我们都必须要想办法简化。写代码就是在不断重构的过程。</p>
+<p>上面的代码，可以改进如下：（推荐，非常优雅）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> day = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">switch</span> (day) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">4</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">5</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;work&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>; <span class="comment">// 在这里放一个 break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">    <span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;relax&#x27;</span>);</span><br><span class="line">        <span class="keyword">break</span>; <span class="comment">// 在这里放一个 break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你没看错，就是上面的这种写法，能达到同样的效果，非常优雅。</p>
+<p>小白可能认为这样的写法可读性不强，所以说他是小白。我可以明确告诉你，改进后的这种写法，才是最优雅的、最简洁、可读性最好的。</p>
+<h2 id="代码举例"><a href="#代码举例" class="headerlink" title="代码举例"></a>代码举例</h2><h3 id="举例-1：用-return-代替-if-else"><a href="#举例-1：用-return-代替-if-else" class="headerlink" title="举例 1：用 return 代替 if else"></a>举例 1：用 return 代替 if else</h3><p>业务场景：</p>
+<p>我们在实战业务中涉及到调接口时，一般会这样做：</p>
+<ul>
+<li><p>  接口返回码为 0 时，前端 resolve。</p>
+</li>
+<li><p>  接口返回未登录时，前端跳转到登录页面。</p>
+</li>
+<li><p>  接口返回其他情况，或者无返回时，前端 reject。</p>
+</li>
+</ul>
+<p>写法 1、if else 的写法：（不推荐）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (res) &#123;</span><br><span class="line">    <span class="keyword">if</span> (+res.retCode == <span class="number">0</span>) &#123;</span><br><span class="line">        resolve(res);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (+res.retCode == <span class="number">8888</span>) &#123;</span><br><span class="line">        goLogin();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    reject();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>写法 2、 return 的写法：（推荐）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!res || +res.retCode !== <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (+res.retCode === <span class="number">8888</span>) &#123;</span><br><span class="line">        <span class="comment">// 未登录</span></span><br><span class="line">        goLogin();</span><br><span class="line">    &#125;</span><br><span class="line">    reject(res);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">resolve(res.data);</span><br></pre></td></tr></table></figure>
+
+<p>备注：如果你没学过 Promise，这个例子可以先不看。等以后学了 Promise 再回来看就很容易明白了。</p>
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<strong>更多技能</strong>？不妨关注我的微信公众号：<strong>千古壹号</strong>。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="https://img.smyhvae.com/20200102.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/19/04-JavaScript%E5%9F%BA%E7%A1%80/10-%E8%BF%90%E7%AE%97%E7%AC%A6/" rel="next" title="10-运算符">
+                <i class="fa fa-chevron-left"></i> 10-运算符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/21/04-JavaScript%E5%9F%BA%E7%A1%80/12-%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%EF%BC%9A%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84%EF%BC%88for%E5%92%8Cwhile%EF%BC%89/" rel="prev" title="12-流程控制语句：循环结构（for和while）">
+                12-流程控制语句：循环结构（for和while） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">1.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">流程控制语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%E5%88%86%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">流程控制语句分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E7%BB%93%E6%9E%84"><span class="nav-number">3.</span> <span class="nav-text">顺序结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.</span> <span class="nav-text">if 语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.1.</span> <span class="nav-text">1、条件判断语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.2.</span> <span class="nav-text">2、条件分支语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%81%9A%E4%B8%AA%E9%A2%98%E7%9B%AE"><span class="nav-number">4.3.</span> <span class="nav-text">做个题目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#if-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%B5%8C%E5%A5%97"><span class="nav-number">4.4.</span> <span class="nav-text">if 语句的嵌套</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch-%E8%AF%AD%E5%8F%A5%EF%BC%88%E6%9D%A1%E4%BB%B6%E5%88%86%E6%94%AF%E8%AF%AD%E5%8F%A5%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">switch 语句（条件分支语句）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">语法格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch-%E8%AF%AD%E5%8F%A5%E7%9A%84%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">switch 语句的执行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch-%E5%92%8C-case-%E5%90%8E%E9%9D%A2%E7%9A%84%E5%80%BC%EF%BC%88%E5%90%AB%E4%BB%A3%E7%A0%81%E4%B8%BE%E4%BE%8B%EF%BC%89"><span class="nav-number">5.3.</span> <span class="nav-text">switch 和 case 后面的值（含代码举例）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch-%E8%AF%AD%E5%8F%A5%E7%9A%84%E7%BB%93%E6%9D%9F%E6%9D%A1%E4%BB%B6%E3%80%90%E9%9D%9E%E5%B8%B8%E9%87%8D%E8%A6%81%E3%80%91"><span class="nav-number">5.4.</span> <span class="nav-text">switch 语句的结束条件【非常重要】</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-%E7%A9%BF%E9%80%8F"><span class="nav-number">5.5.</span> <span class="nav-text">case 穿透</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch-%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%AE%9E%E6%88%98%E4%B8%BE%E4%BE%8B%EF%BC%9A%E6%9B%BF%E6%8D%A2-if-%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">switch 语句的实战举例：替换 if 语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%95-1%EF%BC%88%E4%B8%8D%E6%8E%A8%E8%8D%90%E3%80%82%E8%BF%99%E7%A7%8D%E5%86%99%E6%B3%95%E5%A4%AA%E6%8C%AB%E4%BA%86%EF%BC%89"><span class="nav-number">6.1.</span> <span class="nav-text">写法 1（不推荐。这种写法太挫了）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%95-2%EF%BC%88%E6%8E%A8%E8%8D%90%E3%80%82%E9%80%9A%E8%BF%87-return-%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%B0%86%E4%B8%8A%E9%9D%A2%E7%9A%84%E5%86%99%E6%B3%95%E8%BF%9B%E8%A1%8C%E6%94%B9%E8%BF%9B%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">写法 2（推荐。通过 return 的方式，将上面的写法进行改进）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%B3%95-3%EF%BC%88%E6%8E%A8%E8%8D%90%E3%80%82%E5%B0%86-if-else-%E6%94%B9%E4%B8%BA-switch%EF%BC%89"><span class="nav-number">6.3.</span> <span class="nav-text">写法 3（推荐。将 if else 改为 switch）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#switch-%E8%AF%AD%E5%8F%A5%E7%9A%84%E4%BC%98%E9%9B%85%E5%86%99%E6%B3%95%EF%BC%9A%E9%80%82%E6%97%B6%E5%9C%B0%E5%8E%BB%E6%8E%89-break"><span class="nav-number">6.4.</span> <span class="nav-text">switch 语句的优雅写法：适时地去掉 break</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%BE%E4%BE%8B"><span class="nav-number">7.</span> <span class="nav-text">代码举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B-1%EF%BC%9A%E7%94%A8-return-%E4%BB%A3%E6%9B%BF-if-else"><span class="nav-number">7.1.</span> <span class="nav-text">举例 1：用 return 代替 if else</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">8.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

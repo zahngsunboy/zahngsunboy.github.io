@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="2018年4月份2018-04-25 userAgent相关：判断微信内置浏览器的UserAgent  2018-04-26前端相关：  流程图制作工具：ProcessOn  api方法的浏览器兼容性问题，可以在这个网站上看：https:&#x2F;&#x2F;caniuse.com&#x2F;  CSS3的兼容性问题，不一定要使用-webkit-, -moz-, -o-, -ms-等私有前缀。可以使用 PostCSS。知乎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天伟小站">
+<meta property="og:url" content="http://example.com/2021/12/01/17-%E5%89%8D%E7%AB%AF%E7%BB%BC%E5%90%88/2018%E5%B9%B4-%E5%89%8D%E7%AB%AF%E6%97%A5%E8%AE%B0/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="2018年4月份2018-04-25 userAgent相关：判断微信内置浏览器的UserAgent  2018-04-26前端相关：  流程图制作工具：ProcessOn  api方法的浏览器兼容性问题，可以在这个网站上看：https:&#x2F;&#x2F;caniuse.com&#x2F;  CSS3的兼容性问题，不一定要使用-webkit-, -moz-, -o-, -ms-等私有前缀。可以使用 PostCSS。知乎">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-12-01T02:01:01.702Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.677Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/17-前端综合/2018年-前端日记/"/>
+
+
+
+
+
+  <title> | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/17-%E5%89%8D%E7%AB%AF%E7%BB%BC%E5%90%88/2018%E5%B9%B4-%E5%89%8D%E7%AB%AF%E6%97%A5%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:01:01+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="2018年4月份"><a href="#2018年4月份" class="headerlink" title="2018年4月份"></a>2018年4月份</h2><h3 id="2018-04-25"><a href="#2018-04-25" class="headerlink" title="2018-04-25"></a>2018-04-25</h3><ul>
+<li>userAgent相关：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/7z7chn/p/5370352.html">判断微信内置浏览器的UserAgent</a></li>
+</ul>
+<h3 id="2018-04-26"><a href="#2018-04-26" class="headerlink" title="2018-04-26"></a>2018-04-26</h3><p><strong>前端相关</strong>：</p>
+<ul>
+<li><p>流程图制作工具：<a target="_blank" rel="noopener" href="https://www.processon.com/">ProcessOn</a></p>
+</li>
+<li><p>api方法的浏览器兼容性问题，可以在这个网站上看：<a target="_blank" rel="noopener" href="https://caniuse.com/">https://caniuse.com/</a></p>
+</li>
+<li><p>CSS3的兼容性问题，不一定要使用-webkit-, -moz-, -o-, -ms-等私有前缀。可以使用 PostCSS。<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/20597072">知乎</a></p>
+</li>
+<li><p>浏览器常见的内核有：V8、WebKit。另外腾讯还有个<a target="_blank" rel="noopener" href="http://x5.tencent.com/">X5</a>。</p>
+</li>
+<li><p>要查一下display none 和 visibility hidden的区别。</p>
+</li>
+<li><p>ES 的各个版本在 Node 环境下的支持情况，可以查看这个网站：<a target="_blank" rel="noopener" href="http://node.green/">http://node.green/</a></p>
+</li>
+<li><p>promise的实现，关键词：Promises/A、Promises/B、<a target="_blank" rel="noopener" href="https://github.com/petkaantonov/bluebird">bluebird</a></p>
+</li>
+</ul>
+<p><strong>综合</strong>：</p>
+<ul>
+<li>whistle安装证书后，可以拦截 https 请求。但是，我现在又不想拦截了，该怎么卸载证书呢？</li>
+</ul>
+<h3 id="2018-04-27"><a href="#2018-04-27" class="headerlink" title="2018-04-27"></a>2018-04-27</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/Strider-CD/strider">strider</a>：可以用来部署项目。</p>
+</li>
+<li><p>有必要了解一下电商1.0、电商2.0、电商3.0的概念。</p>
+</li>
+</ul>
+<h3 id="2018-05-02"><a href="#2018-05-02" class="headerlink" title="2018-05-02"></a>2018-05-02</h3><ul>
+<li><p><code>location.pathname</code>：获取 url 的后半部分。参考链接：<a target="_blank" rel="noopener" href="http://www.cnblogs.com/itjeff/p/4645262.html">#</a></p>
+</li>
+<li><p>代码解读：<code>callback &amp;&amp; callback()</code>的含义</p>
+</li>
+</ul>
+<h3 id="2018-05-03"><a href="#2018-05-03" class="headerlink" title="2018-05-03"></a>2018-05-03</h3><ul>
+<li><p>各种框架实现的todo项目：<a target="_blank" rel="noopener" href="http://todomvc.com/">http://todomvc.com/</a></p>
+</li>
+<li><p>对比 sass、less、stylus 这三个css预处理器，zqc说，后面两个已经不怎么用了。sass 比 less强大，stylus的书写方式比较奇怪。</p>
+</li>
+<li><p>npm命令中，–save 和 –save-dev的区别。参考链接：<a target="_blank" rel="noopener" href="http://pwcong.me/2017/01/05/npm%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97%E6%97%B6--save-%E4%B8%8E--save-dev-%E7%9A%84%E5%8C%BA%E5%88%AB/">http://pwcong.me/2017/01/05/npm%E5%BC%95%E5%85%A5%E6%A8%A1%E5%9D%97%E6%97%B6--save-%E4%B8%8E--save-dev-%E7%9A%84%E5%8C%BA%E5%88%AB/</a></p>
+</li>
+</ul>
+<h3 id="2018-05-07"><a href="#2018-05-07" class="headerlink" title="2018-05-07"></a>2018-05-07</h3><ul>
+<li>Vue组件的注册</li>
+</ul>
+<p>有一种组件注册的方式是 Vue+jQuery：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">&#x27;my-div&#x27;</span>, $.extend(&#123;</span><br><span class="line">	<span class="attr">props</span>:[],</span><br><span class="line">	<span class="attr">methods</span>:&#123;</span><br><span class="line"></span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">filters</span>:&#123;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;), vueTpl.subs.myDiv)</span><br></pre></td></tr></table></figure>
+
+
+<p>根据 zqc 的建议，不一定要使用<code>$.extend()</code>，还可以使用<code>object.assign()</code>。</p>
+<h3 id="2018-05-08"><a href="#2018-05-08" class="headerlink" title="2018-05-08"></a>2018-05-08</h3><ul>
+<li>sku、spu的概念</li>
+</ul>
+<h3 id="2018-05-09"><a href="#2018-05-09" class="headerlink" title="2018-05-09"></a>2018-05-09</h3><ul>
+<li>输入框正则的匹配</li>
+</ul>
+<p>让输入框仅支持输入单个id，且为字符串。如果输入多个id，或者非数字的字符，则自动删除：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v-on:keyup=<span class="string">&quot;querysku = querysku.replace(/\D/,&#x27;&#x27;)&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2018-05-10"><a href="#2018-05-10" class="headerlink" title="2018-05-10"></a>2018-05-10</h3><ul>
+<li><p>如果在控制台看到网络请求陈功，数据也获取成功，但是在ajax里走的是 error（数据获取失败），说明是 ajax代码的判断逻辑有问题。</p>
+</li>
+<li><p>服务器返回的json数据到底是对象还是字符串？</p>
+</li>
+<li><p>josn数据里的字段，有顺序吗？比如下面这段：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;1492948848&quot;: &#123;</span><br><span class="line">        &quot;3&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;spec&quot;: &quot;&quot;,</span><br><span class="line">        &quot;imagePath&quot;: &quot;hehe.jpg&quot;,</span><br><span class="line">        &quot;color&quot;: &quot;橘色   &quot;,</span><br><span class="line">        &quot;name&quot;: &quot;【多色可选】丽装铺园纯色百搭简约打底T恤女 橘色 M&quot;,</span><br><span class="line">        &quot;size&quot;: &quot;M&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;1492948847&quot;: &#123;</span><br><span class="line">        &quot;3&quot;: &quot;1&quot;,</span><br><span class="line">        &quot;spec&quot;: &quot;&quot;,</span><br><span class="line">        &quot;imagePath&quot;: &quot;lala.jpg&quot;,</span><br><span class="line">        &quot;color&quot;: &quot;灰色   &quot;,</span><br><span class="line">        &quot;name&quot;: &quot;【多色可选】丽装铺园纯色百搭简约打底T恤女 灰色 S&quot;,</span><br><span class="line">        &quot;size&quot;: &quot;S  &quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>答案：顺序不重要。</p>
+<ul>
+<li><p>Vue开发中，在其他地方用到Vue实例中的数据时，一定要用this，或者是<code>vm.$data.myName</code>之类的。</p>
+</li>
+<li><p>疑问：下面的src路径的前面，为何要加<code>//</code>：</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img v-bind:src=&quot;&#x27;//img14.smyhvae.com/evalpic/s240x240_&#x27;+value.imagePath&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<p>我发现，控制台看到的输出src中，会自动加上http。如果前面不加<code>//</code>则表示相对路径。</p>
+<h3 id="2018-05-11"><a href="#2018-05-11" class="headerlink" title="2018-05-11"></a>2018-05-11</h3><ul>
+<li>将逗号分隔的字符串，转换为数组： <code>str.split(&quot;,&quot;)</code>。即使数组中只有一个元素，也可以这样用。参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/erlian1992/article/details/50561452">#</a></li>
+</ul>
+<h3 id="2018-05-14"><a href="#2018-05-14" class="headerlink" title="2018-05-14"></a>2018-05-14</h3><ul>
+<li><p>ajax发的是post请求，但是后台却只收到了部分数据怎么办？答案：前端的post请求记得加content-type字段，否则会被识别成 get 请求。</p>
+</li>
+<li><p>获取jsonp的数据，只能用get请求。如果要用post请求，那就传json数据，另外，可能还要解决跨域的问题。跨域需要在后台配置，三行代码即可。</p>
+</li>
+<li><p>p标签里的文字溢出怎么办？</p>
+</li>
+<li><p>whistle该怎样mock数据？</p>
+</li>
+</ul>
+<h3 id="2018-05-16"><a href="#2018-05-16" class="headerlink" title="2018-05-16"></a>2018-05-16</h3><ul>
+<li><p>在控制台看标签的样式，发现有些样式是出现在<code>element.style</code>中的（比如图片的尺寸），但是在代码里并没有找到。那是因为，这些样式是在 js 代码中<strong>计算</strong>出来的。</p>
+</li>
+<li><p>图片自适应显示</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="http://www.zhangxinxu.com/wordpress/2012/09/new-viewport-relative-units-vw-vh-vm-vmin/">视区相关单位vw, vh..简介以及可实际应用场景</a></p>
+</li>
+<li><p>jingwen推荐的iconMoon图标网站。网址：<a target="_blank" rel="noopener" href="https://icomoon.io/">https://icomoon.io/</a></p>
+</li>
+</ul>
+<h3 id="2018-06-01"><a href="#2018-06-01" class="headerlink" title="2018-06-01"></a>2018-06-01</h3><ul>
+<li><code>PingFangSC</code>字体是iOS独有的字体。<code>PingFangSC-Regular</code>是常规字体，<code>PingFangSC-Semibold</code>是加粗字体。如果我在代码里设置了这个字体，那么，ios上可以看到效果，但是Android上看不到效果，仍然会采用Android系统默认的字体。</li>
+</ul>
+<h3 id="2018-06-04"><a href="#2018-06-04" class="headerlink" title="2018-06-04"></a>2018-06-04</h3><p><strong>1、git相关</strong>：</p>
+<p>把 branch1 中的某条记录(比如myLog)，提交到 branch2中。做法如下：</p>
+<p>先切换到branch2中，然后输入如下命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git cherry-pick myLog</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2018-06-05"><a href="#2018-06-05" class="headerlink" title="2018-06-05"></a>2018-06-05</h3><p><strong>1、font-size</strong>：</p>
+<p><code>font-size</code>的最小值为12。</p>
+<p>也就是说，浏览器的最小字体为12，要是再小于这个值，是不生效的。如果想要小于12，需要在浏览器的高级设置里去修改。</p>
+<p><strong>2、git 多分支同时开发</strong>：</p>
+<p>现在有这样一个场景：我要同时开发一个项目里的两个功能。今天上午开发功能1，下午开发功能2。明天上午改功能1的bug，明天下午改功能2的bug。</p>
+<p>相当于是，我现在是<strong>并行</strong>开发两个功能了，要怎么通过git来进行协作呢？</p>
+<p>目前考虑到的姣好的方式是：</p>
+<ul>
+<li><p>从master拉分支<code>branch1</code>，此分支专门用来开发功能1，改功能1的bug。</p>
+</li>
+<li><p>再从master拉分支<code>branch2</code>，此分支专门用来开发功能2，改功能2的bug。</p>
+</li>
+</ul>
+<p>以后需要上线哪个功能，就从那个分支merge代码到master。</p>
+<p><strong>3、其他</strong>：</p>
+<ul>
+<li>两个span之间默认有5px的 margin</li>
+</ul>
+<ul>
+<li><strong>shadow-root</strong>：下一代。</li>
+</ul>
+<h3 id="2018-06-07"><a href="#2018-06-07" class="headerlink" title="2018-06-07"></a>2018-06-07</h3><ul>
+<li><p><a target="_blank" rel="noopener" href="https://www.teakki.com/p/57dfb44cd3a7507f975e91e4">原生js实现淡入淡出效果</a></p>
+</li>
+<li><p>通过 jQuery 获取Dom的时候，比如<code>$(&#39;#topNavTop&#39;).css(&#39;background&#39;,&#39;red&#39;)</code>记得要指明是 id 还是 class。</p>
+</li>
+<li><p>每次开发一个新的需求，记得要问清楚：“H5和小程序”都要做吗？要做的话，工作量基本乘以2。</p>
+</li>
+</ul>
+<h3 id="2018-06-14"><a href="#2018-06-14" class="headerlink" title="2018-06-14"></a>2018-06-14</h3><ul>
+<li>pv、uv的概念</li>
+</ul>
+<h3 id="2018-06-21"><a href="#2018-06-21" class="headerlink" title="2018-06-21"></a>2018-06-21</h3><ul>
+<li>今天学会了 iPhone上WebApp的真机调试，感觉很高端呀。具体可以看我在本文件夹中写的《前端开发积累》这篇文章。</li>
+</ul>
+<h3 id="2018-06-27"><a href="#2018-06-27" class="headerlink" title="2018-06-27"></a>2018-06-27</h3><p>没想到，<code>&#39;&#39;</code>和<code>&#39; &#39;</code>竟然还有区别。</p>
+<h3 id="2018-06-30"><a href="#2018-06-30" class="headerlink" title="2018-06-30"></a>2018-06-30</h3><p><strong>并列条件</strong>：</p>
+<p>来看下面这段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = <span class="number">80</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">50</span> &lt; num &lt;= <span class="number">70</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，你认为打印的结果是什么？其实，它打印的结果是 true。</p>
+<p>如果我们要实现并列条件，千万不要使用 <code>if(50 &lt; num &lt; 70)</code>，而是要使用<code>if(num &gt; 50 &amp;&amp; num &lt;=70)</code>。</p>
+<h3 id="2018-07-16"><a href="#2018-07-16" class="headerlink" title="2018-07-16"></a>2018-07-16</h3><p><strong>FAQ：问答系统</strong></p>
+<p>FAQ是英文<code>Frequently Asked Questions</code>的缩写，中文意思就是“经常问到的问题”，或者更通俗地叫做“常见问题解答”。</p>
+<h3 id="2018-08-03"><a href="#2018-08-03" class="headerlink" title="2018-08-03"></a>2018-08-03</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> temp = <span class="number">0.123</span>;</span><br><span class="line"><span class="keyword">let</span> temp2 = temp.toFixed(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p>上方代码中，<code>temp2</code>的结果是0.12，但是请注意，<code>temp</code>的类型Number型，而<code>temp2</code>的类型却是String型。</p>
+<h3 id="2018-08-15"><a href="#2018-08-15" class="headerlink" title="2018-08-15"></a>2018-08-15</h3><p>flex布局常用的三行代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">display: flex;</span><br><span class="line">justify-content: center; // 子元素在横轴的对齐方式 （左右居中）</span><br><span class="line">align-items: center;  // 子元素在竖轴的对齐方式（上下居中）</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2018-08-16"><a href="#2018-08-16" class="headerlink" title="2018-08-16"></a>2018-08-16</h3><p>用CSS3 transition属性实现淡入淡出轮播图：<a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000007648070">https://segmentfault.com/a/1190000007648070</a></p>
+<h3 id="2018-08-20"><a href="#2018-08-20" class="headerlink" title="2018-08-20"></a>2018-08-20</h3><p><strong>小程序问题</strong>：</p>
+<p>用小程序调试时，如果出现故障（比如item点击无响应），可能是微信开发者工具IDE的版本太低了。注意，IDE上上虽然提示是最新版，但不一定是官网的最新版。所以，要去官网下载最新版。</p>
+<p>如果还是不行，看看是不是自己的代码写错了。有时候，代码写错了，不一定会有报错提示哦。</p>
+<p><strong>css问题</strong>：</p>
+<ul>
+<li>css3实现的switch开关按钮：<a target="_blank" rel="noopener" href="https://codepen.io/chutou/pen/qdGZQr">https://codepen.io/chutou/pen/qdGZQr</a></li>
+</ul>
+<h3 id="2018-08-22"><a href="#2018-08-22" class="headerlink" title="2018-08-22"></a>2018-08-22</h3><p><strong>两个span之间去空格</strong></p>
+<ul>
+<li>html+css如何删除行内元素之间的空白/空隙：<a target="_blank" rel="noopener" href="http://www.manongjc.com/article/2171.html">http://www.manongjc.com/article/2171.html</a></li>
+</ul>
+<p>方法二亲测有效：让父亲的font-size为0，然后具体设置子元素的font-size</p>
+<ul>
+<li>去除inline-block元素间间距的N种方法：<a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/">https://www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-去除间距/</a></li>
+</ul>
+<h3 id="2018-08-28-修改用户的cookie"><a href="#2018-08-28-修改用户的cookie" class="headerlink" title="2018-08-28-修改用户的cookie"></a>2018-08-28-修改用户的cookie</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">document.cookie=&quot;visitkey=98&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2018-09-20"><a href="#2018-09-20" class="headerlink" title="2018-09-20"></a>2018-09-20</h3><p>需求：当导航条滚动到屏幕顶部时（举例顶部的距离 &lt; 0时），就设置导航条为fixed。</p>
+<p>实现：如果要设置为导航条为fixed，正确的做法应该是：给导航条这个父亲一个高度进行占位，然后让导航条的儿子为fixed。而不是让父亲为 fixed。</p>
+<h3 id="2018-09-27"><a href="#2018-09-27" class="headerlink" title="2018-09-27"></a>2018-09-27</h3><p>如何让微信小程序禁止下拉_解决小程序下拉出现空白的情况：<a target="_blank" rel="noopener" href="http://www.fly63.com/article/detial/1069">http://www.fly63.com/article/detial/1069</a></p>
+<p>我遇到问题的原因是：背景图太大，超出了视图。</p>
+<h3 id="2018-10-12"><a href="#2018-10-12" class="headerlink" title="2018-10-12"></a>2018-10-12</h3><p>小程序代码中，如果我这样写view的度样式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">height: 60rpx;</span><br><span class="line">line-height: 1.5rem;</span><br></pre></td></tr></table></figure>
+
+
+<p>上面的这种写法，并不会让里面的文字上下居中，我在 iPhone 7 plus 中看到的结果是：文字偏上移。</p>
+<p>正确的做法是：（单位一致用rpx，不要把两个单位混用）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">height: 60rpx;</span><br><span class="line">line-height: 60rpx;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2018-10-21"><a href="#2018-10-21" class="headerlink" title="2018-10-21"></a>2018-10-21</h3><p>时间戳和年月日的转换：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_26747571/article/details/53289120?locationNum=10&amp;fps=1">https://blog.csdn.net/qq_26747571/article/details/53289120?locationNum=10&amp;fps=1</a></p>
+<h3 id="2018-11-28"><a href="#2018-11-28" class="headerlink" title="2018-11-28"></a>2018-11-28</h3><p>css实现圆环进度条：<a target="_blank" rel="noopener" href="https://blog.csdn.net/wanglei1991gao/article/details/80009252">https://blog.csdn.net/wanglei1991gao/article/details/80009252</a></p>
+<h3 id="2018-12-13"><a href="#2018-12-13" class="headerlink" title="2018-12-13"></a>2018-12-13</h3><p>对象数组通过对象的属性进行排序：<a target="_blank" rel="noopener" href="https://blog.csdn.net/xiaobing_hope/article/details/68638706">https://blog.csdn.net/xiaobing_hope/article/details/68638706</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/17-%E5%89%8D%E7%AB%AF%E7%BB%BC%E5%90%88/01-2021%E5%B9%B4Web%E5%89%8D%E7%AB%AF%E5%85%A5%E9%97%A8%E8%87%AA%E5%AD%A6%E8%B7%AF%E7%BA%BF/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/17-%E5%89%8D%E7%AB%AF%E7%BB%BC%E5%90%88/2019%E5%B9%B4-%E5%89%8D%E7%AB%AF%E6%97%A5%E8%AE%B0/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2018%E5%B9%B44%E6%9C%88%E4%BB%BD"><span class="nav-number">1.</span> <span class="nav-text">2018年4月份</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-04-25"><span class="nav-number">1.1.</span> <span class="nav-text">2018-04-25</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-04-26"><span class="nav-number">1.2.</span> <span class="nav-text">2018-04-26</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-04-27"><span class="nav-number">1.3.</span> <span class="nav-text">2018-04-27</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-02"><span class="nav-number">1.4.</span> <span class="nav-text">2018-05-02</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-03"><span class="nav-number">1.5.</span> <span class="nav-text">2018-05-03</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-07"><span class="nav-number">1.6.</span> <span class="nav-text">2018-05-07</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-08"><span class="nav-number">1.7.</span> <span class="nav-text">2018-05-08</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-09"><span class="nav-number">1.8.</span> <span class="nav-text">2018-05-09</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-10"><span class="nav-number">1.9.</span> <span class="nav-text">2018-05-10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-11"><span class="nav-number">1.10.</span> <span class="nav-text">2018-05-11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-14"><span class="nav-number">1.11.</span> <span class="nav-text">2018-05-14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-05-16"><span class="nav-number">1.12.</span> <span class="nav-text">2018-05-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-01"><span class="nav-number">1.13.</span> <span class="nav-text">2018-06-01</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-04"><span class="nav-number">1.14.</span> <span class="nav-text">2018-06-04</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-05"><span class="nav-number">1.15.</span> <span class="nav-text">2018-06-05</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-07"><span class="nav-number">1.16.</span> <span class="nav-text">2018-06-07</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-14"><span class="nav-number">1.17.</span> <span class="nav-text">2018-06-14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-21"><span class="nav-number">1.18.</span> <span class="nav-text">2018-06-21</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-27"><span class="nav-number">1.19.</span> <span class="nav-text">2018-06-27</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-06-30"><span class="nav-number">1.20.</span> <span class="nav-text">2018-06-30</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-07-16"><span class="nav-number">1.21.</span> <span class="nav-text">2018-07-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-03"><span class="nav-number">1.22.</span> <span class="nav-text">2018-08-03</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-15"><span class="nav-number">1.23.</span> <span class="nav-text">2018-08-15</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-16"><span class="nav-number">1.24.</span> <span class="nav-text">2018-08-16</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-20"><span class="nav-number">1.25.</span> <span class="nav-text">2018-08-20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-22"><span class="nav-number">1.26.</span> <span class="nav-text">2018-08-22</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-08-28-%E4%BF%AE%E6%94%B9%E7%94%A8%E6%88%B7%E7%9A%84cookie"><span class="nav-number">1.27.</span> <span class="nav-text">2018-08-28-修改用户的cookie</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-09-20"><span class="nav-number">1.28.</span> <span class="nav-text">2018-09-20</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-09-27"><span class="nav-number">1.29.</span> <span class="nav-text">2018-09-27</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-10-12"><span class="nav-number">1.30.</span> <span class="nav-text">2018-10-12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-10-21"><span class="nav-number">1.31.</span> <span class="nav-text">2018-10-21</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-11-28"><span class="nav-number">1.32.</span> <span class="nav-text">2018-11-28</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2018-12-13"><span class="nav-number">1.33.</span> <span class="nav-text">2018-12-13</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

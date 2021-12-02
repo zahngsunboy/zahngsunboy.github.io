@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概念   浅拷贝：只拷贝最外面一层的数据；更深层次的对象，只拷贝引用。    深拷贝：拷贝多层数据；每一层级别的数据都会拷贝。   总结： 拷贝引用的时候，是属于传址，而非传值。关于传值和传址的区别，是很基础的内容，详见《JavaScript 基础&#x2F;对象简介.md》这篇文章。 深拷贝会把对象里所有的数据重新复制到新的内存空间，是最彻底的拷贝。 浅拷贝的实现方式用 for in 实现浅拷贝（比较繁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30-浅拷贝和深拷贝">
+<meta property="og:url" content="http://example.com/2022/01/09/04-JavaScript%E5%9F%BA%E7%A1%80/30-%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="概念   浅拷贝：只拷贝最外面一层的数据；更深层次的对象，只拷贝引用。    深拷贝：拷贝多层数据；每一层级别的数据都会拷贝。   总结： 拷贝引用的时候，是属于传址，而非传值。关于传值和传址的区别，是很基础的内容，详见《JavaScript 基础&#x2F;对象简介.md》这篇文章。 深拷贝会把对象里所有的数据重新复制到新的内存空间，是最彻底的拷贝。 浅拷贝的实现方式用 for in 实现浅拷贝（比较繁">
+<meta property="og:locale">
+<meta property="article:published_time" content="2022-01-09T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T04:52:32.420Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="JavaScript基础">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/01/09/04-JavaScript基础/30-浅拷贝和深拷贝/"/>
+
+
+
+
+
+  <title>30-浅拷贝和深拷贝 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/09/04-JavaScript%E5%9F%BA%E7%A1%80/30-%E6%B5%85%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B7%B1%E6%8B%B7%E8%B4%9D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">30-浅拷贝和深拷贝</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-09T13:01:00+08:00">
+                2022-01-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li><p>  浅拷贝：只拷贝最外面一层的数据；更深层次的对象，只拷贝引用。</p>
+</li>
+<li><p>  深拷贝：拷贝多层数据；每一层级别的数据都会拷贝。</p>
+</li>
+</ul>
+<p><strong>总结</strong>：</p>
+<p>拷贝引用的时候，是属于<strong>传址</strong>，而非<strong>传值</strong>。关于传值和传址的区别，是很基础的内容，详见《JavaScript 基础/对象简介.md》这篇文章。</p>
+<p>深拷贝会把对象里<strong>所有的数据</strong>重新复制到新的内存空间，是最彻底的拷贝。</p>
+<h2 id="浅拷贝的实现方式"><a href="#浅拷贝的实现方式" class="headerlink" title="浅拷贝的实现方式"></a>浅拷贝的实现方式</h2><h3 id="用-for-in-实现浅拷贝（比较繁琐）"><a href="#用-for-in-实现浅拷贝（比较繁琐）" class="headerlink" title="用 for in 实现浅拷贝（比较繁琐）"></a>用 for in 实现浅拷贝（比较繁琐）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">    <span class="attr">info</span>: &#123;</span><br><span class="line">        <span class="attr">desc</span>: <span class="string">&#x27;很厉害&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;&#125;;</span><br><span class="line"><span class="comment">//  用 for in 将 obj1 的值拷贝给 obj2</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj1) &#123;</span><br><span class="line">    obj2[key] = obj1[key];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;obj2:&#x27;</span> + <span class="built_in">JSON</span>.stringify(obj2));</span><br><span class="line"></span><br><span class="line">obj1.info.desc = <span class="string">&#x27;永不止步&#x27;</span>; <span class="comment">// 当修改 obj1 的第二层数据时，obj2的值也会被改变。所以  for in 是浅拷贝</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;obj2:&#x27;</span> + <span class="built_in">JSON</span>.stringify(obj2));</span><br></pre></td></tr></table></figure>
+
+<p>上方代码中，用 for in 做拷贝时，只能做到浅拷贝。也就是说，在 obj2 中， name 和 age 这两个属性会单独存放在新的内存地址中，和 obj1 没有关系。但是，<code>obj2.info</code> 属性，跟 <code>obj1.info</code>属性，<strong>它俩指向的是同一个堆内存地址</strong>。所以，当我修改 <code>obj1.info</code> 里的值之后，<code>obj2.info</code>的值也会被修改。</p>
+<p>打印结果如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj2:&#123;&quot;name&quot;:&quot;qianguyihao&quot;,&quot;age&quot;:28,&quot;info&quot;:&#123;&quot;desc&quot;:&quot;很厉害&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line">obj2:&#123;&quot;name&quot;:&quot;qianguyihao&quot;,&quot;age&quot;:28,&quot;info&quot;:&#123;&quot;desc&quot;:&quot;永不止步&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用-Object-assgin-实现浅拷贝（推荐的方式）"><a href="#用-Object-assgin-实现浅拷贝（推荐的方式）" class="headerlink" title="用 Object.assgin() 实现浅拷贝（推荐的方式）"></a>用 Object.assgin() 实现浅拷贝（推荐的方式）</h3><p>上面的 for in 方法做浅拷贝过于繁琐。ES6 给我们提供了新的语法糖，通过 <code>Object.assgin()</code> 可以实现<strong>浅拷贝</strong>。</p>
+<p><code>Object.assgin()</code> 在日常开发中，使用得相当频繁，非掌握不可。</p>
+<p><strong>语法</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语法1</span></span><br><span class="line">obj2 = <span class="built_in">Object</span>.assgin(obj2, obj1);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 语法2</span></span><br><span class="line"><span class="built_in">Object</span>.assign(目标对象, 源对象<span class="number">1</span>, 源对象<span class="number">2.</span>..);</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：将<code>obj1</code> 拷贝给 <code>obj2</code>。执行完毕后，obj2 的值会被更新。</p>
+<p><strong>作用</strong>：将 obj1 的值追加到 obj2 中。如果对象里的属性名相同，会被覆盖。</p>
+<p>从语法2中可以看出，Object.assign() 可以将多个“源对象”拷贝到“目标对象”中。</p>
+<p><strong>例 1</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">    <span class="attr">info</span>: &#123;</span><br><span class="line">        <span class="attr">desc</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浅拷贝：把 obj1 拷贝给 obj2。如果 obj1 只有一层数据，那么，obj1 和 obj2 则互不影响</span></span><br><span class="line"><span class="keyword">const</span> obj2 = <span class="built_in">Object</span>.assign(&#123;&#125;, obj1);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;obj2:&#x27;</span> + <span class="built_in">JSON</span>.stringify(obj2));</span><br><span class="line"></span><br><span class="line">obj1.info.desc = <span class="string">&#x27;永不止步&#x27;</span>; <span class="comment">// 由于 Object.assign() 只是浅拷贝，所以当修改 obj1 的第二层数据时，obj2 对应的值也会被改变。</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;obj2:&#x27;</span> + <span class="built_in">JSON</span>.stringify(obj2));</span><br></pre></td></tr></table></figure>
+
+<p>代码解释：由于 Object.assign() 只是浅拷贝，所以在当前这个案例中， obj2 中的 name 属性和 age 属性是单独存放在新的堆内存地址中的，和 obj1 没有关系；但是，<code>obj2.info</code> 属性，跟 <code>obj1.info</code>属性，<strong>它俩指向的是同一个堆内存地址</strong>。所以，当我修改 <code>obj1.info</code> 里的值之后，<code>obj2.info</code>的值也会被修改。</p>
+<p>打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj2:&#123;&quot;name&quot;:&quot;qianguyihao&quot;,&quot;age&quot;:28,&quot;info&quot;:&#123;&quot;desc&quot;:&quot;hello&quot;&#125;&#125;</span><br><span class="line"></span><br><span class="line">obj2:&#123;&quot;name&quot;:&quot;qianguyihao&quot;,&quot;age&quot;:28,&quot;info&quot;:&#123;&quot;desc&quot;:&quot;永不止步&quot;&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>例 2</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> myObj = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 【写法1】浅拷贝：把 myObj 拷贝给 obj1</span></span><br><span class="line"><span class="keyword">const</span> obj1 = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.assign(obj1, myObj);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 【写法2】浅拷贝：把 myObj 拷贝给 obj2</span></span><br><span class="line"><span class="keyword">const</span> obj2 = <span class="built_in">Object</span>.assign(&#123;&#125;, myObj);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 【写法3】浅拷贝：把 myObj 拷贝给 obj31。注意，这里的 obj31 和 obj32 其实是等价的，他们指向了同一个内存地址</span></span><br><span class="line"><span class="keyword">const</span> obj31 = &#123;&#125;;</span><br><span class="line"><span class="keyword">const</span> obj32 = <span class="built_in">Object</span>.assign(obj31, myObj);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面这三种写法，是等价的。所以，当我们需要将对象 A 复制（拷贝）给对象 B，不要直接使用 <code>B = A</code>，而是要使用 Object.assign(B, A)。</p>
+<p><strong>例 3</strong>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123; <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>, <span class="attr">age</span>: <span class="number">26</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123; <span class="attr">city</span>: <span class="string">&#x27;shenzhen&#x27;</span>, <span class="attr">age</span>: <span class="number">28</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> obj3 = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(obj3, obj1, obj2); <span class="comment">// 将 obj1、obj2的内容赋值给 obj3</span></span><br><span class="line"><span class="built_in">console</span>.log(obj3); <span class="comment">// &#123;name: &quot;qianguyihao&quot;, age: 28, city: &quot;shenzhen&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，可以理解成：将多个对象（obj1和obj2）合并成一个对象 obj3。</p>
+<p><strong>例4</strong>：【重要】</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> obj1 = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">    <span class="attr">desc</span>: <span class="string">&#x27;hello world&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj2 = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;许嵩&#x27;</span>,</span><br><span class="line">    <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 浅拷贝：把 obj1 赋值给 obj2。这一行，是关键代码。这行代码的返回值也是 obj2</span></span><br><span class="line"><span class="built_in">Object</span>.assign(obj2, obj1);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(obj2));</span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&quot;qianguyihao&quot;,</span><br><span class="line">    &quot;sex&quot;:&quot;男&quot;,</span><br><span class="line">    &quot;age&quot;:28,</span><br><span class="line">    &quot;desc&quot;:&quot;hello world&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意，<strong>例 4 在实际开发中，会经常遇到，一定要掌握</strong>。它的作用是：将 obj1 的值追加到 obj2 中。如果两个对象里的属性名相同，则 obj2 中的值会被 obj1 中的值覆盖。</p>
+<h2 id="深拷贝的实现方式"><a href="#深拷贝的实现方式" class="headerlink" title="深拷贝的实现方式"></a>深拷贝的实现方式</h2><p>深拷贝其实就是将浅拷贝进行递归。</p>
+<h3 id="用-for-in-递归实现深拷贝"><a href="#用-for-in-递归实现深拷贝" class="headerlink" title="用 for in 递归实现深拷贝"></a>用 for in 递归实现深拷贝</h3><p>代码实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj1 = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">28</span>,</span><br><span class="line">    <span class="attr">info</span>: &#123;</span><br><span class="line">        <span class="attr">desc</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">color</span>: [<span class="string">&#x27;red&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>, <span class="string">&#x27;green&#x27;</span>],</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">let</span> obj2 = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">deepCopy(obj2, obj1);</span><br><span class="line"><span class="built_in">console</span>.log(obj2);</span><br><span class="line">obj1.info.desc = <span class="string">&#x27;github&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(obj2);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法：深拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepCopy</span>(<span class="params">newObj, oldObj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> oldObj) &#123;</span><br><span class="line">        <span class="comment">// 获取属性值 oldObj[key]</span></span><br><span class="line">        <span class="keyword">let</span> item = oldObj[key];</span><br><span class="line">        <span class="comment">// 判断这个值是否是数组</span></span><br><span class="line">        <span class="keyword">if</span> (item <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            newObj[key] = [];</span><br><span class="line">            deepCopy(newObj[key], item);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (item <span class="keyword">instanceof</span> <span class="built_in">Object</span>) &#123;</span><br><span class="line">            <span class="comment">// 判断这个值是否是对象</span></span><br><span class="line">            newObj[key] = &#123;&#125;;</span><br><span class="line">            deepCopy(newObj[key], item);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 简单数据类型，直接赋值</span></span><br><span class="line">            newObj[key] = item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/08/04-JavaScript%E5%9F%BA%E7%A1%80/29-%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" rel="next" title="29-对象的基本操作">
+                <i class="fa fa-chevron-left"></i> 29-对象的基本操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/10/04-JavaScript%E5%9F%BA%E7%A1%80/31-%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%AB%98%E7%BA%A7%E6%93%8D%E4%BD%9C%EF%BC%88%E5%BE%85%E6%9B%B4%E6%96%B0%EF%BC%89/" rel="prev" title="31-对象的高级操作（待更新）">
+                31-对象的高级操作（待更新） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%85%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">浅拷贝的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8-for-in-%E5%AE%9E%E7%8E%B0%E6%B5%85%E6%8B%B7%E8%B4%9D%EF%BC%88%E6%AF%94%E8%BE%83%E7%B9%81%E7%90%90%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">用 for in 实现浅拷贝（比较繁琐）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8-Object-assgin-%E5%AE%9E%E7%8E%B0%E6%B5%85%E6%8B%B7%E8%B4%9D%EF%BC%88%E6%8E%A8%E8%8D%90%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">用 Object.assgin() 实现浅拷贝（推荐的方式）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">深拷贝的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8-for-in-%E9%80%92%E5%BD%92%E5%AE%9E%E7%8E%B0%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">3.1.</span> <span class="nav-text">用 for in 递归实现深拷贝</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="浏览器的渲染机制我们需要先理解浏览器的渲染经历了哪些过程，才能有针对性的进行相关优化。 掌握浏览器的渲染优化，可以说是前端工程师的一个分水岭。如果想要具备架构师的思维，需要达到什么样的能力？不光是要解决当下的问题，还需要掌握基本的原理，将来在遇到新问题时也能解决，即“预测问题”。 有一个经典的面试题是：“在浏览器的地址栏输入url，回车后，经历了哪些过程？”这个问题并不简单，根据你回答的详细程度">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03-渲染优化">
+<meta property="og:url" content="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="浏览器的渲染机制我们需要先理解浏览器的渲染经历了哪些过程，才能有针对性的进行相关优化。 掌握浏览器的渲染优化，可以说是前端工程师的一个分水岭。如果想要具备架构师的思维，需要达到什么样的能力？不光是要解决当下的问题，还需要掌握基本的原理，将来在遇到新问题时也能解决，即“预测问题”。 有一个经典的面试题是：“在浏览器的地址栏输入url，回车后，经历了哪些过程？”这个问题并不简单，根据你回答的详细程度">
+<meta property="og:locale">
+<meta property="og:image" content="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/images/image-20210323184157879.png">
+<meta property="og:image" content="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/images/image-20210323184551245.png">
+<meta property="og:image" content="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/images/1*vSGOCrLV9MiLhpmPid1CHQ.png">
+<meta property="article:published_time" content="2021-12-01T02:00:52.471Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.652Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/images/image-20210323184157879.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/14-前端性能优化/03-渲染优化/"/>
+
+
+
+
+
+  <title>03-渲染优化 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/03-%E6%B8%B2%E6%9F%93%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">03-渲染优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:52+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="浏览器的渲染机制"><a href="#浏览器的渲染机制" class="headerlink" title="浏览器的渲染机制"></a>浏览器的渲染机制</h2><p>我们需要先理解浏览器的渲染经历了哪些过程，才能有针对性的进行相关优化。</p>
+<p>掌握浏览器的渲染优化，可以说是前端工程师的一个分水岭。如果想要具备架构师的思维，需要达到什么样的能力？不光是要解决当下的问题，还需要掌握基本的原理，将来在遇到新问题时也能解决，即“预测问题”。</p>
+<p>有一个经典的面试题是：“在浏览器的地址栏输入url，回车后，经历了哪些过程？”这个问题并不简单，根据你回答的详细程度，可以看出你对前后端知识的掌握程度。你能否答出“浏览器的渲染机制”？如果不能，说明你对浏览器渲染的性能优化，不够了解。</p>
+<p>关于浏览器的渲染机制，可以看本教程的另外一篇文章：</p>
+<blockquote>
+<p>《前端面试/面试必看/浏览器渲染机制.md》</p>
+</blockquote>
+<p>关键渲染路径举例：</p>
+<p><img src="images/image-20210323184157879.png" alt="image-20210323184157879"></p>
+<p><img src="images/image-20210323184551245.png" alt="image-20210323184551245"></p>
+<h2 id="避免布局抖动（layout-thrashing）"><a href="#避免布局抖动（layout-thrashing）" class="headerlink" title="避免布局抖动（layout thrashing）"></a>避免布局抖动（layout thrashing）</h2><p>1、尽量避免 重排：</p>
+<p>比如说，如果想改变一个元素的位置，很多人可能会使用相对布局的left、top属性，但是这个属性会引起重排。我们可以使用 <code>transfrom:translate</code>让元素做位移，这个属性既不会触发重排，也不会触发 重绘，只会触发 conmposite。</p>
+<p>再比如说，vue、react这样的框架，采用了虚拟DOM，它会把涉及到DOM修改的操作积攒起来，然后统一计算，批量处理，最后应用到真正的DOM上。</p>
+<p>2、读写分离。建议先批量读（获取位置等信息），然后再批量做写操作（修改位置）。</p>
+<p>补充：</p>
+<p>如果你的页面经常需要做重排、重绘，就很容易导致“页面抖动”。</p>
+<p>很多时候，我们知道原理和解决方案。但是在工程化实践的时候，往往时间很紧，没有时间去做这些事情。我们希望有一些拿来就可以用的、而且经过测试没有问题的工具，来帮我们解决问题。</p>
+<p>FastDom是用于做防抖的一个比较流行的解决方案。</p>
+<h2 id="减少重绘（repaint）"><a href="#减少重绘（repaint）" class="headerlink" title="减少重绘（repaint）"></a>减少重绘（repaint）</h2><h2 id="防抖（Debounce）：降低事件的触发频率"><a href="#防抖（Debounce）：降低事件的触发频率" class="headerlink" title="防抖（Debounce）：降低事件的触发频率"></a>防抖（Debounce）：降低事件的触发频率</h2><p>我们可以针对<strong>高频事件</strong>做防抖。</p>
+<p><strong>高频事件处理函数</strong>：有很多事件的触发频率非常高，甚至超过了屏幕的刷新率（60帧/秒）。比如页面滚动、鼠标移动、移动端的touch事件。</p>
+<p>如果我们不对这些事件做处理，就会频繁导致浏览器做重排、重绘，影响性能，导致页面卡顿，也就是“抖动”。因此需要对这些高频事件处理函数做防抖处理，降低它们的触发频率。</p>
+<p>比如说滚动事件：我其实并不关心滚动中间的过程，我只关心最终滚动到了哪里。</p>
+<p>requestAnimationFrame 这个api可以做防抖。</p>
+<p>参考文章：</p>
+<ul>
+<li>防抖与节流：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6885250789825052679">https://juejin.cn/post/6885250789825052679</a></li>
+</ul>
+<h2 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h2><h3 id="JS的开销"><a href="#JS的开销" class="headerlink" title="JS的开销"></a>JS的开销</h3><p>静态资源有很多种：js、图片、css、字体等。这些资源都有可能会很大，但是JS的开销仍然是最昂贵的，因为JS除了加载资源之外，还需要经历<strong>解析&amp;编译</strong>、<strong>执行的</strong>过程。</p>
+<h3 id="如何缩短JS的解析事件"><a href="#如何缩短JS的解析事件" class="headerlink" title="如何缩短JS的解析事件"></a>如何缩短JS的解析事件</h3><h3 id="Web-loading-is-a-Journey"><a href="#Web-loading-is-a-Journey" class="headerlink" title="Web loading is a Journey"></a>Web loading is a Journey</h3><p><img src="images/1*vSGOCrLV9MiLhpmPid1CHQ.png" alt="img"></p>
+<h3 id="V8引擎"><a href="#V8引擎" class="headerlink" title="V8引擎"></a>V8引擎</h3><h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><ul>
+<li>首屏尽快打开，剩下的内容延迟加载，减少初次加载的资源量。首屏的内容是可以确定的。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/02-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6/" rel="next" title="02-浏览器渲染机制">
+                <i class="fa fa-chevron-left"></i> 02-浏览器渲染机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/04-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/" rel="prev" title="04-静态资源优化">
+                04-静态资源优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">浏览器的渲染机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E5%B8%83%E5%B1%80%E6%8A%96%E5%8A%A8%EF%BC%88layout-thrashing%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">避免布局抖动（layout thrashing）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E9%87%8D%E7%BB%98%EF%BC%88repaint%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">减少重绘（repaint）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E6%8A%96%EF%BC%88Debounce%EF%BC%89%EF%BC%9A%E9%99%8D%E4%BD%8E%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%A7%A6%E5%8F%91%E9%A2%91%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text">防抖（Debounce）：降低事件的触发频率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E4%BC%98%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">代码优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS%E7%9A%84%E5%BC%80%E9%94%80"><span class="nav-number">5.1.</span> <span class="nav-text">JS的开销</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%BC%A9%E7%9F%ADJS%E7%9A%84%E8%A7%A3%E6%9E%90%E4%BA%8B%E4%BB%B6"><span class="nav-number">5.2.</span> <span class="nav-text">如何缩短JS的解析事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-loading-is-a-Journey"><span class="nav-number">5.3.</span> <span class="nav-text">Web loading is a Journey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#V8%E5%BC%95%E6%93%8E"><span class="nav-number">5.4.</span> <span class="nav-text">V8引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">6.</span> <span class="nav-text">补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

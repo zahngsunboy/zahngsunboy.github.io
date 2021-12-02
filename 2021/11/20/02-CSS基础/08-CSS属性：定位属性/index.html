@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="CSS基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="CSS的定位属性有三种，分别是绝对定位、相对定位、固定定位。 123456position: absolute;  &lt;!-- 绝对定位 --&gt;position: relative;  &lt;!-- 相对定位 --&gt;position: fixed;     &lt;!-- 固定定位 --&gt;  下面逐一介绍。 相对定位相对定位：让元素相对于自己原来的位置，进行位置调整（可用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="08-CSS属性：定位属性">
+<meta property="og:url" content="http://example.com/2021/11/20/02-CSS%E5%9F%BA%E7%A1%80/08-CSS%E5%B1%9E%E6%80%A7%EF%BC%9A%E5%AE%9A%E4%BD%8D%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="CSS的定位属性有三种，分别是绝对定位、相对定位、固定定位。 123456position: absolute;  &lt;!-- 绝对定位 --&gt;position: relative;  &lt;!-- 相对定位 --&gt;position: fixed;     &lt;!-- 固定定位 --&gt;  下面逐一介绍。 相对定位相对定位：让元素相对于自己原来的位置，进行位置调整（可用">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/2015-10-03-css-28.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_1716.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_2120.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_2121.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_2200.gif">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_2131.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_2132.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180115_2210.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_0812.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_1115.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_1116.jpg">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_1117.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_1335.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_1356.png">
+<meta property="og:image" content="http://img.smyhvae.com/2015-10-03-css-32.png">
+<meta property="og:image" content="http://img.smyhvae.com/2015-10-03-css-33.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180116_1445.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190101.png">
+<meta property="article:published_time" content="2021-11-20T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-01T14:03:32.947Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="CSS基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/2015-10-03-css-28.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/11/20/02-CSS基础/08-CSS属性：定位属性/"/>
+
+
+
+
+
+  <title>08-CSS属性：定位属性 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/11/20/02-CSS%E5%9F%BA%E7%A1%80/08-CSS%E5%B1%9E%E6%80%A7%EF%BC%9A%E5%AE%9A%E4%BD%8D%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">08-CSS属性：定位属性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-20T13:01:00+08:00">
+                2021-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<p>CSS的定位属性有三种，分别是绝对定位、相对定位、固定定位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">position: absolute;  &lt;!-- 绝对定位 --&gt;</span><br><span class="line"></span><br><span class="line">position: relative;  &lt;!-- 相对定位 --&gt;</span><br><span class="line"></span><br><span class="line">position: fixed;     &lt;!-- 固定定位 --&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>下面逐一介绍。</p>
+<h2 id="相对定位"><a href="#相对定位" class="headerlink" title="相对定位"></a>相对定位</h2><p><strong>相对定位</strong>：让元素相对于自己原来的位置，进行位置调整（可用于盒子的位置微调）。</p>
+<p>我们之前学习的背景属性中，是通过如下格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">background-position:向右偏移量 向下偏移量;</span><br></pre></td></tr></table></figure>
+
+<p>但这回的定位属性，是通过如下格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: relative;</span><br><span class="line">left: 50px;</span><br><span class="line">top: 50px;</span><br></pre></td></tr></table></figure>
+
+<p>相对定位的举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!doctype <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;Generator&quot;</span> <span class="attr">content</span>=<span class="string">&quot;EditPlus®&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;Author&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;Keywords&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;Description&quot;</span> <span class="attr">content</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">		<span class="selector-tag">body</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">margin</span>: <span class="number">0px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">		<span class="selector-class">.div1</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">border</span>: <span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">		<span class="selector-class">.div2</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">position</span>: relative;<span class="comment">/*相对定位：相对于自己原来的位置*/</span></span></span><br><span class="line"><span class="css">			<span class="attribute">left</span>: <span class="number">50px</span>;<span class="comment">/*横坐标：正值表示向右偏移，负值表示向左偏移*/</span></span></span><br><span class="line"><span class="css">			<span class="attribute">top</span>: <span class="number">50px</span>;<span class="comment">/*纵坐标：正值表示向下偏移，负值表示向上偏移*/</span></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">border</span>: <span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;div1&quot;</span>&gt;</span>有生之年<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;div2&quot;</span>&gt;</span>狭路相逢<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="http://img.smyhvae.com/2015-10-03-css-28.png"></p>
+<h3 id="相对定位不脱标"><a href="#相对定位不脱标" class="headerlink" title="相对定位不脱标"></a>相对定位不脱标</h3><p><strong>相对定位</strong>：不脱标，老家留坑，<strong>别人不会把它的位置挤走</strong>。</p>
+<p>也就是说，相对定位的真实位置还在老家，只不过影子出去了，可以到处飘。</p>
+<h3 id="相对定位的用途"><a href="#相对定位的用途" class="headerlink" title="相对定位的用途"></a>相对定位的用途</h3><p>如果想做“压盖”效果（把一个div放到另一个div之上），我们一般<strong>不用</strong>相对定位来做。相对定位，就两个作用：</p>
+<ul>
+<li>（1）微调元素</li>
+<li>（2）做绝对定位的参考，子绝父相</li>
+</ul>
+<h3 id="相对定位的定位值"><a href="#相对定位的定位值" class="headerlink" title="相对定位的定位值"></a>相对定位的定位值</h3><ul>
+<li><p>left：盒子右移</p>
+</li>
+<li><p>right：盒子左移</p>
+</li>
+<li><p>top：盒子下移</p>
+</li>
+<li><p>bottom：盒子上移</p>
+</li>
+</ul>
+<p>PS：负数表示相反的方向。</p>
+<p>↘：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: relative;</span><br><span class="line">left: 40px;</span><br><span class="line">top: 10px;</span><br></pre></td></tr></table></figure>
+
+<p>↙：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: relative;</span><br><span class="line">right: 100px;</span><br><span class="line">top: 100px;</span><br></pre></td></tr></table></figure>
+
+<p>↖：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: relative;</span><br><span class="line">right: 100px;</span><br><span class="line">bottom: 100px;</span><br></pre></td></tr></table></figure>
+
+<p>↗：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">position: relative;</span><br><span class="line">left: 200px;</span><br><span class="line">bottom: 200px;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://img.smyhvae.com/20180115_1716.png"></p>
+<p>如果要描述上面这张图的方向，我们可以首先可以这样描述：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">position: relative;</span><br><span class="line">left: 200px;</span><br><span class="line">top: 100px;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>因为<code>left: 200px</code>等价于<code>right: -200px</code>，所以这张图其实有四种写法。</p>
+<h2 id="绝对定位"><a href="#绝对定位" class="headerlink" title="绝对定位"></a>绝对定位</h2><p><strong>绝对定位</strong>：定义横纵坐标。原点在父容器的左上角或左下角。横坐标用left表示，纵坐标用top或者bottom表示。</p>
+<p>格式举例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">position: absolute;  /*绝对定位*/</span><br><span class="line">left: 10px;  /*横坐标*/</span><br><span class="line">top/bottom: 20px;  /*纵坐标*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="绝对定位脱标"><a href="#绝对定位脱标" class="headerlink" title="绝对定位脱标"></a>绝对定位脱标</h3><p><strong>绝对定位的盒子脱离了标准文档流。</strong></p>
+<p>所以，所有的标准文档流的性质，绝对定位之后都不遵守了。</p>
+<p>绝对定位之后，标签就不区分所谓的行内元素、块级元素了，不需要<code>display:block</code>就可以设置宽、高了。</p>
+<h3 id="绝对定位的参考点（重要）"><a href="#绝对定位的参考点（重要）" class="headerlink" title="绝对定位的参考点（重要）"></a>绝对定位的参考点（重要）</h3><p>（1）如果用<strong>top描述</strong>，那么参考点就是<strong>页面的左上角</strong>，而不是浏览器的左上角：</p>
+<p><img src="http://img.smyhvae.com/20180115_2120.png"></p>
+<p>（2）如果用<strong>bottom描述</strong>，那么参考点就是<strong>浏览器首屏窗口尺寸</strong>（好好理解“首屏”二字），对应的页面的左下角：</p>
+<p><img src="http://img.smyhvae.com/20180115_2121.png"></p>
+<p>为了理解“<strong>首屏</strong>”二字的含义，我们来看一下动态图：</p>
+<p><img src="http://img.smyhvae.com/20180115_2200.gif"></p>
+<p>问题：</p>
+<p><img src="http://img.smyhvae.com/20180115_2131.png"></p>
+<p>答案：</p>
+<p>用bottom的定位的时候，参考的是浏览器首屏大小对应的页面左下角。</p>
+<p><img src="http://img.smyhvae.com/20180115_2132.png"></p>
+<h3 id="以盒子为参考点"><a href="#以盒子为参考点" class="headerlink" title="以盒子为参考点"></a>以盒子为参考点</h3><p>一个绝对定位的元素，如果父辈元素中也出现了已定位（无论是绝对定位、相对定位，还是固定定位）的元素，那么将以父辈这个元素，为参考点。</p>
+<p>如下：（子绝父相）</p>
+<p><img src="http://img.smyhvae.com/20180115_2210.png"></p>
+<p>以下几点需要注意。</p>
+<p>（1） 要听最近的已经定位的祖先元素的，不一定是父亲，可能是爷爷：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;box1&quot;&gt;        相对定位</span><br><span class="line">	&lt;div class=&quot;box2&quot;&gt;    没有定位</span><br><span class="line">		&lt;p&gt;&lt;/p&gt;           绝对定位，将以box1为参考，因为box2没有定位，box1就是最近的父辈元素</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>再比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;box1&quot;&gt;        相对定位</span><br><span class="line">	&lt;div class=&quot;box2&quot;&gt;    相对定位</span><br><span class="line">		&lt;p&gt;&lt;/p&gt;           绝对定位，将以box2为参考，因为box2是自己最近的父辈元素</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>（2）不一定是相对定位，任何定位，都可以作为儿子的参考点：</p>
+<p>子绝父绝、<strong>子绝父相</strong>、子绝父固，都是可以给儿子定位的。但是在工程上，如果子绝、父绝，没有一个盒子在标准流里面了，所以页面就不稳固，没有任何实战用途。</p>
+<p><strong>工程应用：</strong></p>
+<p>“<strong>子绝父相</strong>”有意义：这样可以保证父亲没有脱标，儿子脱标在父亲的范围里面移动。于是，工程上经常这样做：</p>
+<blockquote>
+<p>父亲浮动，设置相对定位（零偏移），然后让儿子绝对定位一定的距离。</p>
+</blockquote>
+<p>（3）绝对定位的儿子，无视参考的那个盒子的padding：</p>
+<p>下图中，绿色部分是父亲div的padding，蓝色部分p是div的内容区域。此时，如果div相对定位，p绝对定位，那么，<br>p将无视父亲的padding，在border内侧为参考点，进行定位：</p>
+<p><img src="http://img.smyhvae.com/20180116_0812.png"></p>
+<p><strong>工程应用：</strong></p>
+<p>绝对定位非常适合用来做“压盖”效果。我们来举个lagou.com上的例子。</p>
+<p>现在有如下两张图片素材：</p>
+<p><img src="http://img.smyhvae.com/20180116_1115.png"></p>
+<p><img src="http://img.smyhvae.com/20180116_1116.jpg"></p>
+<p>要求作出如下效果：</p>
+<p><img src="http://img.smyhvae.com/20180116_1117.png"></p>
+<p>代码实现如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">		<span class="selector-class">.box</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">margin</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">308px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">307px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#FF7E00</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">position</span>: relative;  <span class="comment">/*子绝父相*/</span></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.box</span> <span class="selector-class">.image</span> <span class="selector-tag">img</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">308px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">196px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.box</span> <span class="selector-class">.dtc</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">display</span>: block;  <span class="comment">/*转为块级元素，才能设置span的宽高*/</span></span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">52px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">28px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">http://img.smyhvae.com/20180116_1115.png</span>);</span></span><br><span class="line"><span class="css">			<span class="attribute">background-position</span>: -<span class="number">108px</span> <span class="number">0px</span>; <span class="comment">/*这里用到了精灵图*/</span></span></span><br><span class="line"><span class="css">			<span class="attribute">position</span>: absolute;  <span class="comment">/*采用绝对定位的方式，将精灵图盖在最上层*/</span></span></span><br><span class="line"><span class="css">			<span class="attribute">top</span>: -<span class="number">9px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">left</span>: <span class="number">13px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.box</span> <span class="selector-tag">h4</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">background-color</span>: black;</span></span><br><span class="line"><span class="css">			<span class="attribute">color</span>: white;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>:<span class="number">308px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">line-height</span>: <span class="number">40px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">			<span class="attribute">top</span>: <span class="number">156px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;dtc&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;image&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;http://img.smyhvae.com/20180116_1116.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">h4</span>&gt;</span>广东深圳宝安区建安一路海雅缤纷城4楼<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>代码解释如下：</p>
+<ul>
+<li><p>为了显示“多套餐”那个小图，我们需要用到精灵图。</p>
+</li>
+<li><p>“多套餐”下方黑色背景的文字都是通过“子绝父相”的方式的盖在大海报image的上方的。</p>
+</li>
+</ul>
+<p>代码的效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180116_1335.png"></p>
+<h3 id="让绝对定位中的盒子在父亲里居中"><a href="#让绝对定位中的盒子在父亲里居中" class="headerlink" title="让绝对定位中的盒子在父亲里居中"></a>让绝对定位中的盒子在父亲里居中</h3><p>我们知道，如果想让一个<strong>标准流中的盒子在父亲里居中</strong>（水平方向看），可以将其设置<code>margin: 0 auto</code>属性。</p>
+<p>可如果盒子是绝对定位的，此时已经脱标了，如果还想让其居中（位于父亲的正中间），可以这样做：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">div &#123;</span><br><span class="line">	width: 600px;</span><br><span class="line">	height: 60px;</span><br><span class="line">	position: absolute;  绝对定位的盒子</span><br><span class="line">	left: 50%;           首先，让左边线居中</span><br><span class="line">	top: 0;</span><br><span class="line">	margin-left: -300px;  然后，向左移动宽度（600px）的一半</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上方代码所示，我们先让这个宽度为600px的盒子，左边线居中，然后向左移动宽度（600px）的一半，就达到效果了。</p>
+<p><img src="http://img.smyhvae.com/20180116_1356.png"></p>
+<p>我们可以总结成一个公式：</p>
+<blockquote>
+<p>left:50%; margin-left:负的宽度的一半</p>
+</blockquote>
+<h2 id="固定定位"><a href="#固定定位" class="headerlink" title="固定定位"></a>固定定位</h2><p><strong>固定定位</strong>：就是相对浏览器窗口进行定位。无论页面如何滚动，这个盒子显示的位置不变。</p>
+<p>备注：IE6不兼容。</p>
+<p><strong>用途1</strong>：网页右下角的“返回到顶部”</p>
+<p>比如我们经常看到的网页右下角显示的“返回到顶部”，就可以固定定位。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">	<span class="selector-class">.backtop</span>&#123;</span></span><br><span class="line"><span class="css">		<span class="attribute">position</span>: fixed;</span></span><br><span class="line"><span class="css">		<span class="attribute">bottom</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">right</span>: <span class="number">30px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">width</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">background-color</span>: gray;</span></span><br><span class="line"><span class="css">		<span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">		<span class="attribute">line-height</span>:<span class="number">30px</span>;</span></span><br><span class="line"><span class="css">		<span class="attribute">color</span>:white;</span></span><br><span class="line"><span class="css">		<span class="attribute">text-decoration</span>: none;   <span class="comment">/*去掉超链接的下划线*/</span></span></span><br><span class="line"><span class="css">	&#125;</span></span><br><span class="line"><span class="css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>用途2：</strong>顶部导航条</p>
+<p>我们经常能看到固定在网页顶端的导航条，可以用固定定位来做。</p>
+<p>需要注意的是，假设顶部导航条的高度是60px，那么，为了防止其他的内容被导航条覆盖，我们要给body标签设置60px的padding-top。</p>
+<p>顶部导航条的实现如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span> <span class="meta-keyword">PUBLIC</span> <span class="meta-string">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span> <span class="meta-string">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.w3.org/1999/xhtml&quot;</span> <span class="attr">xml:lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html;charset=UTF-8&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">		*&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">body</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="comment">/*为什么要写这个？*/</span></span></span><br><span class="line"><span class="css">			<span class="comment">/*不希望我们的页面被nav挡住*/</span></span></span><br><span class="line"><span class="css">			<span class="attribute">padding-top</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">			<span class="comment">/*IE6不兼容固定定位，所以这个padding没有什么用，就去掉就行了*/</span></span></span><br><span class="line"><span class="css">			_padding-<span class="attribute">top</span>:<span class="number">0</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.nav</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">position</span>: fixed;</span></span><br><span class="line"><span class="css">			<span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">	 		<span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">background-color</span>: <span class="number">#333</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">z-index</span>: <span class="number">99999999</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.inner_c</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">1000px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.inner_c</span> <span class="selector-tag">ul</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">list-style</span>: none;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.inner_c</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">			<span class="attribute">line-height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.inner_c</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">60px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">color</span>:white;</span></span><br><span class="line"><span class="css">			<span class="attribute">text-decoration</span>: none;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.inner_c</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">background-color</span>: gold;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-tag">p</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">font-size</span>: <span class="number">30px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.btn</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="css">			<span class="attribute">width</span>: <span class="number">120px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">height</span>: <span class="number">30px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">background-color</span>: orange;</span></span><br><span class="line"><span class="css">			<span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">			<span class="attribute">top</span>: <span class="number">2px</span>;</span></span><br><span class="line"><span class="css">			<span class="attribute">left</span>: <span class="number">1px</span>;</span></span><br><span class="line"><span class="css">		&#125;</span></span><br><span class="line"><span class="css">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;nav&quot;</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inner_c&quot;</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>网页栏目<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5、z-index属性："><a href="#5、z-index属性：" class="headerlink" title="5、z-index属性："></a>5、z-index属性：</h3><p><strong>z-index</strong>属性：表示谁压着谁。数值大的压盖住数值小的。</p>
+<p>有如下特性：</p>
+<p> （1）属性值大的位于上层，属性值小的位于下层。</p>
+<p> （2）z-index值没有单位，就是一个正整数。默认的z-index值是0。</p>
+<p> （3）如果大家都没有z-index值，或者z-index值一样，那么在HTML代码里写在后面，谁就在上面能压住别人。定位了的元素，永远能够压住没有定位的元素。</p>
+<p> （4）只有定位了的元素，才能有z-index值。也就是说，不管相对定位、绝对定位、固定定位，都可以使用z-index值。<strong>而浮动的元素不能用</strong>。</p>
+<p> （5）从父现象：父亲怂了，儿子再牛逼也没用。意思是，如果父亲1比父亲2大，那么，即使儿子1比儿子2小，儿子1也能在最上层。</p>
+<p>针对（1）（2）（3）条，举例如下：</p>
+<p>这是默认情况下的例子：（div2在上层，div1在下层）</p>
+<p><img src="http://img.smyhvae.com/2015-10-03-css-32.png"></p>
+<p>现在加一个<code>z-index</code>属性，要求效果如下：</p>
+<p><img src="http://img.smyhvae.com/2015-10-03-css-33.png"></p>
+<p>第五条分析：</p>
+<p><img src="http://img.smyhvae.com/20180116_1445.png"></p>
+<p>z-index属性的应用还是很广泛的。当好几个已定位的标签出现覆盖的现象时，我们可以用这个z-index属性决定，谁处于最上方。也就是<strong>层级</strong>的应用。</p>
+<p><strong>层级：</strong></p>
+<p>（1）必须有定位（除去static）</p>
+<p>（2）用<code>z-index</code>来控制层级数。</p>
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<strong>更多技能</strong>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="http://img.smyhvae.com/20190101.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS%E5%9F%BA%E7%A1%80/" rel="tag"># CSS基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/19/02-CSS%E5%9F%BA%E7%A1%80/07-%E6%B5%AE%E5%8A%A8/" rel="next" title="07-浮动">
+                <i class="fa fa-chevron-left"></i> 07-浮动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/21/02-CSS%E5%9F%BA%E7%A1%80/09-CSS%E6%A1%88%E4%BE%8B%E8%AE%B2%E8%A7%A3%EF%BC%9A%E5%8D%9A%E9%9B%85%E4%BA%92%E5%8A%A8/" rel="prev" title="09-CSS案例讲解：博雅互动">
+                09-CSS案例讲解：博雅互动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="nav-number">1.</span> <span class="nav-text">相对定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D%E4%B8%8D%E8%84%B1%E6%A0%87"><span class="nav-number">1.1.</span> <span class="nav-text">相对定位不脱标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E7%94%A8%E9%80%94"><span class="nav-number">1.2.</span> <span class="nav-text">相对定位的用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%AE%9A%E4%BD%8D%E5%80%BC"><span class="nav-number">1.3.</span> <span class="nav-text">相对定位的定位值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D"><span class="nav-number">2.</span> <span class="nav-text">绝对定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E8%84%B1%E6%A0%87"><span class="nav-number">2.1.</span> <span class="nav-text">绝对定位脱标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E7%9A%84%E5%8F%82%E8%80%83%E7%82%B9%EF%BC%88%E9%87%8D%E8%A6%81%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">绝对定位的参考点（重要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A5%E7%9B%92%E5%AD%90%E4%B8%BA%E5%8F%82%E8%80%83%E7%82%B9"><span class="nav-number">2.3.</span> <span class="nav-text">以盒子为参考点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A9%E7%BB%9D%E5%AF%B9%E5%AE%9A%E4%BD%8D%E4%B8%AD%E7%9A%84%E7%9B%92%E5%AD%90%E5%9C%A8%E7%88%B6%E4%BA%B2%E9%87%8C%E5%B1%85%E4%B8%AD"><span class="nav-number">2.4.</span> <span class="nav-text">让绝对定位中的盒子在父亲里居中</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BA%E5%AE%9A%E5%AE%9A%E4%BD%8D"><span class="nav-number">3.</span> <span class="nav-text">固定定位</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81z-index%E5%B1%9E%E6%80%A7%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">5、z-index属性：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">4.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

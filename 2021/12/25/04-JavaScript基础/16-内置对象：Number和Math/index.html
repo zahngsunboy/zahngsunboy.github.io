@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="内置对象 Number 的常见方法Number.isInteger() 判断是否为整数语法： 1布尔值 &#x3D; Number.isInteger(数字);   toFixed() 小数点后面保留多少位语法： 1字符串 &#x3D; myNum.toFixed(num);  解释：将数字 myNum 的小数点后面保留 num 位小数（四舍五入），并返回。不会改变原数字。注意，返回结果是字符串。 参数 num：指">
+<meta property="og:type" content="article">
+<meta property="og:title" content="16-内置对象：Number和Math">
+<meta property="og:url" content="http://example.com/2021/12/25/04-JavaScript%E5%9F%BA%E7%A1%80/16-%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%9ANumber%E5%92%8CMath/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="内置对象 Number 的常见方法Number.isInteger() 判断是否为整数语法： 1布尔值 &#x3D; Number.isInteger(数字);   toFixed() 小数点后面保留多少位语法： 1字符串 &#x3D; myNum.toFixed(num);  解释：将数字 myNum 的小数点后面保留 num 位小数（四舍五入），并返回。不会改变原数字。注意，返回结果是字符串。 参数 num：指">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20180117_1730.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180117_1740.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180202_1432.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190101.png">
+<meta property="article:published_time" content="2021-12-25T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T04:52:32.420Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="JavaScript基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180117_1730.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/25/04-JavaScript基础/16-内置对象：Number和Math/"/>
+
+
+
+
+
+  <title>16-内置对象：Number和Math | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/25/04-JavaScript%E5%9F%BA%E7%A1%80/16-%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%9ANumber%E5%92%8CMath/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">16-内置对象：Number和Math</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-25T13:01:00+08:00">
+                2021-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="内置对象-Number-的常见方法"><a href="#内置对象-Number-的常见方法" class="headerlink" title="内置对象 Number 的常见方法"></a>内置对象 Number 的常见方法</h2><h3 id="Number-isInteger-判断是否为整数"><a href="#Number-isInteger-判断是否为整数" class="headerlink" title="Number.isInteger() 判断是否为整数"></a>Number.isInteger() 判断是否为整数</h3><p>语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">布尔值 = Number.isInteger(数字);</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="toFixed-小数点后面保留多少位"><a href="#toFixed-小数点后面保留多少位" class="headerlink" title="toFixed() 小数点后面保留多少位"></a>toFixed() 小数点后面保留多少位</h3><p>语法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">字符串 = myNum.toFixed(num);</span><br></pre></td></tr></table></figure>
+
+<p>解释：将数字 myNum 的小数点后面保留 num 位小数（四舍五入），并返回。不会改变原数字。注意，<strong>返回结果是字符串</strong>。</p>
+<p>参数 num：指定了小数点后面的位数。</p>
+<p>举例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> num = <span class="number">3.456</span>;</span><br><span class="line"><span class="keyword">let</span> num2 = num.toFixed(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 打印结果：3.456</span></span><br><span class="line"><span class="built_in">console</span>.log(num2); <span class="comment">// 打印结果：3.46</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> num); <span class="comment">// number</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> num2); <span class="comment">// string</span></span><br></pre></td></tr></table></figure>
+
+<p>上方代码中，<code>num2</code>的结果是3.46，但是请注意，<code>num</code>的类型Number型，而<code>num2</code>的类型却是String型。</p>
+<h2 id="内置对象-Math-的常见方法"><a href="#内置对象-Math-的常见方法" class="headerlink" title="内置对象 Math 的常见方法"></a>内置对象 Math 的常见方法</h2><p>Math 和其他的对象不同，它不是一个构造函数，不需要创建对象。所以我们不需要 通过 new 来调用，而是直接使用里面的属性和方法即可。</p>
+<p>Math属于一个工具类，里面封装了数学运算相关的属性和方法。如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+<th align="left">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Math.PI</td>
+<td align="left">圆周率</td>
+<td align="left">Math对象的属性</td>
+</tr>
+<tr>
+<td align="left">Math.abs()</td>
+<td align="left"><strong>返回绝对值</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.random()</td>
+<td align="left">生成0-1之间的<strong>随机浮点数</strong></td>
+<td align="left">取值范围是 [0，1)</td>
+</tr>
+<tr>
+<td align="left">Math.floor()</td>
+<td align="left"><strong>向下取整</strong>（往小取值）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.ceil()</td>
+<td align="left"><strong>向上取整</strong>（往大取值）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.round()</td>
+<td align="left">四舍五入取整（正数四舍五入，负数五舍六入）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.max(x, y, z)</td>
+<td align="left">返回多个数中的最大值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.min(x, y, z)</td>
+<td align="left">返回多个数中的最小值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.pow(x,y)</td>
+<td align="left">乘方：返回 x 的 y 次幂</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Math.sqrt()</td>
+<td align="left">开方：对一个数进行开方运算</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><strong>举例</strong>：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> num = -<span class="number">0.6</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(num));        <span class="comment">//取绝对值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.floor(num));      <span class="comment">//向下取整，向小取</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.ceil(num));       <span class="comment">//向上取整，向大取</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.round(num));      <span class="comment">//四舍五入取整（正数四舍五入，负数五舍六入）</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.random());        <span class="comment">//生成0-1之间的随机数</span></span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">0.6</span><br><span class="line"></span><br><span class="line">-1</span><br><span class="line"></span><br><span class="line">-0</span><br><span class="line"></span><br><span class="line">-1</span><br><span class="line"></span><br><span class="line">0.6453756205275165</span><br></pre></td></tr></table></figure>
+
+<h2 id="Math-abs-：获绝对值"><a href="#Math-abs-：获绝对值" class="headerlink" title="Math.abs()：获绝对值"></a>Math.abs()：获绝对值</h2><p>方法定义：返回绝对值。</p>
+<p>注意：</p>
+<ul>
+<li>参数中可以接收字符串类型的数字，此时会将字符串做隐式类型转换，然后再调用 Math.abs() 方法。</li>
+</ul>
+<p>代码举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="number">2</span>)); <span class="comment">// 2</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(-<span class="number">2</span>)); <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 先做隐式类型转换，将 &#x27;-2&#x27;转换为数字类型 -2，然后再调用 Math.abs()</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="string">&#x27;-2&#x27;</span>));</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Math</span>.abs(<span class="string">&#x27;hello&#x27;</span>)); <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Math-random-方法：生成随机数"><a href="#Math-random-方法：生成随机数" class="headerlink" title="Math.random() 方法：生成随机数"></a>Math.random() 方法：生成随机数</h2><p>方法定义：生成 [0, 1) 之间的<strong>随机浮点数</strong>。</p>
+<p>我们来看几个例子。</p>
+<h3 id="生成-0-x-之间的随机数"><a href="#生成-0-x-之间的随机数" class="headerlink" title="生成 [0, x) 之间的随机数"></a>生成 [0, x) 之间的随机数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random()*x)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="生成-x-y-之间的随机数"><a href="#生成-x-y-之间的随机数" class="headerlink" title="生成 [x, y) 之间的随机数"></a>生成 [x, y) 之间的随机数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.round(<span class="built_in">Math</span>.random()*(y-x)+x)</span><br></pre></td></tr></table></figure>
+
+<h3 id="【重要】生成-x-y-之间的随机整数"><a href="#【重要】生成-x-y-之间的随机整数" class="headerlink" title="【重要】生成 [x, y]之间的随机整数"></a>【重要】生成 [x, y]之间的随机整数</h3><p>也就是说：生成两个整数之间的随机整数，<strong>并且要包含这两个整数</strong>。</p>
+<p>这个功能很常用，我们可以将其封装成一个方法，代码实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 生成两个整数之间的随机整数，并且要包含这两个整数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandom</span>(<span class="params">min, max</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>)) + min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(getRandom(<span class="number">1</span>, <span class="number">10</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="举例：随机点名"><a href="#举例：随机点名" class="headerlink" title="举例：随机点名"></a>举例：随机点名</h3><p>根据上面的例子，我们还可以再延伸一下，来看看随机点名的例子。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 生成两个整数之间的随机整数，并且要包含这两个整数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getRandom</span>(<span class="params">min, max</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * (max - min + <span class="number">1</span>)) + min;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="string">&#x27;许嵩&#x27;</span>, <span class="string">&#x27;邓紫棋&#x27;</span>, <span class="string">&#x27;毛不易&#x27;</span>, <span class="string">&#x27;解忧邵帅&#x27;</span>];</span><br><span class="line"><span class="keyword">const</span> index = getRandom(<span class="number">0</span>, arr.length - <span class="number">1</span>); <span class="comment">// 生成随机的index</span></span><br><span class="line"><span class="built_in">console</span>.log(arr[index]); <span class="comment">// 随机点名</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="pow-：乘方"><a href="#pow-：乘方" class="headerlink" title="pow()：乘方"></a>pow()：乘方</h2><p>如果想计算 <code>a 的 b 次方</code>，可以使用如下函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.pow(a, b);</span><br></pre></td></tr></table></figure>
+
+<p>Math的中文是“数学”，pow是“幂”。</p>
+<p><strong>举例1：</strong></p>
+<p><img src="http://img.smyhvae.com/20180117_1730.png"></p>
+<p>代码实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = Math.pow(3, Math.pow(2, 2));</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure>
+
+<p><strong>举例2：</strong></p>
+<p><img src="http://img.smyhvae.com/20180117_1740.png"></p>
+<p>代码实现：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var a = Math.pow(Math.pow(3, 2), 4);</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure>
+
+<h2 id="sqrt-：开方"><a href="#sqrt-：开方" class="headerlink" title="sqrt()：开方"></a>sqrt()：开方</h2><p>如果想计算数值a的开二次方，可以使用如下函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Math.sqrt(a);</span><br></pre></td></tr></table></figure>
+
+<p>sqrt即“square 开方”。比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var a = Math.sqrt(36);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="url-编码和解码"><a href="#url-编码和解码" class="headerlink" title="url 编码和解码"></a>url 编码和解码</h2><p>URI (Uniform ResourceIdentifiers,通用资源标识符)进行编码，以便发送给浏览器。有效的URI中不能包含某些字符，例如空格。而这URI编码方法就可以对URI进行编码，它们用特殊的UTF-8编码替换所有无效的字符，从而让浏览器能够接受和理解。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">encodeURIComponent</span>();   <span class="comment">//把字符串作为 URI 组件进行编码</span></span><br><span class="line"><span class="built_in">decodeURIComponent</span>();   <span class="comment">//把字符串作为 URI 组件进行解码</span></span><br></pre></td></tr></table></figure>
+
+<p>举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> url = <span class="string">&quot;http://www.cnblogs.com/smyhvae/&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> str = <span class="built_in">encodeURIComponent</span>(url);</span><br><span class="line"><span class="built_in">console</span>.log(str);                           <span class="comment">//打印url的编码</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">decodeURIComponent</span>(str));       <span class="comment">//对url进行编码后，再解码，还原为url</span></span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<p><img src="http://img.smyhvae.com/20180202_1432.png"></p>
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<strong>更多技能</strong>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="http://img.smyhvae.com/20190101.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/24/04-JavaScript%E5%9F%BA%E7%A1%80/15-%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%20String%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95/" rel="next" title="15-基本包装类型">
+                <i class="fa fa-chevron-left"></i> 15-基本包装类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/26/04-JavaScript%E5%9F%BA%E7%A1%80/17-%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%EF%BC%9ADate/" rel="prev" title="17-内置对象：Date">
+                17-内置对象：Date <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1-Number-%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">内置对象 Number 的常见方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Number-isInteger-%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B4%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">Number.isInteger() 判断是否为整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toFixed-%E5%B0%8F%E6%95%B0%E7%82%B9%E5%90%8E%E9%9D%A2%E4%BF%9D%E7%95%99%E5%A4%9A%E5%B0%91%E4%BD%8D"><span class="nav-number">1.2.</span> <span class="nav-text">toFixed() 小数点后面保留多少位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1-Math-%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">内置对象 Math 的常见方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-abs-%EF%BC%9A%E8%8E%B7%E7%BB%9D%E5%AF%B9%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">Math.abs()：获绝对值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Math-random-%E6%96%B9%E6%B3%95%EF%BC%9A%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">Math.random() 方法：生成随机数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90-0-x-%E4%B9%8B%E9%97%B4%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">4.1.</span> <span class="nav-text">生成 [0, x) 之间的随机数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90-x-y-%E4%B9%8B%E9%97%B4%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0"><span class="nav-number">4.2.</span> <span class="nav-text">生成 [x, y) 之间的随机数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E3%80%90%E9%87%8D%E8%A6%81%E3%80%91%E7%94%9F%E6%88%90-x-y-%E4%B9%8B%E9%97%B4%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B4%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">【重要】生成 [x, y]之间的随机整数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B%EF%BC%9A%E9%9A%8F%E6%9C%BA%E7%82%B9%E5%90%8D"><span class="nav-number">4.4.</span> <span class="nav-text">举例：随机点名</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pow-%EF%BC%9A%E4%B9%98%E6%96%B9"><span class="nav-number">5.</span> <span class="nav-text">pow()：乘方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sqrt-%EF%BC%9A%E5%BC%80%E6%96%B9"><span class="nav-number">6.</span> <span class="nav-text">sqrt()：开方</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#url-%E7%BC%96%E7%A0%81%E5%92%8C%E8%A7%A3%E7%A0%81"><span class="nav-number">7.</span> <span class="nav-text">url 编码和解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">8.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

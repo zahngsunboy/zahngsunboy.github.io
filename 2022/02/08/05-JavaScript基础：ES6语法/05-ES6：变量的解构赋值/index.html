@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript基础：ES6语法," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="解构赋值的概念解构赋值：ES6 允许我们，按照一一对应的方式，从数组或者对象中提取值，再将提取出来的值赋值给变量。 解构：分解数据结构；赋值：给变量赋值。 解构赋值在实际开发中可以大量减少我们的代码量，并且让程序结构更清晰。 数组的解构赋值数组的结构赋值：将数组中的值按照位置提取出来，然后赋值给变量。 语法在 ES6 之前，当我们在为一组变量赋值时，一般是这样写： 123var a &#x3D; 1;va">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05-ES6：变量的解构赋值">
+<meta property="og:url" content="http://example.com/2022/02/08/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/05-ES6%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="解构赋值的概念解构赋值：ES6 允许我们，按照一一对应的方式，从数组或者对象中提取值，再将提取出来的值赋值给变量。 解构：分解数据结构；赋值：给变量赋值。 解构赋值在实际开发中可以大量减少我们的代码量，并且让程序结构更清晰。 数组的解构赋值数组的结构赋值：将数组中的值按照位置提取出来，然后赋值给变量。 语法在 ES6 之前，当我们在为一组变量赋值时，一般是这样写： 123var a &#x3D; 1;va">
+<meta property="og:locale">
+<meta property="og:image" content="https://img.smyhvae.com/20200102.png">
+<meta property="article:published_time" content="2022-02-08T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T04:52:32.419Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="JavaScript基础：ES6语法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.smyhvae.com/20200102.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/02/08/05-JavaScript基础：ES6语法/05-ES6：变量的解构赋值/"/>
+
+
+
+
+
+  <title>05-ES6：变量的解构赋值 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/08/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/05-ES6%EF%BC%9A%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">05-ES6：变量的解构赋值</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-08T13:01:00+08:00">
+                2022-02-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="解构赋值的概念"><a href="#解构赋值的概念" class="headerlink" title="解构赋值的概念"></a>解构赋值的概念</h2><p><strong>解构赋值</strong>：ES6 允许我们，按照一一对应的方式，从数组或者对象中<strong>提取值</strong>，再将提取出来的值赋值给变量。</p>
+<p>解构：分解数据结构；赋值：给变量赋值。</p>
+<p>解构赋值在实际开发中可以大量减少我们的代码量，并且让程序结构更清晰。</p>
+<h2 id="数组的解构赋值"><a href="#数组的解构赋值" class="headerlink" title="数组的解构赋值"></a>数组的解构赋值</h2><p>数组的结构赋值：将数组中的值按照<strong>位置</strong>提取出来，然后赋值给变量。</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>在 ES6 之前，当我们在为一组变量赋值时，一般是这样写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> c = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>或者是这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = arr[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> b = arr[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> c = arr[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+
+<p>现在有了 ES6 之后，我们可以通过数组解构的方式进行赋值：（根据<strong>位置</strong>进行一一对应）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> [a, b, c] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+
+<p>二者的效果是一样的，但明显后者的代码更简洁优雅。</p>
+<h3 id="未匹配到的情况"><a href="#未匹配到的情况" class="headerlink" title="未匹配到的情况"></a>未匹配到的情况</h3><p>数据的结构赋值，是根据位置进行一一对应来赋值的。可如果左边的数量大于右边的数量时（也就是变量的数量大于值的数量时），多余的变量要怎么处理呢？</p>
+<p>答案是：如果变量在一一对应时，没有找到对应的值，那么，<strong>多余的变量会被赋值为 undefined</strong>。</p>
+<h3 id="解构时，左边允许有默认值"><a href="#解构时，左边允许有默认值" class="headerlink" title="解构时，左边允许有默认值"></a>解构时，左边允许有默认值</h3><p>在解构赋值时，是允许使用默认值的。举例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="comment">//一个变量时</span></span><br><span class="line">    <span class="keyword">let</span> [foo = <span class="literal">true</span>] = [];</span><br><span class="line">    <span class="built_in">console</span>.log(foo); <span class="comment">//输出结果：true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//两个变量时</span></span><br><span class="line">    <span class="keyword">let</span> [a, b] = [<span class="string">&#x27;千古壹号&#x27;</span>]; <span class="comment">//a 赋值为：千古壹号。b没有赋值</span></span><br><span class="line">    <span class="built_in">console</span>.log(a + <span class="string">&#x27;,&#x27;</span> + b); <span class="comment">//输出结果：千古壹号,undefined</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//两个变量时</span></span><br><span class="line">    <span class="keyword">let</span> [a, b = <span class="string">&#x27;qianguyihao&#x27;</span>] = [<span class="string">&#x27;千古壹号&#x27;</span>]; <span class="comment">//a 赋值为：千古壹号。b 采用默认值 qianguyihao</span></span><br><span class="line">    <span class="built_in">console</span>.log(a + <span class="string">&#x27;,&#x27;</span> + b); <span class="comment">//输出结果：千古壹号,qianguyihao</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="将右边的-undefined和null赋值给变量"><a href="#将右边的-undefined和null赋值给变量" class="headerlink" title="将右边的 undefined和null赋值给变量"></a>将右边的 <code>undefined</code>和<code>null</code>赋值给变量</h3><p>如果我们在赋值时，采用的是 <code>undefined</code>或者<code>null</code>，那会有什么区别呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> [a, b = <span class="string">&#x27;qianguyihao&#x27;</span>] = [<span class="string">&#x27;千古壹号&#x27;</span>, <span class="literal">undefined</span>]; <span class="comment">//b 虽然被赋值为 undefined，但是 b 会采用默认值</span></span><br><span class="line">    <span class="built_in">console</span>.log(a + <span class="string">&#x27;,&#x27;</span> + b); <span class="comment">//输出结果：千古壹号,qianguyihao</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span> [a, b = <span class="string">&#x27;qianguyihao&#x27;</span>] = [<span class="string">&#x27;千古壹号&#x27;</span>, <span class="literal">null</span>]; <span class="comment">//b 被赋值为 null</span></span><br><span class="line">    <span class="built_in">console</span>.log(a + <span class="string">&#x27;,&#x27;</span> + b); <span class="comment">//输出结果：千古壹号,null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上方代码分析：</p>
+<ul>
+<li><p>  undefined：相当于什么都没有，此时 b 采用默认值。</p>
+</li>
+<li><p>  null：相当于有值，但值为 null。</p>
+</li>
+</ul>
+<h2 id="对象的解构赋值"><a href="#对象的解构赋值" class="headerlink" title="对象的解构赋值"></a>对象的解构赋值</h2><p>对象的结构赋值：将对象中的值按照<strong>属性匹配的方式</strong>提取出来，然后赋值给变量。</p>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><p>在 ES6 之前，我们从接口拿到 json 数据后，一般这么赋值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = json.name;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> age = json.age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> sex = json.sex;</span><br></pre></td></tr></table></figure>
+
+<p>上面这种写法，过于麻烦了。</p>
+<p>现在，有了 ES6 之后，我们可以使用对象解构的方式进行赋值。举例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123; <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>, <span class="attr">age</span>: <span class="number">28</span>, <span class="attr">sex</span>: <span class="string">&#x27;男&#x27;</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> &#123; name, age, sex &#125; = person; <span class="comment">// 对象的结构赋值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// 打印结果：qianguyihao</span></span><br><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// 打印结果：28</span></span><br><span class="line"><span class="built_in">console</span>.log(sex); <span class="comment">// 打印结果：男</span></span><br></pre></td></tr></table></figure>
+
+<p>上方代码可以看出，对象的解构与数组的结构，有一个重要的区别：<strong>数组</strong>的元素是按次序排列的，变量的取值由它的<strong>位置</strong>决定；而<strong>对象的属性没有次序</strong>，是<strong>根据键来取值</strong>的。</p>
+<h3 id="未匹配到的情况-1"><a href="#未匹配到的情况-1" class="headerlink" title="未匹配到的情况"></a>未匹配到的情况</h3><p>对象的结构赋值，是根据属性名进行一一对应来赋值的。可如果左边的数量大于右边的数量时（也就是变量的数量大于值的数量时），多余的变量要怎么处理呢？</p>
+<p>答案是：如果变量在一一对应时，没有找到对应的值，那么，<strong>多余的变量会被赋值为 undefined</strong>。</p>
+<h3 id="给左边的变量自定义命名"><a href="#给左边的变量自定义命名" class="headerlink" title="给左边的变量自定义命名"></a>给左边的变量自定义命名</h3><p>对象的结构赋值里，左边的变量名一定要跟右边的属性名保持一致么？答案是不一定。我们可以单独给左边的变量自定义命名。</p>
+<p>举例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> person = &#123; <span class="attr">name</span>: <span class="string">&#x27;qianguyihao&#x27;</span>, <span class="attr">age</span>: <span class="number">28</span> &#125;;</span><br><span class="line"><span class="keyword">let</span> &#123; <span class="attr">name</span>: myName, <span class="attr">age</span>: myAge &#125; = person; <span class="comment">// 对象的结构赋值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(myName); <span class="comment">// 打印结果：qianguyihao</span></span><br><span class="line"><span class="built_in">console</span>.log(myAge); <span class="comment">// 打印结果：28</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// 打印报错：Uncaught ReferenceError: name is not defined</span></span><br><span class="line"><span class="built_in">console</span>.log(age); <span class="comment">// 打印报错：Uncaught ReferenceError: age is not defined</span></span><br></pre></td></tr></table></figure>
+
+<p>上方的第 2 行代码中：（请牢记）</p>
+<ul>
+<li><p>  等号左边的属性名 name、age 是对应等号右边的属性名。</p>
+</li>
+<li><p>  等号左边的 myName、myAge 是左边自定义的变量名。</p>
+</li>
+</ul>
+<p>或者，我们也可以理解为：将右边 name 的值赋值给左边的 myName 变量，将右边 age 的值赋值给左边的 myAge 变量。现在，你应该一目了然了吧？</p>
+<h3 id="圆括号的使用"><a href="#圆括号的使用" class="headerlink" title="圆括号的使用"></a>圆括号的使用</h3><p>如果变量 foo 在解构之前就已经定义了，此时你再去解构，就会出现问题。下面是错误的代码，编译会报错：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="string">&#x27;haha&#x27;</span>;</span><br><span class="line">&#123; foo &#125; = &#123; <span class="attr">foo</span>: <span class="string">&#x27;smyhvae&#x27;</span> &#125;;</span><br><span class="line"><span class="built_in">console</span>.log(foo);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>要解决报错，只要在解构的语句外边，加一个圆括号即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> foo = <span class="string">&#x27;haha&#x27;</span>;</span><br><span class="line">(&#123; foo &#125; = &#123; <span class="attr">foo</span>: <span class="string">&#x27;smyhvae&#x27;</span> &#125;);</span><br><span class="line"><span class="built_in">console</span>.log(foo); <span class="comment">//输出结果：smyhvae</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="字符串解构"><a href="#字符串解构" class="headerlink" title="字符串解构"></a>字符串解构</h2><p>字符串也可以解构，这是因为，此时字符串被转换成了一个类似数组的对象。举例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [a, b, c, d] = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br><span class="line"><span class="built_in">console</span>.log(b);</span><br><span class="line"><span class="built_in">console</span>.log(c);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="keyword">typeof</span> a); <span class="comment">//输出结果：string</span></span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">h</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">string</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<strong>更多技能</strong>？不妨关注我的微信公众号：<strong>千古壹号</strong>。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="https://img.smyhvae.com/20200102.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/" rel="tag"># JavaScript基础：ES6语法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/07/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/04-ES6%EF%BC%9A%E5%8F%98%E9%87%8F%20let%E3%80%81const%20%E5%92%8C%E5%9D%97%E7%BA%A7%E4%BD%9C%E7%94%A8%E5%9F%9F/" rel="next" title="04-ES6：变量 let、const 和块级作用域">
+                <i class="fa fa-chevron-left"></i> 04-ES6：变量 let、const 和块级作用域
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/09/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/06-ES6%EF%BC%9A%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/" rel="prev" title="06-ES6：箭头函数">
+                06-ES6：箭头函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">解构赋值的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">数组的解构赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E5%8C%B9%E9%85%8D%E5%88%B0%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">2.2.</span> <span class="nav-text">未匹配到的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%84%E6%97%B6%EF%BC%8C%E5%B7%A6%E8%BE%B9%E5%85%81%E8%AE%B8%E6%9C%89%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">2.3.</span> <span class="nav-text">解构时，左边允许有默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%8F%B3%E8%BE%B9%E7%9A%84-undefined%E5%92%8Cnull%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8F%98%E9%87%8F"><span class="nav-number">2.4.</span> <span class="nav-text">将右边的 undefined和null赋值给变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">对象的解构赋值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95-1"><span class="nav-number">3.1.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E5%8C%B9%E9%85%8D%E5%88%B0%E7%9A%84%E6%83%85%E5%86%B5-1"><span class="nav-number">3.2.</span> <span class="nav-text">未匹配到的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E5%B7%A6%E8%BE%B9%E7%9A%84%E5%8F%98%E9%87%8F%E8%87%AA%E5%AE%9A%E4%B9%89%E5%91%BD%E5%90%8D"><span class="nav-number">3.3.</span> <span class="nav-text">给左边的变量自定义命名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%86%E6%8B%AC%E5%8F%B7%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">3.4.</span> <span class="nav-text">圆括号的使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">字符串解构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">5.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

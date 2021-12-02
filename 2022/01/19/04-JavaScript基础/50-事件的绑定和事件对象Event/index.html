@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="绑定事件的两种方式&#x2F;DOM事件的级别我们在之前的一篇文章《04-JavaScript&#x2F;22-DOM简介和DOM操作》中已经讲过事件的概念。这里讲一下绑定（注册）事件的两种方式，我们以onclick事件为例。 DOM0的写法：onclick123element.onclick &#x3D; function () &amp;#123;&amp;#125;  举例： 1234567891011121314151617&lt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="39-事件的绑定和事件对象Event">
+<meta property="og:url" content="http://example.com/2022/01/19/04-JavaScript%E5%9F%BA%E7%A1%80/50-%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%BB%91%E5%AE%9A%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1Event/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="绑定事件的两种方式&#x2F;DOM事件的级别我们在之前的一篇文章《04-JavaScript&#x2F;22-DOM简介和DOM操作》中已经讲过事件的概念。这里讲一下绑定（注册）事件的两种方式，我们以onclick事件为例。 DOM0的写法：onclick123element.onclick &#x3D; function () &amp;#123;&amp;#125;  举例： 1234567891011121314151617&lt;">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20180203_1735.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180203_1739.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180203_1828.gif">
+<meta property="og:image" content="http://img.smyhvae.com/20180203_1920.gif">
+<meta property="og:image" content="http://img.smyhvae.com/2016040102.jpg">
+<meta property="article:published_time" content="2022-01-19T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T04:52:32.419Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="JavaScript基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180203_1735.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/01/19/04-JavaScript基础/50-事件的绑定和事件对象Event/"/>
+
+
+
+
+
+  <title>39-事件的绑定和事件对象Event | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/01/19/04-JavaScript%E5%9F%BA%E7%A1%80/50-%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%BB%91%E5%AE%9A%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1Event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">39-事件的绑定和事件对象Event</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-01-19T13:01:00+08:00">
+                2022-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="绑定事件的两种方式-DOM事件的级别"><a href="#绑定事件的两种方式-DOM事件的级别" class="headerlink" title="绑定事件的两种方式/DOM事件的级别"></a>绑定事件的两种方式/DOM事件的级别</h2><p>我们在之前的一篇文章《04-JavaScript/22-DOM简介和DOM操作》中已经讲过事件的概念。这里讲一下绑定（注册）事件的两种方式，我们以onclick事件为例。</p>
+<h3 id="DOM0的写法：onclick"><a href="#DOM0的写法：onclick" class="headerlink" title="DOM0的写法：onclick"></a>DOM0的写法：onclick</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>点我<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;button&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//这种事件绑定的方式，如果绑定多个，则后面的会覆盖掉前面的</span></span></span><br><span class="line"><span class="javascript">    btn.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&quot;事件1&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    btn.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&quot;事件2&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>点击按钮后，上方代码的打印结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">事件2</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，<code>DOM对象.事件 =  函数</code>的这种绑定事件的方式：一个元素的一个事件只能绑定一个响应函数。如果绑定了多个响应函数，则后者会覆盖前者。</p>
+<h3 id="DOM2的写法：addEventListener（高版本浏览器）"><a href="#DOM2的写法：addEventListener（高版本浏览器）" class="headerlink" title="DOM2的写法：addEventListener（高版本浏览器）"></a>DOM2的写法：addEventListener（高版本浏览器）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.addEventListener(<span class="string">&#x27;click&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p>参数解释：</p>
+<ul>
+<li><p>参数1：事件名的字符串(注意，没有on)</p>
+</li>
+<li><p>参数2：回调函数：当事件触发时，该函数会被执行</p>
+</li>
+<li><p>参数3：<strong>true表示捕获阶段触发，false表示冒泡阶段触发（默认）</strong>。如果不写，则默认为false。【重要】</p>
+</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;button&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">// addEventListener: 事件监听器。 原事件被执行的时候，后面绑定的事件照样被执行</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">// 这种写法不存在响应函数被覆盖的情况。（更适合团队开发）</span></span></span><br><span class="line"><span class="javascript">    btn.addEventListener(<span class="string">&quot;click&quot;</span>, fn1);</span></span><br><span class="line"><span class="javascript">    btn.addEventListener(<span class="string">&quot;click&quot;</span>, fn2);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&quot;事件1&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(<span class="string">&quot;事件2&quot;</span>);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>点击按钮后，上方代码的打印结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">事件1</span><br><span class="line">事件2</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，<code>addEventListener()</code>这种绑定事件的方式：</p>
+<ul>
+<li><p>一个元素的一个事件，可以绑定多个响应函数。不存在响应函数被覆盖的情况。<strong>执行顺序是</strong>：事件被触发时，响应函数会按照函数的绑定顺序执行。</p>
+</li>
+<li><p>addEventListener()中的this，是绑定事件的对象。</p>
+</li>
+<li><p><code>addEventListener()</code>不支持 IE8 及以下的浏览器。在IE8中可以使用<code>attachEvent</code>来绑定事件（详见下一小段）。</p>
+</li>
+</ul>
+<h3 id="DOM2的写法：attachEvent（IE8及以下版本浏览器）"><a href="#DOM2的写法：attachEvent（IE8及以下版本浏览器）" class="headerlink" title="DOM2的写法：attachEvent（IE8及以下版本浏览器）"></a>DOM2的写法：attachEvent（IE8及以下版本浏览器）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">element.attachEvent(<span class="string">&#x27;onclick&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>参数解释：</p>
+<ul>
+<li><p>参数1：事件名的字符串(注意，有on)</p>
+</li>
+<li><p>参数2：回调函数：当事件触发时，该函数会被执行</p>
+</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        btn.attachEvent(<span class="string">&#x27;onclick&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">&#x27;事件1&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        btn.attachEvent(<span class="string">&#x27;onclick&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="built_in">console</span>.log(<span class="string">&#x27;事件2&#x27;</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在低版本的IE浏览器上，点击按钮后，上方代码的打印结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">事件2</span><br><span class="line">事件1</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到，<code>attachEvent()</code>这种绑定事件的方式：</p>
+<ul>
+<li><p>一个元素的一个事件，可以绑定多个响应函数。不存在响应函数被覆盖的情况。<strong>注意</strong>：执行顺序是，后绑定的先执行。</p>
+</li>
+<li><p>attachEvent()中的this，是window</p>
+</li>
+</ul>
+<h3 id="兼容性写法"><a href="#兼容性写法" class="headerlink" title="兼容性写法"></a>兼容性写法</h3><p>上面的内容里，需要强调的是：</p>
+<ul>
+<li><p><code>addEventListener()</code>中的this，是绑定事件的对象。</p>
+</li>
+<li><p><code>attachEvent()</code>中的this，是window。</p>
+</li>
+</ul>
+<p>既然这两个写法的<code>this</code>不同，那么，有没有一种兼容性的写法可以确保这两种绑定方式的this是相同的呢？我们可以封装一下。代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>按钮<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;button&#x27;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        myBind(btn , <span class="string">&quot;click&quot;</span> , <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            alert(<span class="built_in">this</span>);</span></span><br><span class="line"><span class="javascript">        &#125;);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//定义一个函数，用来为指定元素绑定响应函数</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * addEventListener()中的this，是绑定事件的对象</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * attachEvent()中的this，是window</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *  需要统一两个方法this</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 参数：</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *  element 要绑定事件的对象</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *  eventStr 事件的字符串(不要on)</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         *  callback 回调函数</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">myBind</span>(<span class="params">element , eventStr , callback</span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span>(element.addEventListener)&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//大部分浏览器兼容的方式</span></span></span><br><span class="line"><span class="javascript">                element.addEventListener(eventStr , callback , <span class="literal">false</span>);</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="javascript">                 * this是谁，由调用方式决定</span></span></span><br><span class="line"><span class="comment"><span class="javascript">                 * callback.call(element)</span></span></span><br><span class="line"><span class="comment"><span class="javascript">                 */</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//IE8及以下</span></span></span><br><span class="line"><span class="javascript">                element.attachEvent(<span class="string">&quot;on&quot;</span>+eventStr , <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">//在匿名函数 function 中调用回调函数callback</span></span></span><br><span class="line"><span class="javascript">                    callback.call(element);</span></span><br><span class="line"><span class="javascript">                &#125;);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="事件对象"><a href="#事件对象" class="headerlink" title="事件对象"></a>事件对象</h2><p>当事件的响应函数被触发时，会产生一个事件对象<code>event</code>。浏览器每次都会将这个事件<code>event</code>作为实参传进之前的响应函数。</p>
+<p>这个对象中包含了与当前事件相关的一切信息。比如鼠标的坐标、键盘的哪个按键被按下、鼠标滚轮滚动的方向等。</p>
+<h3 id="获取-event-对象（兼容性问题）"><a href="#获取-event-对象（兼容性问题）" class="headerlink" title="获取 event 对象（兼容性问题）"></a>获取 event 对象（兼容性问题）</h3><p>所有浏览器都支持event对象，但支持的方式不同。如下。</p>
+<p>（1）普通浏览器的写法是 <code>event</code>。比如：</p>
+<p><img src="http://img.smyhvae.com/20180203_1735.png"></p>
+<p>（2）ie 678 的写法是 <code>window.event</code>。此时，事件对象 event 是作为window对象的属性保存的。</p>
+<p>于是，我们可以采取一种兼容性的写法。如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event = event || <span class="built_in">window</span>.event; <span class="comment">// 兼容性写法</span></span><br></pre></td></tr></table></figure>
+
+<p>代码举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//点击页面的任何部分</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.onclick = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        event = event || <span class="built_in">window</span>.event; <span class="comment">////兼容性写法</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.timeStamp);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.bubbles);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.button);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.pageX);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.pageY);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.screenX);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.screenY);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.target);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.type);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.clientX);</span></span><br><span class="line"><span class="javascript">        <span class="built_in">console</span>.log(event.clientY);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="event-属性"><a href="#event-属性" class="headerlink" title="event 属性"></a>event 属性</h3><p>event 有很多属性，比如：</p>
+<p><img src="http://img.smyhvae.com/20180203_1739.png"></p>
+<p>由于pageX 和 pageY的兼容性不好，我们可以这样做：</p>
+<ul>
+<li>鼠标在页面的位置 = 滚动条滚动的距离 + 可视区域的坐标。</li>
+</ul>
+<h2 id="Event举例"><a href="#Event举例" class="headerlink" title="Event举例"></a>Event举例</h2><h3 id="举例1：使-div-跟随鼠标移动"><a href="#举例1：使-div-跟随鼠标移动" class="headerlink" title="举例1：使 div 跟随鼠标移动"></a>举例1：使 div 跟随鼠标移动</h3><p>代码实现：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">      <span class="selector-id">#box1</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">        <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="css">        <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="css">        * 开启box1的绝对定位</span></span></span><br><span class="line"><span class="comment"><span class="css">        */</span></span></span><br><span class="line"><span class="css">        <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">      &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">/*</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         * 使div可以跟随鼠标移动</span></span></span><br><span class="line"><span class="comment"><span class="javascript">         */</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//获取box1</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> box1 = <span class="built_in">document</span>.getElementById(<span class="string">&quot;box1&quot;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//给整个页面绑定：鼠标移动事件</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.onmousemove = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">//兼容的方式获取event对象</span></span></span><br><span class="line"><span class="javascript">          event = event || <span class="built_in">window</span>.event;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 鼠标在页面的位置 = 滚动条滚动的距离 + 可视区域的坐标。</span></span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> pagex = event.pageX || scroll().left + event.clientX;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> pagey = event.pageY || scroll().top + event.clientY;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">          <span class="comment">//   设置div的偏移量（相对于整个页面）</span></span></span><br><span class="line"><span class="javascript">          <span class="comment">// 注意，如果想通过 style.left 来设置属性，一定要给 box1开启绝对定位。</span></span></span><br><span class="line"><span class="javascript">          box1.style.left = pagex + <span class="string">&quot;px&quot;</span>;</span></span><br><span class="line"><span class="javascript">          box1.style.top = pagey + <span class="string">&quot;px&quot;</span>;</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">      &#125;;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">// scroll 函数封装</span></span></span><br><span class="line"><span class="javascript">      <span class="function"><span class="keyword">function</span> <span class="title">scroll</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          <span class="comment">//此函数的返回值是对象</span></span></span><br><span class="line"><span class="javascript">          <span class="attr">left</span>: <span class="built_in">window</span>.pageYOffset || <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop,</span></span><br><span class="line"><span class="javascript">          <span class="attr">right</span>:</span></span><br><span class="line"><span class="javascript">            <span class="built_in">window</span>.pageXOffset || <span class="built_in">document</span>.body.scrollLeft || <span class="built_in">document</span>.documentElement.scrollLeft</span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">      &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span> <span class="attr">style</span>=<span class="string">&quot;height: 1000px;width: 2000px;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="举例2：获取鼠标距离所在盒子的距离"><a href="#举例2：获取鼠标距离所在盒子的距离" class="headerlink" title="举例2：获取鼠标距离所在盒子的距离"></a>举例2：获取鼠标距离所在盒子的距离</h3><p>关键点：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">鼠标距离所在盒子的距离 = 鼠标在整个页面的位置 - 所在盒子在整个页面的位置</span><br></pre></td></tr></table></figure>
+
+<p>代码演示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">300px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding-top</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background-color</span>: pink;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">            <span class="attribute">font</span>: <span class="number">18px</span>/<span class="number">30px</span> <span class="string">&quot;simsun&quot;</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">cursor</span>: pointer;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;animate.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//需求：鼠标进入盒子之后只要移动，哪怕1像素，随时显示鼠标在盒子中的坐标。</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//技术点：新事件，onmousemove：在事件源上，哪怕鼠标移动1像素也会触动这个事件。</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//一定程度上，模拟了定时器</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//步骤：</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//1.老三步和新五步</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//2.获取鼠标在整个页面的位置</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//3.获取盒子在整个页面的位置</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//4.用鼠标的位置减去盒子的位置赋值给盒子的内容。</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//1.老三步和新五步</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    div.onmousemove = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        event = event || <span class="built_in">window</span>.event;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//2.获取鼠标在整个页面的位置</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> pagex = event.pageX || scroll().left + event.clientX;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> pagey = event.pageY || scroll().top + event.clientY;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//3.获取盒子在整个页面的位置</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// var xx =</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// var yy =</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//4.用鼠标的位置减去盒子的位置赋值给盒子的内容。</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> targetx = pagex - div.offsetLeft;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> targety = pagey - div.offsetTop;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">this</span>.innerHTML = <span class="string">&quot;鼠标在盒子中的X坐标为：&quot;</span> + targetx + <span class="string">&quot;px;&lt;br&gt;鼠标在盒子中的Y坐标为：&quot;</span> + targety + <span class="string">&quot;px;&quot;</span></span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>实现效果：</p>
+<p><img src="http://img.smyhvae.com/20180203_1828.gif"></p>
+<h3 id="举例3：商品放大镜"><a href="#举例3：商品放大镜" class="headerlink" title="举例3：商品放大镜"></a>举例3：商品放大镜</h3><p>代码实现：</p>
+<p>（1）index.html:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        * &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">350px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">350px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.big</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">            <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">left</span>: <span class="number">360px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ccc</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="comment">/*mask的中文是：遮罩*/</span></span></span><br><span class="line"><span class="css">        <span class="selector-class">.mask</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">175px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">175px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">255</span>, <span class="number">0</span>, <span class="number">0.4</span>);</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: absolute;</span></span><br><span class="line"><span class="css">            <span class="attribute">top</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">left</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">cursor</span>: move;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: none;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.small</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">position</span>: relative;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">vertical-align</span>: top;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;tools.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">//需求：鼠标放到小盒子上，让大盒子里面的图片和我们同步等比例移动。</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//技术点：onmouseenter==onmouseover 第一个不冒泡</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//技术点：onmouseleave==onmouseout  第一个不冒泡</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//步骤：</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//1.鼠标放上去显示盒子，移开隐藏盒子。</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//2.老三步和新五步（黄盒子跟随移动）</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//3.右侧的大图片，等比例移动。</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">//0.获取相关元素</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> box = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&quot;box&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> small = box.firstElementChild || box.firstChild;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> big = box.children[<span class="number">1</span>];</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> mask = small.children[<span class="number">1</span>];</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> bigImg = big.children[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">//1.鼠标放上去显示盒子，移开隐藏盒子。(为小盒子绑定事件)</span></span></span><br><span class="line"><span class="javascript">            small.onmouseenter = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//封装好方法调用：显示元素</span></span></span><br><span class="line"><span class="javascript">                show(mask);</span></span><br><span class="line"><span class="javascript">                show(big);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">            small.onmouseleave = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//封装好方法调用：隐藏元素</span></span></span><br><span class="line"><span class="javascript">                hide(mask);</span></span><br><span class="line"><span class="javascript">                hide(big);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">//2.老三步和新五步（黄盒子跟随移动）</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//绑定的事件是onmousemove，而事件源是small(只要在小盒子上移动1像素，黄盒子也要跟随)</span></span></span><br><span class="line"><span class="javascript">            small.onmousemove = <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//新五步</span></span></span><br><span class="line"><span class="javascript">                event = event || <span class="built_in">window</span>.event;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">//想要移动黄盒子，必须要知道鼠标在small小图中的位置。</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> pagex = event.pageX || scroll().left + event.clientX;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> pagey = event.pageY || scroll().top + event.clientY;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">//x：mask的left值，y：mask的top值。</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> x = pagex - box.offsetLeft - mask.offsetWidth / <span class="number">2</span>; <span class="comment">//除以2，可以保证鼠标mask的中间</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> y = pagey - box.offsetTop - mask.offsetHeight / <span class="number">2</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">//限制换盒子的范围</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//left取值为大于0，小盒子的宽-mask的宽。</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (x &lt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">                    x = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (x &gt; small.offsetWidth - mask.offsetWidth) &#123;</span></span><br><span class="line"><span class="javascript">                    x = small.offsetWidth - mask.offsetWidth;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">                <span class="comment">//top同理。</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (y &lt; <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">                    y = <span class="number">0</span>;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (y &gt; small.offsetHeight - mask.offsetHeight) &#123;</span></span><br><span class="line"><span class="javascript">                    y = small.offsetHeight - mask.offsetHeight;</span></span><br><span class="line"><span class="javascript">                &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">//移动黄盒子</span></span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(small.offsetHeight);</span></span><br><span class="line"><span class="javascript">                mask.style.left = x + <span class="string">&quot;px&quot;</span>;</span></span><br><span class="line"><span class="javascript">                mask.style.top = y + <span class="string">&quot;px&quot;</span>;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">//3.右侧的大图片，等比例移动。</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//如何移动大图片？等比例移动。</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//    大图片/大盒子 = 小图片/mask盒子</span></span></span><br><span class="line"><span class="javascript">                <span class="comment">//    大图片走的距离/mask走的距离 = （大图片-大盒子）/（小图片-黄盒子）</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//                var bili = (bigImg.offsetWidth-big.offsetWidth)/(small.offsetWidth-mask.offsetWidth);</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="comment">//大图片走的距离/mask盒子都的距离 = 大图片/小图片</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> bili = bigImg.offsetWidth / small.offsetWidth;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> xx = bili * x;  <span class="comment">//知道比例，就可以移动大图片了</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> yy = bili * y;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">                bigImg.style.marginTop = -yy + <span class="string">&quot;px&quot;</span>;</span></span><br><span class="line"><span class="javascript">                bigImg.style.marginLeft = -xx + <span class="string">&quot;px&quot;</span>;</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;small&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/001.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mask&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;big&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/0001.jpg&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）tools.js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by smyhvae on 2018/02/03.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//显示和隐藏</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    ele.style.display = <span class="string">&quot;block&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hide</span>(<span class="params">ele</span>) </span>&#123;</span><br><span class="line">    ele.style.display = <span class="string">&quot;none&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">scroll</span>(<span class="params"></span>) </span>&#123;  <span class="comment">// 开始封装自己的scrollTop</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.pageYOffset != <span class="literal">null</span>) &#123;  <span class="comment">// ie9+ 高版本浏览器</span></span><br><span class="line">        <span class="comment">// 因为 window.pageYOffset 默认的是  0  所以这里需要判断</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">left</span>: <span class="built_in">window</span>.pageXOffset,</span><br><span class="line">            <span class="attr">top</span>: <span class="built_in">window</span>.pageYOffset</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">document</span>.compatMode === <span class="string">&quot;CSS1Compat&quot;</span>) &#123;    <span class="comment">// 标准浏览器   来判断有没有声明DTD</span></span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">left</span>: <span class="built_in">document</span>.documentElement.scrollLeft,</span><br><span class="line">            <span class="attr">top</span>: <span class="built_in">document</span>.documentElement.scrollTop</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;   <span class="comment">// 未声明 DTD</span></span><br><span class="line">        <span class="attr">left</span>: <span class="built_in">document</span>.body.scrollLeft,</span><br><span class="line">        <span class="attr">top</span>: <span class="built_in">document</span>.body.scrollTop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>效果演示：</p>
+<p><img src="http://img.smyhvae.com/20180203_1920.gif"></p>
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<font color=#0000ff><strong>更多技能</strong></font>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="http://img.smyhvae.com/2016040102.jpg"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/01/18/04-JavaScript%E5%9F%BA%E7%A1%80/49-client%EF%BC%88%E5%8F%AF%E8%A7%86%E5%8C%BA%EF%BC%89%E7%9B%B8%E5%85%B3%E5%B1%9E%E6%80%A7/" rel="next" title="38-client（可视区）相关属性">
+                <i class="fa fa-chevron-left"></i> 38-client（可视区）相关属性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/01/20/04-JavaScript%E5%9F%BA%E7%A1%80/51-%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%BC%A0%E6%92%AD%E5%92%8C%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1/" rel="prev" title="40-事件的传播和事件冒泡">
+                40-事件的传播和事件冒泡 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F-DOM%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%BA%A7%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">绑定事件的两种方式&#x2F;DOM事件的级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM0%E7%9A%84%E5%86%99%E6%B3%95%EF%BC%9Aonclick"><span class="nav-number">1.1.</span> <span class="nav-text">DOM0的写法：onclick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM2%E7%9A%84%E5%86%99%E6%B3%95%EF%BC%9AaddEventListener%EF%BC%88%E9%AB%98%E7%89%88%E6%9C%AC%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">DOM2的写法：addEventListener（高版本浏览器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM2%E7%9A%84%E5%86%99%E6%B3%95%EF%BC%9AattachEvent%EF%BC%88IE8%E5%8F%8A%E4%BB%A5%E4%B8%8B%E7%89%88%E6%9C%AC%E6%B5%8F%E8%A7%88%E5%99%A8%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">DOM2的写法：attachEvent（IE8及以下版本浏览器）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%BC%E5%AE%B9%E6%80%A7%E5%86%99%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">兼容性写法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">事件对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96-event-%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%85%BC%E5%AE%B9%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">获取 event 对象（兼容性问题）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event-%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">event 属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Event%E4%B8%BE%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">Event举例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B1%EF%BC%9A%E4%BD%BF-div-%E8%B7%9F%E9%9A%8F%E9%BC%A0%E6%A0%87%E7%A7%BB%E5%8A%A8"><span class="nav-number">3.1.</span> <span class="nav-text">举例1：使 div 跟随鼠标移动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B2%EF%BC%9A%E8%8E%B7%E5%8F%96%E9%BC%A0%E6%A0%87%E8%B7%9D%E7%A6%BB%E6%89%80%E5%9C%A8%E7%9B%92%E5%AD%90%E7%9A%84%E8%B7%9D%E7%A6%BB"><span class="nav-number">3.2.</span> <span class="nav-text">举例2：获取鼠标距离所在盒子的距离</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B3%EF%BC%9A%E5%95%86%E5%93%81%E6%94%BE%E5%A4%A7%E9%95%9C"><span class="nav-number">3.3.</span> <span class="nav-text">举例3：商品放大镜</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">4.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

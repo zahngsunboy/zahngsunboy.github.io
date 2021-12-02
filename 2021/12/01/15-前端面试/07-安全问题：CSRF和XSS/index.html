@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言面试中的安全问题，明确来说，就两个方面：  CSRF：基本概念、攻击方式、防御措施  XSS：基本概念、攻击方式、防御措施   这两个问题，一般不会问太难。 有人问：SQL注入算吗？答案：这个其实跟前端的关系不是很大。 CSRF问的不难，一般问：  CSRF的基本概念、缩写、全称  攻击原理  防御措施   如果把攻击原理和防御措施掌握好，基本没什么问题。 1、CSRF的基本概念、缩写、全称">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07-安全问题：CSRF和XSS">
+<meta property="og:url" content="http://example.com/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/07-%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9ACSRF%E5%92%8CXSS/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="前言面试中的安全问题，明确来说，就两个方面：  CSRF：基本概念、攻击方式、防御措施  XSS：基本概念、攻击方式、防御措施   这两个问题，一般不会问太难。 有人问：SQL注入算吗？答案：这个其实跟前端的关系不是很大。 CSRF问的不难，一般问：  CSRF的基本概念、缩写、全称  攻击原理  防御措施   如果把攻击原理和防御措施掌握好，基本没什么问题。 1、CSRF的基本概念、缩写、全称">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20180307_1735.png">
+<meta property="article:published_time" content="2021-12-01T02:00:54.319Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.659Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180307_1735.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/15-前端面试/07-安全问题：CSRF和XSS/"/>
+
+
+
+
+
+  <title>07-安全问题：CSRF和XSS | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/07-%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%EF%BC%9ACSRF%E5%92%8CXSS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">07-安全问题：CSRF和XSS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:54+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>面试中的安全问题，明确来说，就两个方面：</p>
+<ul>
+<li><p>CSRF：基本概念、攻击方式、防御措施</p>
+</li>
+<li><p>XSS：基本概念、攻击方式、防御措施</p>
+</li>
+</ul>
+<p>这两个问题，一般不会问太难。</p>
+<p>有人问：SQL注入算吗？答案：这个其实跟前端的关系不是很大。</p>
+<h2 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h2><p>问的不难，一般问：</p>
+<ul>
+<li><p>CSRF的基本概念、缩写、全称</p>
+</li>
+<li><p>攻击原理</p>
+</li>
+<li><p>防御措施</p>
+</li>
+</ul>
+<p>如果把<strong>攻击原理</strong>和<strong>防御措施</strong>掌握好，基本没什么问题。</p>
+<h3 id="1、CSRF的基本概念、缩写、全称"><a href="#1、CSRF的基本概念、缩写、全称" class="headerlink" title="1、CSRF的基本概念、缩写、全称"></a>1、CSRF的基本概念、缩写、全称</h3><p>CSRF（Cross-site request forgery）：<strong>跨站请求伪造</strong>。</p>
+<p>PS：中文名一定要记住。英文全称，如果记不住也拉倒。</p>
+<h3 id="2、CSRF的攻击原理"><a href="#2、CSRF的攻击原理" class="headerlink" title="2、CSRF的攻击原理"></a>2、CSRF的攻击原理</h3><p><img src="http://img.smyhvae.com/20180307_1735.png"></p>
+<p>用户是网站A的注册用户，且登录进去，于是网站A就给用户下发cookie。</p>
+<p>从上图可以看出，要完成一次CSRF攻击，受害者必须满足两个必要的条件：</p>
+<p>（1）登录受信任网站A，并在本地生成Cookie。（如果用户没有登录网站A，那么网站B在诱导的时候，请求网站A的api接口时，会提示你登录）</p>
+<p>（2）在不登出A的情况下，访问危险网站B（其实是利用了网站A的漏洞）。</p>
+<p>我们在讲CSRF时，一定要把上面的两点说清楚。</p>
+<p>温馨提示一下，cookie保证了用户可以处于登录状态，但网站B其实拿不到 cookie。</p>
+<p>举个例子，前段时间里，微博网站有个api接口有漏洞，导致很多用户的粉丝暴增。</p>
+<h3 id="3、CSRF如何防御"><a href="#3、CSRF如何防御" class="headerlink" title="3、CSRF如何防御"></a>3、CSRF如何防御</h3><p><strong>方法一、Token 验证：</strong>（用的最多）</p>
+<p>（1）服务器发送给客户端一个token；</p>
+<p>（2）客户端提交的表单中带着这个token。</p>
+<p>（3）如果这个 token 不合法，那么服务器拒绝这个请求。</p>
+<p><strong>方法二：隐藏令牌：</strong></p>
+<p>把 token 隐藏在 http 的 head头中。</p>
+<p>方法二和方法一有点像，本质上没有太大区别，只是使用方式上有区别。</p>
+<p><strong>方法三、Referer 验证：</strong></p>
+<p>Referer 指的是页面请求来源。意思是，<strong>只接受本站的请求，服务器才做响应</strong>；如果不是，就拦截。</p>
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><h3 id="1、XSS的基本概念"><a href="#1、XSS的基本概念" class="headerlink" title="1、XSS的基本概念"></a>1、XSS的基本概念</h3><p>XSS（Cross Site Scripting）：<strong>跨域脚本攻击</strong>。</p>
+<p>接下来，我们详细讲一下 XSS 的内容。</p>
+<blockquote>
+<p>预备知识：HTTP、Cookie、Ajax。</p>
+</blockquote>
+<h3 id="XSS的攻击原理"><a href="#XSS的攻击原理" class="headerlink" title="XSS的攻击原理"></a>XSS的攻击原理</h3><p>XSS攻击的核心原理是：不需要你做任何的登录认证，它会通过合法的操作（比如在url中输入、在评论框中输入），向你的页面注入脚本（可能是js、hmtl代码块等）。</p>
+<p>最后导致的结果可能是：</p>
+<ul>
+<li><p>盗用Cookie</p>
+</li>
+<li><p>破坏页面的正常结构，插入广告等恶意内容</p>
+</li>
+<li><p>D-doss攻击</p>
+</li>
+</ul>
+<h3 id="XSS的攻击方式"><a href="#XSS的攻击方式" class="headerlink" title="XSS的攻击方式"></a>XSS的攻击方式</h3><ul>
+<li>1、反射型</li>
+</ul>
+<p>发出请求时，XSS代码出现在url中，作为输入提交到服务器端，服务器端解析后响应，XSS代码随响应内容一起传回给浏览器，最后浏览器解析执行XSS代码。这个过程像一次反射，所以叫反射型XSS。</p>
+<ul>
+<li>2、存储型</li>
+</ul>
+<p>存储型XSS和反射型XSS的差别在于，提交的代码会存储在服务器端（数据库、内存、文件系统等），下次请求时目标页面时不用再提交XSS代码。</p>
+<h3 id="XSS的防范措施（encode-过滤）"><a href="#XSS的防范措施（encode-过滤）" class="headerlink" title="XSS的防范措施（encode + 过滤）"></a>XSS的防范措施（encode + 过滤）</h3><p>XSS的防范措施主要有三个：</p>
+<p><strong>1、编码</strong>：</p>
+<p>对用户输入的数据进行<code>HTML Entity</code>编码。</p>
+<p>如上图所示，把字符转换成 转义字符。</p>
+<p>Encode的作用是将<code>$var</code>等一些字符进行转化，使得浏览器在最终输出结果上是一样的。</p>
+<p>比如说这段代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;alert(1)&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>若不进行任何处理，则浏览器会执行alert的js操作，实现XSS注入。</p>
+<p>进行编码处理之后，L在浏览器中的显示结果就是<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>，实现了将$var作为纯文本进行输出，且不引起JavaScript的执行。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/599fcd03fd3b">4类防御XSS的有效方法</a></p>
+<p><strong>2、过滤：</strong></p>
+<ul>
+<li><p>移除用户输入的和事件相关的属性。如onerror可以自动触发攻击，还有onclick等。（总而言之，过滤掉一些不安全的内容）</p>
+</li>
+<li><p>移除用户输入的Style节点、Script节点、Iframe节点。（尤其是Script节点，它可是支持跨域的呀，一定要移除）。</p>
+</li>
+</ul>
+<p><strong>3、校正</strong></p>
+<ul>
+<li><p>避免直接对<code>HTML Entity</code>进行解码。</p>
+</li>
+<li><p>使用<code>DOM Parse</code>转换，校正不配对的DOM标签。</p>
+</li>
+</ul>
+<p>备注：我们应该去了解一下<code>DOM Parse</code>这个概念，它的作用是把文本解析成DOM结构。</p>
+<p>比较常用的做法是，通过第一步的编码转成文本，然后第三步转成DOM对象，然后经过第二步的过滤。</p>
+<p><strong>还有一种简洁的答案：</strong></p>
+<p>首先是encode，如果是富文本，就白名单。</p>
+<h2 id="CSRF-和-XSS-的区别"><a href="#CSRF-和-XSS-的区别" class="headerlink" title="CSRF 和 XSS 的区别"></a>CSRF 和 XSS 的区别</h2><p>面试官还可能喜欢问二者的区别。</p>
+<p>区别一：</p>
+<ul>
+<li><p>CSRF：需要用户先登录网站A，获取 cookie。</p>
+</li>
+<li><p>XSS：不需要登录。</p>
+</li>
+</ul>
+<p>区别二：（原理的区别）</p>
+<ul>
+<li><p>CSRF：是利用网站A本身的漏洞，去请求网站A的api。</p>
+</li>
+<li><p>XSS：是向网站 A 注入 JS代码，然后执行 JS 里的代码，篡改网站A的内容。</p>
+</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="XSS-1"><a href="#XSS-1" class="headerlink" title="XSS"></a>XSS</h3><p>关于XSS，推荐几个网站：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://html5sec.org/">http://html5sec.org/</a></li>
+</ul>
+<p>里面列出了很多XSS的例子，可以长见识。如果你专门研究XSS，可以看看。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.freebuf.com/author/black-hole">FreeBuf网站上的专栏作者：Black-Hole</a></li>
+</ul>
+<p>比如，他的第一篇文章就讲到了<a target="_blank" rel="noopener" href="http://www.freebuf.com/articles/web/40520.html">XSS的原理分析与解剖</a>。有句话摘抄如下：弹窗只是测试xss的存在性和使用性。</p>
+<p>比如，这个人还有篇文章写<a target="_blank" rel="noopener" href="http://www.freebuf.com/articles/web/107207.html">自动化检测CSRF（第一章）</a>。大公司做网站，一般会做嗅探服务（比如自动化工具做CSRF的检测、自动化的方式控制安全风险）。</p>
+<p>另外，可能还有些工具，可以扫描代码本身有没有一些安全问题。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/cure53">GitHub | Cure53</a></li>
+</ul>
+<p>这是GitHub上的一个德国组织。</p>
+<p>上面的项目都跟安全相关，有些仓库是可以直接运行的。如果你不需要定制，就可以直接用别人的，没必要自己写XSS库、XSS的过滤之类的，避免麻烦。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/06-%E8%B7%A8%E5%9F%9F%E9%80%9A%E4%BF%A1%E7%B1%BB/" rel="next" title="06-跨域通信类">
+                <i class="fa fa-chevron-left"></i> 06-跨域通信类
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/08-%E7%AE%97%E6%B3%95%E9%97%AE%E9%A2%98/" rel="prev" title="08-算法问题">
+                08-算法问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF"><span class="nav-number">2.</span> <span class="nav-text">CSRF</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81CSRF%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E3%80%81%E7%BC%A9%E5%86%99%E3%80%81%E5%85%A8%E7%A7%B0"><span class="nav-number">2.1.</span> <span class="nav-text">1、CSRF的基本概念、缩写、全称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81CSRF%E7%9A%84%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-number">2.2.</span> <span class="nav-text">2、CSRF的攻击原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81CSRF%E5%A6%82%E4%BD%95%E9%98%B2%E5%BE%A1"><span class="nav-number">2.3.</span> <span class="nav-text">3、CSRF如何防御</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS"><span class="nav-number">3.</span> <span class="nav-text">XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81XSS%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">3.1.</span> <span class="nav-text">1、XSS的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS%E7%9A%84%E6%94%BB%E5%87%BB%E5%8E%9F%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">XSS的攻击原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS%E7%9A%84%E6%94%BB%E5%87%BB%E6%96%B9%E5%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">XSS的攻击方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS%E7%9A%84%E9%98%B2%E8%8C%83%E6%8E%AA%E6%96%BD%EF%BC%88encode-%E8%BF%87%E6%BB%A4%EF%BC%89"><span class="nav-number">3.4.</span> <span class="nav-text">XSS的防范措施（encode + 过滤）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF-%E5%92%8C-XSS-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.</span> <span class="nav-text">CSRF 和 XSS 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#XSS-1"><span class="nav-number">5.1.</span> <span class="nav-text">XSS</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="浏览器渲染过程  浏览器解析 HTML，生成 DOM Tree（Parse HTML）。  浏览器解析 CSS，生成 CSSOM（CSS Object Model）Tree。  JavaScript 会通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree，浏览器将 DOM Tree 和 CSSOM Tree 合成渲染树（Render Tree）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05-页面渲染性能优化">
+<meta property="og:url" content="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/05-%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="浏览器渲染过程  浏览器解析 HTML，生成 DOM Tree（Parse HTML）。  浏览器解析 CSS，生成 CSSOM（CSS Object Model）Tree。  JavaScript 会通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree，浏览器将 DOM Tree 和 CSSOM Tree 合成渲染树（Render Tree）。">
+<meta property="og:locale">
+<meta property="og:image" content="https://img.smyhvae.com/20210114_2115.png">
+<meta property="article:published_time" content="2021-12-01T02:00:52.494Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.653Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.smyhvae.com/20210114_2115.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/14-前端性能优化/05-页面渲染性能优化/"/>
+
+
+
+
+
+  <title>05-页面渲染性能优化 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/05-%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">05-页面渲染性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:52+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="浏览器渲染过程"><a href="#浏览器渲染过程" class="headerlink" title="浏览器渲染过程"></a>浏览器渲染过程</h2><p><img src="https://img.smyhvae.com/20210114_2115.png"></p>
+<ol>
+<li><p>浏览器解析 HTML，生成 DOM Tree（Parse HTML）。</p>
+</li>
+<li><p>浏览器解析 CSS，生成 CSSOM（CSS Object Model）Tree。</p>
+</li>
+<li><p>JavaScript 会通过 DOM API 和 CSSOM API 来操作 DOM Tree 和 CSS Rule Tree，浏览器将 DOM Tree 和 CSSOM Tree 合成渲染树（Render Tree）。</p>
+</li>
+<li><p>布局（Layout）：根据生成的 Render Tree，进行回流，以计算每个节点的几何信息（位置、大小、字体样式等等）。</p>
+</li>
+<li><p>绘制（Painting）：根据渲染树和回流得到的几何信息，得到每个节点的绝对像素。</p>
+</li>
+<li><p>展示（Display）：将像素发送给图形处理器（GPU），展示在页面上。</p>
+</li>
+</ol>
+<h2 id="页面渲染技术方案总览"><a href="#页面渲染技术方案总览" class="headerlink" title="页面渲染技术方案总览"></a>页面渲染技术方案总览</h2><p><strong>服务端渲染</strong>：</p>
+<ul>
+<li>  后端同步渲染、同构直出、BigPipe。</li>
+</ul>
+<p><strong>客户端渲染</strong>：</p>
+<ul>
+<li><p>  JavaScript 渲染：静态化、前后端分离、单页面应用</p>
+</li>
+<li><p>  Web App：React、Vue、PWA</p>
+</li>
+<li><p>  Hybrid App：PhoneGap 、AppCan 等</p>
+</li>
+<li><p>  跨平台开发：RN 、Flutter 、小程序等。</p>
+</li>
+<li><p>  原生 App：iOS 、Android</p>
+</li>
+</ul>
+<p>建议：</p>
+<ul>
+<li>  依赖业务形式、依赖团队规模、依赖技术水平。</li>
+</ul>
+<h2 id="静态化技术方案"><a href="#静态化技术方案" class="headerlink" title="静态化技术方案"></a>静态化技术方案</h2><p>静态化是使动态化的网站生成静态 HTML 页面以供用户更好访问的技术，一般分为纯动态化和伪动态化。</p>
+<p>技术优势：</p>
+<ul>
+<li><p>  提高了页面访问速度，降低了服务器的负担，因为访问页面时不需要每次去访问数据库。</p>
+</li>
+<li><p>  提高网站内容被搜索引擎搜索到的几率，因为搜索引擎更喜欢静态页面。</p>
+</li>
+<li><p>  网站更稳定，如果后端程序、数据库出现问题，会直接影响网站的正常访问，而静态化页面有缓存，更不容易出现问题。</p>
+</li>
+</ul>
+<p>技术不足：</p>
+<ul>
+<li><p>  服务器存储占用问题，因为页面量级在增加，要占用大量硬盘空间。</p>
+</li>
+<li><p>  静态页面中的链接更新问题会有死链或者错误链接问题。</p>
+</li>
+</ul>
+<p>技术实现：</p>
+<ul>
+<li><p>  跑定时任务，将已有的动态内容进行重定，生成静态的 HTML 页面。</p>
+</li>
+<li><p>  利用模板技术，将模板引擎中模板字符替换为从数据库字段中取出来的值， 同时生成 HTML 文件。</p>
+</li>
+</ul>
+<p>协作方式：</p>
+<ul>
+<li><p>  前端统一写好带有交互的完整静态页面。</p>
+</li>
+<li><p>  后端拆分出静态页面文件，并嵌套在后端模板文件中。</p>
+</li>
+</ul>
+<p>选型建议：后端研发人员充分，又需要考虑用户体验、服务器负载的业务。</p>
+<h2 id="前后端分离技术与实现"><a href="#前后端分离技术与实现" class="headerlink" title="前后端分离技术与实现"></a>前后端分离技术与实现</h2><p>前后端分离是指研发人员分离、业务代码分离、后端实现业务接口，前端渲染页面。</p>
+<p>技术实现：</p>
+<ul>
+<li><p>  后端只负责功能接口实现，提供按照约定的数据格式并封装好的 API 接口。</p>
+</li>
+<li><p>  前端负责业务具体实现，获取到 API 接口数据后，进行页面模板拼接和渲染，独立上线。</p>
+</li>
+</ul>
+<p>协作方式：</p>
+<ul>
+<li><p>  前端负责实现页面前端交互，根据后端 API 接口拼装前端模板。</p>
+</li>
+<li><p>  后端专注于业务功能实现和 API 接口封装。</p>
+</li>
+</ul>
+<p>技术优势：</p>
+<ul>
+<li><p>  团队更加专注</p>
+</li>
+<li><p>  提升了开发效率</p>
+</li>
+<li><p>  增加代码可维护性</p>
+</li>
+</ul>
+<p>技术架构：</p>
+<ul>
+<li><p>  后端架构：Java、C++、PHP、 + Nginx，使用微服务（比如 Dubbo 等）等实现业务的解耦，所有的服务使用某种协议提供不同的服务（比如 JSF 等） 。</p>
+</li>
+<li><p>  前端架构：使用 Angular、React、Vue 前端框架并部署页面至 CDN。</p>
+</li>
+<li><p>  前端架构 2：使用 Angular、React、Vue 前端框架并部署在 Node Server。</p>
+</li>
+</ul>
+<p>技术不足：</p>
+<ul>
+<li><p>  因为前端需要负责一大部分业务逻辑实现，和服务端同步、静态化，需要前端人力非常多。</p>
+</li>
+<li><p>  页面数据异步渲染，不利于 SEO，搜索引擎更喜欢纯静态页面。</p>
+</li>
+</ul>
+<p>选型建议：</p>
+<ul>
+<li>  这是大型互联网公司正在采用的开发模式，一句话，如果考虑用户体验，以及前端人力够用，就可以积极采用。</li>
+</ul>
+<h2 id="单页面应用技术方案"><a href="#单页面应用技术方案" class="headerlink" title="单页面应用技术方案"></a>单页面应用技术方案</h2><p>单页应用（single-page application，缩写 SPA），通过动态重写当前页面，来与用户交互，而非传统的从服务器重新加载整个新页面。这种方法在使用过程中不需要重新加载页面，避免了页面之间切换打断用户体验，使应用程序更像一个桌面应用程序。</p>
+<p>技术优点：</p>
+<ul>
+<li><p>  不错的加载速度：用户往往感觉页面加载非常快，因为一进入页面就能看到页面元素；</p>
+</li>
+<li><p>  良好的交互体验：进行局部渲染，避免不必要的页面间跳转和重复渲染；</p>
+</li>
+<li><p>  前后端职责分离：前端进行页面交互逻辑，后端负责业务逻辑；</p>
+</li>
+<li><p>  减轻服务器负载：服务器只处理数据接口输出，不用考虑页面模板渲染和 HTML 展示。</p>
+</li>
+</ul>
+<p>技术缺点：</p>
+<ul>
+<li><p>  开发成本相对较高</p>
+</li>
+<li><p>  首次页面加载时间过多</p>
+</li>
+<li><p>  SEO 难度比较大</p>
+</li>
+</ul>
+<p>技术实现：</p>
+<ul>
+<li>  使用 React、Vue 框架可以很好的。</li>
+</ul>
+<h2 id="BigPipe-简介和工作模式"><a href="#BigPipe-简介和工作模式" class="headerlink" title="BigPipe 简介和工作模式"></a>BigPipe 简介和工作模式</h2><p>BigPipe 通过将页面加载到称为 Pagelet 的小部件中，来加快页面渲染速度，并允许浏览器在 PHB 服务器呈现页面的同时，一直请求页面不同区块的结构，类似一个“流”传输管道。</p>
+<p><strong>技术实现</strong>：</p>
+<ol>
+<li><p>浏览器从服务器请求页面。</p>
+</li>
+<li><p>Server 迅速呈现一个包含 <head> 标记的页面框架，以及一个包含空 div 元素的主体，这些元素充当 Pagelet 的容器。由于该页面尚未完成，因此与浏览器的 HTTP 连接保持打开状态。</p>
+</li>
+<li><p>浏览器将开始下载 bigpipe.js 文件，然后它将开始呈现页面。</p>
+</li>
+<li><p>PHP 服务器进程仍在执行，并且一次构建每个 Pagelet 。Pagelet 完成后，其结果将在<code>&lt;script&gt; BigPipe.onArrive（…）&lt;/ script&gt;</code> 标记内发送到浏览器。</p>
+</li>
+<li><p>浏览器将收到的 html 代码注入正确的位置。如果小页面需要任何 CSS 资源，则也将下载这些 CSS 资源。</p>
+</li>
+<li><p>接收完所有的页面集之后，浏览器将开始加载那些页面集所需的所有外部 JavaScript 文件。</p>
+</li>
+<li><p>下载 JavaScript 后，浏览器将执行所有内联 JavaScript。</p>
+</li>
+</ol>
+<h2 id="同构直出技术方案"><a href="#同构直出技术方案" class="headerlink" title="同构直出技术方案"></a>同构直出技术方案</h2><p>一套代码既可以在服务端运行又可以在客户端运行，这就是同构（Universal）。</p>
+<p>技术优势：</p>
+<ul>
+<li><p>  性能: 降低首屏渲染时间</p>
+</li>
+<li><p>  SEO: 服务端渲染对搜索引擎的爬取有着天然的优势</p>
+</li>
+<li><p>  兼容性: 有效规避客户端兼容性问题，比如白屏</p>
+</li>
+<li><p>  代码同构：直接上线两个版本，利于灾备。</p>
+</li>
+</ul>
+<p>技术实现：</p>
+<ul>
+<li><p>  next.js：服务器端渲染 React 组件框架（参考查看：<a target="_blank" rel="noopener" href="https://nextjs.org/%EF%BC%89">https://nextjs.org/）</a>, React 采用 ReactDOMServer 调用 renderToString() 方法。</p>
+</li>
+<li><p>  gatsbyjs：服务端 React 渲染框架（参考查看： <a target="_blank" rel="noopener" href="https://www.gatsbyjs.org/%EF%BC%89%E3%80%82">https://www.gatsbyjs.org/）。</a></p>
+</li>
+<li><p>  nuxt.js：服务器端渲染 Vue 组件框架（参考查看：<a target="_blank" rel="noopener" href="https://nuxtjs.org/%EF%BC%89">https://nuxtjs.org/）</a>, Vue 采用 vue-server-renderer 调用 renderToString() 方法。</p>
+</li>
+</ul>
+<p>协作方式：</p>
+<ul>
+<li><p>  后端专注于业务功能实现和 API 接口封装。</p>
+</li>
+<li><p>  前端负责实现页面前端交互，根据后端 API 接口拼装前端模板，页面渲染，以及服务器维护。</p>
+</li>
+</ul>
+<p>选型建议：</p>
+<ul>
+<li><p>  前端要处理 Node server 的机器环境、代码部署、日志、容灾、监控等以往后端人员需要具备运维知识，前端人员的综合能力要求会比以往要高。</p>
+</li>
+<li><p>  前端项目开发周期变长了，需要事先和产品、运营沟通排期问题。</p>
+</li>
+</ul>
+<h2 id="PWA-技术方案和实现思路"><a href="#PWA-技术方案和实现思路" class="headerlink" title="PWA 技术方案和实现思路"></a>PWA 技术方案和实现思路</h2><p>Progressive Web App，简称 PWA，PWA 应用是使用特定技术和标准模式来开发的 Web 应用，这将同时赋予它们 Web 应用和原生应用的特性。</p>
+<p>技术优势：</p>
+<ul>
+<li><p>  用户可以用手机屏幕启动应用，即使在离线状态或者弱网下，通过事先缓存的资源，也可正常加载运行当前应用，可以完全消除对网络的依赖，从而给用户非常可靠的体验。</p>
+</li>
+<li><p>  因为预先缓存了资源，部分资源无须经过网络，即秒开页面。</p>
+</li>
+<li><p>  和移动设备上的原生应用一样，具有沉浸式的用户体验。</p>
+</li>
+<li><p>  可以给用户发送离线推送消息。</p>
+</li>
+</ul>
+<p>技术实现：</p>
+<ul>
+<li><p>  全站改造成 HTTPS，没有 HTTPS 就没有 Service Worker。</p>
+</li>
+<li><p>  应用 Service Worker 技术提升性能，离线提供静态资源文件，提升首屏用户体验。</p>
+</li>
+<li><p>  使用 App Manifest。</p>
+</li>
+<li><p>  最后可以考虑离线消息推送等功能。</p>
+</li>
+</ul>
+<p>浏览器兼容性：</p>
+<ul>
+<li><p>  ServiceWorkerGlobalScope API：88%</p>
+</li>
+<li><p>  Web App Manifest 83%</p>
+</li>
+</ul>
+<h2 id="页面加载策略优化"><a href="#页面加载策略优化" class="headerlink" title="页面加载策略优化"></a>页面加载策略优化</h2><ul>
+<li><p>  懒加载</p>
+</li>
+<li><p>  预加载</p>
+</li>
+<li><p>  预渲染</p>
+</li>
+<li><p>  按需加载</p>
+</li>
+</ul>
+<p>下面具体展开讲讲。</p>
+<h3 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h3><p>懒加载也叫延迟加载，指的是长网页中延迟加载特定元素（可以是图片，也可以是 JS/CSS 文件，当然也可以是 JavaScript 的特定函数和方法，以下简称“懒加载元素”）。</p>
+<p>好处：可以减少当前屏无效资源的加载。</p>
+<p>技术实现举例：把页面上“懒加载元素”src 属性设置为空字符，把真实的 src 属性写在 data-lazy 属性中，当页面滚动的时候监听 scroll 事件，如果“懒加载元素”在可视区域内，就把图片的 src 属性或者文件 URL 路径设置成 data-lazy 属性值。</p>
+<h3 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h3><p>可以使用预加载让浏览器来预先加载某些资源（比如图片、JS/CSS/模板），而这些资源是在将来才会被使用到的。简单来说，就是将所需资源提前加载到浏览器本地，这样后面在需要使用的时候就可以直接从浏览器缓存中取了，而不用再重新开始加载。</p>
+<p>使用场景：如果你希望这个资源能尽快显示给用户，就可以使用预加载。</p>
+<p>好处：减少用户后续加载资源等待的时间。</p>
+<p><strong>技术实现举例</strong>：</p>
+<ol>
+<li>HTML 标签：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;https://xxx.jpg&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display: none&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2、使用 Image 对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line"></span><br><span class="line">image.src = <span class="string">&#x27;https://xxx.jpg&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>3、使用 preload、prefetch 和 preconnect：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">“preload”</span> <span class="attr">href</span>=<span class="string">“src/style.css”</span> <span class="attr">as</span>=<span class="string">“style”</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;prefetch&quot;</span> <span class="attr">href</span>=<span class="string">&quot;scr/image.png&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;dns-prefetch&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://my.com&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;preconnect&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://my.com&quot;</span> <span class="attr">crossorigin</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="预渲染"><a href="#预渲染" class="headerlink" title="预渲染"></a>预渲染</h3><p>有一种预加载组件的方式就是提前渲染它。在页面中渲染组件，但是并不在页面中展示。也就是渲染完成后，先隐藏起来，用的时候再展示。</p>
+<p>实现举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;prerender&quot;</span> <span class="attr">href</span>=<span class="string">&quot;https://my.com&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h3><ul>
+<li><p>  常规按需加载（如 JS 原生、jQuery）</p>
+</li>
+<li><p>  不同 App 按需加载（如 JS-SDK 脚本文件）</p>
+</li>
+<li><p>  不同设备按需加载（如 PC 端和 HTML5 端样式文件）</p>
+</li>
+<li><p>  不同分辨率按需加载（CSS Media Query）</p>
+</li>
+</ul>
+<p>React 异步加载举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> componentA = <span class="function">(<span class="params">location, callback</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">require</span>.ensure(</span><br><span class="line">        [],</span><br><span class="line">        <span class="function">(<span class="params"><span class="built_in">require</span></span>) =&gt;</span> &#123;</span><br><span class="line">            callback(<span class="literal">null</span>, <span class="built_in">require</span>(<span class="string">&#x27;modules/componentA&#x27;</span>));</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&#x27;componentA&#x27;</span></span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> componentB = <span class="function">(<span class="params">location, callback</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">require</span>.ensure(</span><br><span class="line">        [],</span><br><span class="line">        <span class="function">(<span class="params"><span class="built_in">require</span></span>) =&gt;</span> &#123;</span><br><span class="line">            callback(<span class="literal">null</span>, <span class="built_in">require</span>(<span class="string">&#x27;modules/componentB&#x27;</span>));</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="string">&#x27;componentB&#x27;</span></span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="name">Router</span> <span class="attr">history</span>=<span class="string">&#123;history&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;/&quot;</span> <span class="attr">component</span>=<span class="string">&#123;App&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;componentA&quot;</span> <span class="attr">getComponent</span>=<span class="string">&#123;componentA&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Route</span> <span class="attr">path</span>=<span class="string">&quot;componentB&quot;</span> <span class="attr">getComponent</span>=<span class="string">&#123;componentB&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br><span class="line"><span class="xml">    <span class="tag">&lt;/<span class="name">Route</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">Router</span>&gt;</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>Vue 异步加载举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> VueRouter <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>;</span><br><span class="line"></span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"><span class="keyword">const</span> componentA = <span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">require</span>([<span class="string">&#x27;src/a.vue&#x27;</span> ], resolve);</span><br><span class="line"><span class="keyword">const</span> componentB = <span class="function"><span class="params">resolve</span> =&gt;</span> <span class="built_in">require</span>([<span class="string">&#x27;src/b.vue&#x27;</span> ], resolve);</span><br><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    <span class="attr">routes</span>: [&#123;<span class="attr">path</span>:<span class="string">&quot;a”,name:&quot;</span>/a”,<span class="attr">component</span>:componentA&#125;,</span><br><span class="line">     &#123;<span class="attr">path</span>:<span class="string">&quot;b”,name:&quot;</span>/b”,<span class="attr">component</span>:componentB&#125;]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">    <span class="attr">router</span>: router,</span><br><span class="line">    <span class="attr">render</span>: <span class="function"><span class="params">h</span> =&gt;</span> h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="接口服务调用优化"><a href="#接口服务调用优化" class="headerlink" title="接口服务调用优化"></a>接口服务调用优化</h2><p>1、接口合并：一个页面的众多业务接口和依赖的第三方接口，合并为一个部署在集群的接口统一调用，以减少页面接口请求数。</p>
+<p>2、接口上 CDN：主要基于接口性能考虑，我们可以把<strong>不需要实时更新的接口同步至 CDN</strong>，等此接口内容变更之后自动同步至 CDN 集群上。如果一定时间内未请求到数据，会用源站接口再次请求。</p>
+<p>3、接口域名上 CDN：增强可用性、稳定性。</p>
+<p>4、接口降级：核心接口进行降级用基础接口进行业务实现，比如千人千面的推荐接口，在大促时间点可以直接运营编辑的数据。另外如果接口无访问，建议使用兜底数据。</p>
+<p>5、接口监控：监控接口成功率，不只是常说的 TP99，也包括弱网、超时、网络异常、网络切换等一段情况的监控情况。排查出来问题后，需要联合后端、运维、网络岗位人员一并解决。</p>
+<h2 id="接口缓存策略优化"><a href="#接口缓存策略优化" class="headerlink" title="接口缓存策略优化"></a>接口缓存策略优化</h2><p>1、Ajax/fetch 缓存：前端请求时候带上 cache，依赖浏览器本身缓存机制。</p>
+<p>2、本地缓存：异步接口数据优先使用本地 localStorage 中的缓存数据。</p>
+<p>3、多次请求：接口数据本地无 localStorage 缓存数据，重新再次发出 ajax 请求。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/04-%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E4%BC%98%E5%8C%96/" rel="next" title="04-静态资源优化">
+                <i class="fa fa-chevron-left"></i> 04-静态资源优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/14-%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/lazyload&%E9%98%B2%E6%8A%96%E5%8A%A8%E5%92%8C%E8%8A%82%E6%B5%81%E9%98%80/" rel="prev" title="07-自定义按键修饰符&自定义指令">
+                07-自定义按键修饰符&自定义指令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">浏览器渲染过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E6%B8%B2%E6%9F%93%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E6%80%BB%E8%A7%88"><span class="nav-number">2.</span> <span class="nav-text">页面渲染技术方案总览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%8C%96%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">静态化技术方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">前后端分离技术与实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E9%A1%B5%E9%9D%A2%E5%BA%94%E7%94%A8%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">单页面应用技术方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BigPipe-%E7%AE%80%E4%BB%8B%E5%92%8C%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">BigPipe 简介和工作模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%9E%84%E7%9B%B4%E5%87%BA%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88"><span class="nav-number">7.</span> <span class="nav-text">同构直出技术方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PWA-%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88%E5%92%8C%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">8.</span> <span class="nav-text">PWA 技术方案和实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">页面加载策略优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E5%8A%A0%E8%BD%BD"><span class="nav-number">9.1.</span> <span class="nav-text">懒加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">9.2.</span> <span class="nav-text">预加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E6%B8%B2%E6%9F%93"><span class="nav-number">9.3.</span> <span class="nav-text">预渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%89%E9%9C%80%E5%8A%A0%E8%BD%BD"><span class="nav-number">9.4.</span> <span class="nav-text">按需加载</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E6%9C%8D%E5%8A%A1%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">接口服务调用优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%8F%A3%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E4%BC%98%E5%8C%96"><span class="nav-number">11.</span> <span class="nav-text">接口缓存策略优化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

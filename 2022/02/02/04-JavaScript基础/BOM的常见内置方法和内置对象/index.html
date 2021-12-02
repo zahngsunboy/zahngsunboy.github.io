@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript基础," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文最初发表于博客园，并在GitHub上持续更新前端的系列文章。欢迎在GitHub上关注我，一起入门和进阶前端。   以下是正文。  BOM的介绍JavaScript的组成JavaScript基础分为三个部分：  ECMAScript：JavaScript的语法标准。包括变量、表达式、运算符、函数、if语句、for语句等。  DOM：文档对象模型，操作网页上的元素的API。比如让盒子移动、变色、">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见代码解读">
+<meta property="og:url" content="http://example.com/2022/02/02/04-JavaScript%E5%9F%BA%E7%A1%80/BOM%E7%9A%84%E5%B8%B8%E8%A7%81%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="本文最初发表于博客园，并在GitHub上持续更新前端的系列文章。欢迎在GitHub上关注我，一起入门和进阶前端。   以下是正文。  BOM的介绍JavaScript的组成JavaScript基础分为三个部分：  ECMAScript：JavaScript的语法标准。包括变量、表达式、运算符、函数、if语句、for语句等。  DOM：文档对象模型，操作网页上的元素的API。比如让盒子移动、变色、">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20180201_2052.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180201_2140.png">
+<meta property="article:published_time" content="2022-02-02T05:01:00.000Z">
+<meta property="article:modified_time" content="2021-12-02T04:52:32.419Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="JavaScript基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180201_2052.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2022/02/02/04-JavaScript基础/BOM的常见内置方法和内置对象/"/>
+
+
+
+
+
+  <title>常见代码解读 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/02/04-JavaScript%E5%9F%BA%E7%A1%80/BOM%E7%9A%84%E5%B8%B8%E8%A7%81%E5%86%85%E7%BD%AE%E6%96%B9%E6%B3%95%E5%92%8C%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">常见代码解读</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-02-02T13:01:00+08:00">
+                2022-02-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>本文最初发表于<a target="_blank" rel="noopener" href="http://www.cnblogs.com/smyhvae/p/8401662.html">博客园</a>，并在<a target="_blank" rel="noopener" href="https://github.com/qianguyihao/Web">GitHub</a>上持续更新<strong>前端的系列文章</strong>。欢迎在GitHub上关注我，一起入门和进阶前端。</p>
+</blockquote>
+<blockquote>
+<p>以下是正文。</p>
+</blockquote>
+<h2 id="BOM的介绍"><a href="#BOM的介绍" class="headerlink" title="BOM的介绍"></a>BOM的介绍</h2><h3 id="JavaScript的组成"><a href="#JavaScript的组成" class="headerlink" title="JavaScript的组成"></a>JavaScript的组成</h3><p>JavaScript基础分为三个部分：</p>
+<ul>
+<li><p>ECMAScript：JavaScript的语法标准。包括变量、表达式、运算符、函数、if语句、for语句等。</p>
+</li>
+<li><p><strong>DOM</strong>：文档对象模型，操作<strong>网页上的元素</strong>的API。比如让盒子移动、变色、轮播图等。</p>
+</li>
+<li><p><strong>BOM</strong>：浏览器对象模型，操作<strong>浏览器部分功能</strong>的API。比如让浏览器自动滚动。</p>
+</li>
+</ul>
+<h3 id="什么是BOM"><a href="#什么是BOM" class="headerlink" title="什么是BOM"></a>什么是BOM</h3><p>BOM：Browser Object Model，浏览器对象模型。</p>
+<p><strong>BOM的结构图：</strong></p>
+<p><img src="http://img.smyhvae.com/20180201_2052.png"></p>
+<p>从上图也可以看出：</p>
+<ul>
+<li><p><strong>window对象是BOM的顶层(核心)对象</strong>，所有对象都是通过它延伸出来的，也可以称为window的子对象。</p>
+</li>
+<li><p>DOM越是BOM的一部分。</p>
+</li>
+</ul>
+<p><strong>window对象：</strong></p>
+<ul>
+<li><p><strong>window对象是JavaScript中的顶级对象</strong>。</p>
+</li>
+<li><p>全局变量、自定义函数也是window对象的属性和方法。</p>
+</li>
+<li><p>window对象下的属性和方法调用时，可以省略window。</p>
+</li>
+</ul>
+<p>下面讲一下 <strong>BOM 的常见内置方法和内置对象</strong>。</p>
+<h2 id="弹出系统对话框"><a href="#弹出系统对话框" class="headerlink" title="弹出系统对话框"></a>弹出系统对话框</h2><p>比如说，<code>alert(1)</code>是<code>window.alert(1)</code>的简写，因为它是window的子方法。</p>
+<p>系统对话框有三种：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">alert();	<span class="comment">//不同浏览器中的外观是不一样的</span></span><br><span class="line">confirm();  <span class="comment">//兼容不好</span></span><br><span class="line">prompt();	<span class="comment">//不推荐使用</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="打开窗口、关闭窗口"><a href="#打开窗口、关闭窗口" class="headerlink" title="打开窗口、关闭窗口"></a>打开窗口、关闭窗口</h2><p>1、打开窗口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">window.open(url,target,param)</span><br></pre></td></tr></table></figure>
+
+<p><strong>参数解释：</strong></p>
+<ul>
+<li><p>url：要打开的地址。</p>
+</li>
+<li><p>target：新窗口的位置。可以是：<code>_blank</code> 、<code>_self</code>、 <code>_parent</code> 父框架。</p>
+</li>
+<li><p>param：新窗口的一些设置。</p>
+</li>
+<li><p>返回值：新窗口的句柄。</p>
+</li>
+</ul>
+<p><strong>param</strong>这个参数，可以填各种各样的参数（），比如：</p>
+<ul>
+<li><p>name：新窗口的名称，可以为空</p>
+</li>
+<li><p>features：属性控制字符串，在此控制窗口的各种属性，属性之间以逗号隔开。</p>
+</li>
+<li><p>fullscreen= { yes/no/1/0 } 是否全屏，默认no</p>
+</li>
+<li><p>channelmode= { yes/no/1/0 } 是否显示频道栏，默认no</p>
+</li>
+<li><p>toolbar= { yes/no/1/0 } 是否显示工具条，默认no</p>
+</li>
+<li><p>location= { yes/no/1/0 } 是否显示地址栏，默认no。（有的浏览器不一定支持）</p>
+</li>
+<li><p>directories = { yes/no/1/0 } 是否显示转向按钮，默认no</p>
+</li>
+<li><p>status= { yes/no/1/0 } 是否显示窗口状态条，默认no</p>
+</li>
+<li><p>menubar= { yes/no/1/0 } 是否显示菜单，默认no</p>
+</li>
+<li><p>scrollbars= { yes/no/1/0 } 是否显示滚动条，默认yes</p>
+</li>
+<li><p>resizable= { yes/no/1/0 } 是否窗口可调整大小，默认no</p>
+</li>
+<li><p>width=number 窗口宽度（像素单位）</p>
+</li>
+<li><p>height=number 窗口高度（像素单位）</p>
+</li>
+<li><p>top=number 窗口离屏幕顶部距离（像素单位）</p>
+</li>
+<li><p>left=number 窗口离屏幕左边距离（像素单位）</p>
+</li>
+</ul>
+<p>各个参数之间用逗号隔开就行，但我们最好是把它们统一放到json里。</p>
+<p>2、关闭窗口：window.close()</p>
+<p>（1）和（2）的代码举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:;&quot;</span>&gt;</span>点击我打开一个新的页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;javascript:;&quot;</span>&gt;</span>点击我关闭本页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//新窗口 = window.open(地址,是否开新窗口,新窗口的各种参数);</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> a1 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;a&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> a2 = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;a&quot;</span>)[<span class="number">1</span>];</span></span><br><span class="line"><span class="javascript">    a1.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript"><span class="comment">//举例1： window.open(&quot;http://www.jx.com&quot;,&quot;_blank&quot;);</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> json = &#123;</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;name&quot;</span>: <span class="string">&quot;helloworld&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;fullscreen&quot;</span>: <span class="string">&quot;no&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;location&quot;</span>: <span class="string">&quot;no&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;width&quot;</span>: <span class="string">&quot;100px&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;height&quot;</span>: <span class="string">&quot;100px&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;top&quot;</span>: <span class="string">&quot;100px&quot;</span>,</span></span><br><span class="line"><span class="javascript">            <span class="string">&quot;left&quot;</span>: <span class="string">&quot;100px&quot;</span></span></span><br><span class="line"><span class="javascript">        &#125;;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.open(<span class="string">&quot;http://www.baidu.com&quot;</span>, <span class="string">&quot;_blank&quot;</span>, json); <span class="comment">//举例2</span></span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//关闭本页面</span></span></span><br><span class="line"><span class="javascript">    a2.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.close();</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>3、新窗口相关：</p>
+<ul>
+<li><p>新窗口.moveTo(5,5)</p>
+</li>
+<li><p>新窗口.moveBy()</p>
+</li>
+<li><p>新窗口.resizeTo()</p>
+</li>
+<li><p>window.resizeBy()</p>
+</li>
+</ul>
+<p>代码举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> newWin = <span class="built_in">window</span>.open(<span class="string">&quot;demo.html&quot;</span>, <span class="string">&quot;_blank&quot;</span>, json);</span><br><span class="line">newWin.moveTo(<span class="number">500</span>, <span class="number">500</span>);</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="location对象"><a href="#location对象" class="headerlink" title="location对象"></a>location对象</h2><p><code>window.location</code>可以简写成location。location相当于浏览器地址栏，可以将url解析成独立的片段。</p>
+<h3 id="location对象的属性"><a href="#location对象的属性" class="headerlink" title="location对象的属性"></a>location对象的属性</h3><ul>
+<li><p><strong>href</strong>：跳转</p>
+</li>
+<li><p>hash   返回url中#后面的内容，包含#</p>
+</li>
+<li><p>host    主机名，包括端口</p>
+</li>
+<li><p>hostname   主机名</p>
+</li>
+<li><p>pathname     url中的路径部分</p>
+</li>
+<li><p>protocol    协议 一般是http、https</p>
+</li>
+<li><p>search         查询字符串</p>
+</li>
+</ul>
+<p><strong>location.href属性举例</strong>：</p>
+<p><strong>举例1：</strong>点击盒子时，进行跳转。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span>smyhvae<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    div.onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        location.href = <span class="string">&quot;http://www.baidu.com&quot;</span>;   <span class="comment">//点击div时，跳转到指定链接</span></span></span><br><span class="line"><span class="javascript"> <span class="comment">//     window.open(&quot;http://www.baidu.com&quot;,&quot;_blank&quot;);  //方式二</span></span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>举例2：5秒后自动跳转到百度</strong>。</p>
+<p>有时候，当我们访问一个不存在的网页时，会提示5秒后自动跳转到指定页面，此时就可以用到location。举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        location.href = <span class="string">&quot;http://www.baidu.com&quot;</span>;</span></span><br><span class="line"><span class="javascript">    &#125;, <span class="number">5000</span>);</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="location对象的方法"><a href="#location对象的方法" class="headerlink" title="location对象的方法"></a>location对象的方法</h3><ul>
+<li>location.assign()：改变浏览器地址栏的地址，并记录到历史中</li>
+</ul>
+<p>设置location.href  就会调用assign()。一般使用location.href 进行页面之间的跳转。</p>
+<ul>
+<li><p>location.replace()：替换浏览器地址栏的地址，不会记录到历史中</p>
+</li>
+<li><p>location.reload()：重新加载</p>
+</li>
+</ul>
+<h2 id="navigator对象"><a href="#navigator对象" class="headerlink" title="navigator对象"></a>navigator对象</h2><p>window.navigator 的一些属性可以获取客户端的一些信息。</p>
+<ul>
+<li><p>userAgent：系统，浏览器)</p>
+</li>
+<li><p>platform：浏览器支持的系统，win/mac/linux</p>
+</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(navigator.userAgent);</span><br><span class="line"><span class="built_in">console</span>.log(navigator.platform);</span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180201_2140.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/01/04-JavaScript%E5%9F%BA%E7%A1%80/%E5%8E%9F%E5%9E%8B%E9%93%BE/" rel="next" title="常见代码解读">
+                <i class="fa fa-chevron-left"></i> 常见代码解读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2022/02/04/05-JavaScript%E5%9F%BA%E7%A1%80%EF%BC%9AES6%E8%AF%AD%E6%B3%95/01-ES5%E5%92%8CES6%E7%9A%84%E4%BB%8B%E7%BB%8D/" rel="prev" title="01-01-ES5和ES6的介绍">
+                01-01-ES5和ES6的介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BOM%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">BOM的介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript%E7%9A%84%E7%BB%84%E6%88%90"><span class="nav-number">1.1.</span> <span class="nav-text">JavaScript的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFBOM"><span class="nav-number">1.2.</span> <span class="nav-text">什么是BOM</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%B9%E5%87%BA%E7%B3%BB%E7%BB%9F%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="nav-number">2.</span> <span class="nav-text">弹出系统对话框</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E7%AA%97%E5%8F%A3%E3%80%81%E5%85%B3%E9%97%AD%E7%AA%97%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">打开窗口、关闭窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#location%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">location对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#location%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">location对象的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">location对象的方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#navigator%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">navigator对象</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

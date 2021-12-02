@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Node.js 的官方API文档 Node.js 的API文档（英文）： https:&#x2F;&#x2F;nodejs.org&#x2F;docs&#x2F;latest-v8.x&#x2F;api&#x2F;index.html  Node.js 的API文档（中文）：http:&#x2F;&#x2F;nodejs.cn&#x2F;api&#x2F;   关于 Node.js 的内置模块和常见API，可以看官方文档。 查阅文档时，稳定指数如下：  红色：废弃。  橙色：实验。表示当前版本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05-Node.js内置模块：fs文件模块">
+<meta property="og:url" content="http://example.com/2021/12/01/11-Node.js/05-Node.js%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97%EF%BC%9Afs%E6%96%87%E4%BB%B6%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="Node.js 的官方API文档 Node.js 的API文档（英文）： https:&#x2F;&#x2F;nodejs.org&#x2F;docs&#x2F;latest-v8.x&#x2F;api&#x2F;index.html  Node.js 的API文档（中文）：http:&#x2F;&#x2F;nodejs.cn&#x2F;api&#x2F;   关于 Node.js 的内置模块和常见API，可以看官方文档。 查阅文档时，稳定指数如下：  红色：废弃。  橙色：实验。表示当前版本">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-12-01T02:00:27.851Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.632Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/11-Node.js/05-Node.js内置模块：fs文件模块/"/>
+
+
+
+
+
+  <title>05-Node.js内置模块：fs文件模块 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/11-Node.js/05-Node.js%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97%EF%BC%9Afs%E6%96%87%E4%BB%B6%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">05-Node.js内置模块：fs文件模块</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:27+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="Node-js-的官方API文档"><a href="#Node-js-的官方API文档" class="headerlink" title="Node.js 的官方API文档"></a>Node.js 的官方API文档</h2><ul>
+<li><p>Node.js 的API文档（英文）： <a target="_blank" rel="noopener" href="https://nodejs.org/docs/latest-v8.x/api/index.html">https://nodejs.org/docs/latest-v8.x/api/index.html</a></p>
+</li>
+<li><p>Node.js 的API文档（中文）：<a target="_blank" rel="noopener" href="http://nodejs.cn/api/">http://nodejs.cn/api/</a></p>
+</li>
+</ul>
+<p>关于 Node.js 的内置模块和常见API，可以看官方文档。</p>
+<p>查阅文档时，稳定指数如下：</p>
+<ul>
+<li><p>红色：废弃。</p>
+</li>
+<li><p>橙色：实验。表示当前版本可用，其他版本不确定。也许不向下兼容，建议不要在生产环境中使用该特性。</p>
+</li>
+<li><p>绿色：稳定。与 npm 生态系统的兼容性是最高的优先级。</p>
+</li>
+</ul>
+<h2 id="Node-js-中模块的分类"><a href="#Node-js-中模块的分类" class="headerlink" title="Node.js 中模块的分类"></a>Node.js 中模块的分类</h2><p>Node.js 应用由模块组成，采用 CommonJS 模块规范。Node.js中的模块分为三种：</p>
+<ul>
+<li><p>内置模块</p>
+</li>
+<li><p>第三方模块</p>
+</li>
+<li><p>自定义模块</p>
+</li>
+</ul>
+<p>下面简单介绍一下。</p>
+<h3 id="1、内置模块"><a href="#1、内置模块" class="headerlink" title="1、内置模块"></a>1、内置模块</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> process = <span class="built_in">require</span>(<span class="string">&#x27;process&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(process.version);</span><br><span class="line"><span class="built_in">console</span>.log(path.resolve(<span class="string">&#x27;../&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>require方法用于加载模块。</p>
+<p>常见的内置模块包括：</p>
+<ul>
+<li><p>FS：文件系统模块</p>
+</li>
+<li><p>path：路径模块</p>
+</li>
+<li><p>OS：操作系统相关</p>
+</li>
+<li><p>net：网络相关</p>
+</li>
+<li><p>http</p>
+</li>
+<li><p>…</p>
+</li>
+</ul>
+<p>你可能会有疑问：Node.js 这么牛吗？还能直接和操作系统做交互？</p>
+<p>带着这个疑问，我们不妨简单看看 Node.js 的源码，以 os 模块举例：</p>
+<ul>
+<li><p>打开os模块的源码：<a target="_blank" rel="noopener" href="https://github.com/nodejs/node/blob/master/lib/os.js">https://github.com/nodejs/node/blob/master/lib/os.js</a>，翻到最底部，找到 <code>cpus</code>这个方法</p>
+</li>
+<li><p>进而找到 <code>getCPUs()</code></p>
+</li>
+<li><p>internalBinding(‘os’)：通过 internalBinding 可以调用系统底层的方法。internalBinding 主要是 JS 虚拟机在做的事情。</p>
+</li>
+<li><p><code>internalBinding(&#39;os&#39;)</code> 的实现，在 <a target="_blank" rel="noopener" href="https://github.com/nodejs/node/blob/master/src/node_os.cc">https://github.com/nodejs/node/blob/master/src/node_os.cc</a> 里，里面都是 C++ 的代码。比如有一个<code>getCPUs</code>方法。</p>
+</li>
+</ul>
+<p>现在你知道了，JS本身是没有能力获取底层系统资源的，这一切都是 JS虚拟机在和底层做交互，然后通过 JS 的表现形式，暴露给应用层。</p>
+<p>另外，还有很多库，是直接使用C/++编写的，通过编译之后，再提供给 JS 应用层调用，或者直接提供给 Node.js层使用。</p>
+<p>**所有的编程语言底层都会回归C/C++**，甚至是汇编语言。</p>
+<h3 id="2、require-加载第三方包的机制"><a href="#2、require-加载第三方包的机制" class="headerlink" title="2、require 加载第三方包的机制"></a>2、require 加载第三方包的机制</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>require 加载第三方包的机制：</p>
+<p>（1）第三方包安装好后，这个包一般会存放在当前项目的 node_modules 文件夹中。我们找到这个包的 package.json 文件，并且找到里面的main属性对应的入口模块，这个入口模块就是这个包的入口文件。</p>
+<p>（2）如果第三方包中没有找到package.json文件，或者package.json文件中没有main属性，则默认加载第三方包中的index.js文件。</p>
+<p>（3）如果在 node_modules 文件夹中没有找到这个包，或者以上所有情况都没有找到，则会向上一级父级目录下查找node_modules文件夹，查找规则如上一致。</p>
+<p>（4）如果一直找到该模块的磁盘根路径都没有找到，则会报错：can not find module xxx。</p>
+<h3 id="3、自定义模块（module）："><a href="#3、自定义模块（module）：" class="headerlink" title="3、自定义模块（module）："></a>3、自定义模块（module）：</h3><p>每个文件就是一个模块，有自己的作用域。在一个文件里面定义的变量、函数、类，都是私有的，对其他文件不可见。</p>
+<p>举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var example = require(&#x27;./example.js&#x27;);</span><br><span class="line">console.log(example.x); // 5</span><br><span class="line">console.log(example.addX(1)); // 6</span><br></pre></td></tr></table></figure>
+
+<h2 id="读取文件"><a href="#读取文件" class="headerlink" title="读取文件"></a>读取文件</h2><p>今天这篇文章，重点讲一下 Node 内置模块中的 <strong>fs（文件处理模块）</strong>。</p>
+<p>在使用文件模块之前，记得先导入：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入文件模块</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>fs 的英文全称是 File System。fs 模块提供了很多 api 方法，我们首先应该学习的方法是<strong>文件读取</strong>。</p>
+<p>Node中文件读取的方式主要有以下几种。</p>
+<h3 id="异步读取文件-fs-readFile"><a href="#异步读取文件-fs-readFile" class="headerlink" title="异步读取文件 fs.readFile()"></a>异步读取文件 fs.readFile()</h3><p>语法格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.readFile(file[, options], callback(error, data))</span><br></pre></td></tr></table></figure>
+
+<p>代码举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">&#x27;hello.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;异步读取数据：&#x27;</span> + data2)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+<p>如果需要嵌套读取多个文件，可以用 promise 或者 async … await 进行封装。代码举例如下。</p>
+<h3 id="promise-封装-fs-readFile"><a href="#promise-封装-fs-readFile" class="headerlink" title="promise 封装 fs.readFile()"></a>promise 封装 fs.readFile()</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fsRead</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        fs.readFile(path, &#123; <span class="attr">flag</span>: <span class="string">&#x27;r&#x27;</span>, <span class="attr">encoding</span>: <span class="string">&quot;utf-8&quot;</span> &#125;, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="comment">//失败执行的内容</span></span><br><span class="line">                reject(err)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//成功执行的内容</span></span><br><span class="line">                resolve(data)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> promise1 = fsRead(<span class="string">&#x27;hello1.txt&#x27;</span>)</span><br><span class="line">promise1.then(<span class="function"><span class="params">res1</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res1);</span><br><span class="line">    <span class="keyword">return</span> fsRead(<span class="string">&#x27;hello2.txt&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res2</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res2);</span><br><span class="line">    <span class="keyword">return</span> fsRead(<span class="string">&#x27;hello3.txt&#x27;</span>);</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res3</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="async-…-await-封装-fs-readFile"><a href="#async-…-await-封装-fs-readFile" class="headerlink" title="async … await 封装 fs.readFile()"></a>async … await 封装 fs.readFile()</h3><p>这个写法更为简洁，推荐。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fsRead</span>(<span class="params">path</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        fs.readFile(path, &#123; <span class="attr">flag</span>: <span class="string">&#x27;r&#x27;</span>, <span class="attr">encoding</span>: <span class="string">&quot;utf-8&quot;</span> &#125;, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="comment">//失败执行的内容</span></span><br><span class="line">                reject(err)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">//成功执行的内容</span></span><br><span class="line">                resolve(data)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">ReadList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res1 = <span class="keyword">await</span> fsRead(<span class="string">&#x27;hello1.txt&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> res2 = <span class="keyword">await</span> fsRead(<span class="string">&#x27;hello2.txt&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> res3 = <span class="keyword">await</span> fsRead(<span class="string">&#x27;hello3.txt&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 执行方法</span></span><br><span class="line">ReadList();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="同步读取文件-fs-readFileSync"><a href="#同步读取文件-fs-readFileSync" class="headerlink" title="同步读取文件 fs.readFileSync()"></a>同步读取文件 fs.readFileSync()</h3><p>语法格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.readFileSync(file[, options])</span><br></pre></td></tr></table></figure>
+
+<p>代码举例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> data = fs.readFileSync(<span class="string">&#x27;hello.txt&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>);</span><br><span class="line">  <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125; <span class="keyword">catch</span>(e) &#123;</span><br><span class="line">  <span class="comment">// 文件不存在，或者权限错误</span></span><br><span class="line">  <span class="keyword">throw</span> e;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Node-js-中的同步和异步的区别"><a href="#Node-js-中的同步和异步的区别" class="headerlink" title="Node.js 中的同步和异步的区别"></a>Node.js 中的同步和异步的区别</h3><p>fs模块对文件的几乎所有操作都有同步和异步两种形式。例如：readFile() 和 readFileSync()。</p>
+<p>区别：</p>
+<ul>
+<li><p>同步调用会阻塞代码的执行，异步则不会。</p>
+</li>
+<li><p>异步调用会将 读取任务 下达到任务队列，直到任务执行完成才会回调。</p>
+</li>
+<li><p>异常处理方面：同步必须使用 try catch 方式，异步可以通过回调函数的第一个参数。【重要】</p>
+</li>
+</ul>
+<h2 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h2><p>语法格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs.write(fd, string[, position[, encoding]], callback)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>async … await 封装：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">writeFs</span>(<span class="params">path, content</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">        fs.writeFile(path, content, &#123; <span class="attr">flag</span>: <span class="string">&quot;a&quot;</span>, <span class="attr">encoding</span>: <span class="string">&quot;utf-8&quot;</span> &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                <span class="comment">//console.log(&quot;写入内容出错&quot;)</span></span><br><span class="line">                reject(err)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                resolve(err)</span><br><span class="line">                <span class="comment">//console.log(&quot;写入内容成功&quot;)</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">writeList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">await</span> writeFs(<span class="string">&#x27;1.html&#x27;</span>, <span class="string">&quot;&lt;h1&gt;qianguyihao&lt;/h1&gt;&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> writeFs(<span class="string">&#x27;2.html&#x27;</span>, <span class="string">&quot;&lt;h1&gt;hello world&lt;/h1&gt;&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> writeFs(<span class="string">&#x27;3.html&#x27;</span>, <span class="string">&quot;&lt;h1&gt;永不止步&lt;/h1&gt;&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">writeList()</span><br></pre></td></tr></table></figure>
+
+<h2 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h2><p>语法格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.unlink(path, callback)</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li>path：文件路径。</li>
+<li>callback：回调函数。</li>
+</ul>
+<p>代码举例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fs.unlink(<span class="string">&#x27;path/file.txt&#x27;</span>, <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;文件删除成功&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>备注：<code>fs.unlink()</code> 不能用于删除目录。 如果要删除目录，可以使用 <code>fs.rmdir()</code>。</p>
+<h2 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h2><p>通过 Buffer 开辟的内存空间，都是连续的内存空间，所以效率比较高。</p>
+<p>代码举例1：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 将字符串转成 buffer 对象</span></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">&#x27;qianguyihao&#x27;</span>;</span><br><span class="line"><span class="keyword">let</span> buffer = Buffer.from(str);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buffer); <span class="comment">// 输出16进制编码</span></span><br><span class="line"><span class="built_in">console</span>.log(buffer.toString()); <span class="comment">// 输出字符串：qianguyihao</span></span><br></pre></td></tr></table></figure>
+
+<p>代码举例2：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从内存中开辟一个新的缓冲区</span></span><br><span class="line"><span class="keyword">let</span> buffer = Buffer.alloc(<span class="number">20</span>);</span><br><span class="line">buffer[<span class="number">0</span>] = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(buffer);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="读取目录"><a href="#读取目录" class="headerlink" title="读取目录"></a>读取目录</h2><p>语法格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fs.mkdir(path[, options], callback)</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><p>path：文件路径。</p>
+</li>
+<li><p>options参数可以是：</p>
+<ul>
+<li>recursive：是否以递归的方式创建目录，默认为 false。</li>
+<li>mode：设置目录权限，默认为 0777。</li>
+</ul>
+</li>
+</ul>
+<p>代码举例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);</span><br><span class="line">​</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;查看 /tmp 目录&quot;</span>);</span><br><span class="line">fs.readdir(<span class="string">&quot;/tmp/&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err, files</span>)</span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (err) &#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="built_in">console</span>.error(err);</span><br><span class="line">   &#125;</span><br><span class="line">   files.forEach( <span class="function"><span class="keyword">function</span> (<span class="params">file</span>)</span>&#123;</span><br><span class="line">       <span class="built_in">console</span>.log( file );</span><br><span class="line">   &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>其他的还有：（暂略）</p>
+<ul>
+<li><p>删除目录</p>
+</li>
+<li><p>输入输出</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/11-Node.js/04-Node.js%E6%A8%A1%E5%9D%97%E5%8C%96%E8%A7%84%E8%8C%83%EF%BC%9ACommonJS/" rel="next" title="04-Node.js模块化规范：CommonJS">
+                <i class="fa fa-chevron-left"></i> 04-Node.js模块化规范：CommonJS
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/11-Node.js/06-Node.js%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97%EF%BC%9Apath%E8%B7%AF%E5%BE%84%E6%A8%A1%E5%9D%97/" rel="prev" title="06-Node.js内置模块：path路径模块">
+                06-Node.js内置模块：path路径模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-%E7%9A%84%E5%AE%98%E6%96%B9API%E6%96%87%E6%A1%A3"><span class="nav-number">1.</span> <span class="nav-text">Node.js 的官方API文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-js-%E4%B8%AD%E6%A8%A1%E5%9D%97%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">Node.js 中模块的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97"><span class="nav-number">2.1.</span> <span class="nav-text">1、内置模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81require-%E5%8A%A0%E8%BD%BD%E7%AC%AC%E4%B8%89%E6%96%B9%E5%8C%85%E7%9A%84%E6%9C%BA%E5%88%B6"><span class="nav-number">2.2.</span> <span class="nav-text">2、require 加载第三方包的机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%EF%BC%88module%EF%BC%89%EF%BC%9A"><span class="nav-number">2.3.</span> <span class="nav-text">3、自定义模块（module）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">读取文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6-fs-readFile"><span class="nav-number">3.1.</span> <span class="nav-text">异步读取文件 fs.readFile()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#promise-%E5%B0%81%E8%A3%85-fs-readFile"><span class="nav-number">3.2.</span> <span class="nav-text">promise 封装 fs.readFile()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-%E2%80%A6-await-%E5%B0%81%E8%A3%85-fs-readFile"><span class="nav-number">3.3.</span> <span class="nav-text">async … await 封装 fs.readFile()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E8%AF%BB%E5%8F%96%E6%96%87%E4%BB%B6-fs-readFileSync"><span class="nav-number">3.4.</span> <span class="nav-text">同步读取文件 fs.readFileSync()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-js-%E4%B8%AD%E7%9A%84%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.5.</span> <span class="nav-text">Node.js 中的同步和异步的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">写入文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">删除文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Buffer"><span class="nav-number">6.</span> <span class="nav-text">Buffer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E7%9B%AE%E5%BD%95"><span class="nav-number">7.</span> <span class="nav-text">读取目录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

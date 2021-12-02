@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言本次做后台管理系统，采用的是 AntD 框架。涉及到图片的上传，用的是AntD的 upload 组件。 前端做文件上传这个功能，是很有技术难度的。既然框架给我们提供好了，那就直接用呗。结果用的时候，发现 upload 组件的很多bug。下面来列举几个。 备注：本文写于2019-03-02，使用的 antd 版本是 3.13.6。 使用 AntD 的 upload 组件做图片的上传因为需要上传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09-AntD框架的upload组件上传图片时遇到的一些坑">
+<meta property="og:url" content="http://example.com/2021/12/01/13-React%E5%9F%BA%E7%A1%80/09-AntD%E6%A1%86%E6%9E%B6%E7%9A%84upload%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="前言本次做后台管理系统，采用的是 AntD 框架。涉及到图片的上传，用的是AntD的 upload 组件。 前端做文件上传这个功能，是很有技术难度的。既然框架给我们提供好了，那就直接用呗。结果用的时候，发现 upload 组件的很多bug。下面来列举几个。 备注：本文写于2019-03-02，使用的 antd 版本是 3.13.6。 使用 AntD 的 upload 组件做图片的上传因为需要上传">
+<meta property="og:locale">
+<meta property="og:image" content="http://img.smyhvae.com/20190302_1335.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190302_1336.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190302_1331.png">
+<meta property="og:image" content="http://img.smyhvae.com/20190302_1339_2.png">
+<meta property="article:published_time" content="2021-12-01T02:00:49.852Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.649Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20190302_1335.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/13-React基础/09-AntD框架的upload组件上传图片时遇到的一些坑/"/>
+
+
+
+
+
+  <title>09-AntD框架的upload组件上传图片时遇到的一些坑 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/13-React%E5%9F%BA%E7%A1%80/09-AntD%E6%A1%86%E6%9E%B6%E7%9A%84upload%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9D%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">09-AntD框架的upload组件上传图片时遇到的一些坑</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:49+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本次做后台管理系统，采用的是 AntD 框架。涉及到图片的上传，用的是AntD的 <a target="_blank" rel="noopener" href="https://ant.design/components/upload-cn/">upload</a> 组件。</p>
+<p>前端做文件上传这个功能，是很有技术难度的。既然框架给我们提供好了，那就直接用呗。结果用的时候，发现 upload 组件的很多bug。下面来列举几个。</p>
+<p>备注：本文写于2019-03-02，使用的 antd 版本是 3.13.6。</p>
+<h2 id="使用-AntD-的-upload-组件做图片的上传"><a href="#使用-AntD-的-upload-组件做图片的上传" class="headerlink" title="使用 AntD 的 upload 组件做图片的上传"></a>使用 AntD 的 upload 组件做图片的上传</h2><p>因为需要上传多张图片，所以采用的是照片墙的形式。上传成功后的界面如下：</p>
+<p>（1）上传中：</p>
+<p><img src="http://img.smyhvae.com/20190302_1335.png"></p>
+<p>（2）上传成功：</p>
+<p><img src="http://img.smyhvae.com/20190302_1336.png"></p>
+<p>（3）图片预览：</p>
+<p><img src="http://img.smyhvae.com/20190302_1331.png"></p>
+<p>按照官方提供的实例，特此整理出项目开发中的完整写法，亲测有效。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Upload, Icon, Modal, Form &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FormItem = Form.Item;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PicturesWall</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">previewVisible</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">previewImage</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">imgList</span>: [],</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function">(<span class="params">&#123; file, fileList &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(file)); <span class="comment">// file 是当前正在上传的 单个 img</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(fileList)); <span class="comment">// fileList 是已上传的全部 img 列表</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">imgList</span>: fileList,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  handleCancel = <span class="function">() =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">previewVisible</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"></span><br><span class="line">  handlePreview = <span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">previewImage</span>: file.url || file.thumbUrl,</span><br><span class="line">      <span class="attr">previewVisible</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 参考链接：https://www.jianshu.com/p/f356f050b3c9</span></span><br><span class="line">  handleBeforeUpload = <span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//限制图片 格式、size、分辨率</span></span><br><span class="line">    <span class="keyword">const</span> isJPG = file.type === <span class="string">&#x27;image/jpeg&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isJPEG = file.type === <span class="string">&#x27;image/jpeg&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isGIF = file.type === <span class="string">&#x27;image/gif&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isPNG = file.type === <span class="string">&#x27;image/png&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (!(isJPG || isJPEG || isGIF || isPNG)) &#123;</span><br><span class="line">      Modal.error(&#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;只能上传JPG 、JPEG 、GIF、 PNG格式的图片~&#x27;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> isLt2M = file.size / <span class="number">1024</span> / <span class="number">1024</span> &lt; <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span> (!isLt2M) &#123;</span><br><span class="line">      Modal.error(&#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;超过2M限制，不允许上传~&#x27;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (isJPG || isJPEG || isGIF || isPNG) &amp;&amp; isLt2M &amp;&amp; <span class="built_in">this</span>.checkImageWH(file);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//返回一个 promise：检测通过则返回resolve；失败则返回reject，并阻止图片上传</span></span><br><span class="line">  <span class="function"><span class="title">checkImageWH</span>(<span class="params">file</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> self = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> filereader = <span class="keyword">new</span> FileReader();</span><br><span class="line">      filereader.onload = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> src = e.target.result;</span><br><span class="line">        <span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">        image.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 获取图片的宽高，并存放到file对象中</span></span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;file width :&#x27;</span> + <span class="built_in">this</span>.width);</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;file height :&#x27;</span> + <span class="built_in">this</span>.height);</span><br><span class="line">          file.width = <span class="built_in">this</span>.width;</span><br><span class="line">          file.height = <span class="built_in">this</span>.height;</span><br><span class="line">          resolve();</span><br><span class="line">        &#125;;</span><br><span class="line">        image.onerror = reject;</span><br><span class="line">        image.src = src;</span><br><span class="line">      &#125;;</span><br><span class="line">      filereader.readAsDataURL(file);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleSubmit = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; dispatch, form &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    e.preventDefault();</span><br><span class="line">    form.validateFieldsAndScroll(<span class="function">(<span class="params">err, values</span>) =&gt;</span> &#123;<span class="comment">// values 是form表单里的参数</span></span><br><span class="line">      <span class="comment">// 点击按钮后，将表单提交给后台</span></span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;mymodel/submitFormData&#x27;</span>,</span><br><span class="line">        <span class="attr">payload</span>: values,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; previewVisible, previewImage, imgList &#125; = <span class="built_in">this</span>.state; <span class="comment">//  从 state 中拿数据</span></span><br><span class="line">    <span class="keyword">const</span> uploadButton = (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">type</span>=<span class="string">&quot;plus&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;ant-upload-text&quot;</span>&gt;</span>Upload<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;clearfix&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;this.handleSubmit&#125;</span> <span class="attr">hideRequiredMark</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginTop:</span> <span class="attr">8</span> &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">FormItem</span> <span class="attr">label</span>=<span class="string">&quot;图片图片&quot;</span> &#123;<span class="attr">...formItemLayout</span>&#125;&gt;</span></span></span><br><span class="line"><span class="xml">            &#123;getFieldDecorator(&#x27;myImg&#x27;)(</span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">Upload</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">                <span class="attr">action</span>=<span class="string">&quot;//jsonplaceholder.typicode.com/posts/&quot;</span> // 这个是图片上传的接口请求，实际开发中，要替换成你自己的业务接口</span></span></span><br><span class="line"><span class="tag"><span class="xml">                <span class="attr">data</span>=<span class="string">&#123;file</span> =&gt;</span> (&#123; // data里存放的是接口的请求参数</span></span><br><span class="line"><span class="xml">                  param1: myParam1,</span></span><br><span class="line"><span class="xml">                  param2: myParam2,</span></span><br><span class="line"><span class="xml">                  photoCotent: file, // file 是当前正在上传的图片</span></span><br><span class="line"><span class="xml">                  photoWidth: file.height, // 通过  handleBeforeUpload 获取 图片的宽高</span></span><br><span class="line"><span class="xml">                  photoHeight: file.width,</span></span><br><span class="line"><span class="xml">                &#125;)&#125;</span></span><br><span class="line"><span class="xml">                listType=&quot;picture-card&quot;</span></span><br><span class="line"><span class="xml">                fileList=&#123;this.state.imgList&#125;</span></span><br><span class="line"><span class="xml">                onPreview=&#123;this.handlePreview&#125; // 点击图片缩略图，进行预览</span></span><br><span class="line"><span class="xml">                beforeUpload=&#123;this.handleBeforeUpload&#125; // 上传之前，对图片的格式做校验，并获取图片的宽高</span></span><br><span class="line"><span class="xml">                onChange=&#123;this.handleChange&#125; // 每次上传图片时，都会触发这个方法</span></span><br><span class="line"><span class="xml">              &gt;</span></span><br><span class="line"><span class="xml">                &#123;this.state.imgList.length &gt;= 9 ? null : uploadButton&#125;</span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;/<span class="name">Upload</span>&gt;</span></span></span><br><span class="line"><span class="xml">            )&#125;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">FormItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">Form</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Modal</span> <span class="attr">visible</span>=<span class="string">&#123;previewVisible&#125;</span> <span class="attr">footer</span>=<span class="string">&#123;null&#125;</span> <span class="attr">onCancel</span>=<span class="string">&#123;this.handleCancel&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;example&quot;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">width:</span> &#x27;<span class="attr">100</span>%&#x27; &#125;&#125; <span class="attr">src</span>=<span class="string">&#123;previewImage&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">Modal</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> PicturesWall;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="上传后，点击图片预览，浏览器卡死的问题"><a href="#上传后，点击图片预览，浏览器卡死的问题" class="headerlink" title="上传后，点击图片预览，浏览器卡死的问题"></a>上传后，点击图片预览，浏览器卡死的问题</h2><p>依据上方的代码，通过 Antd 的 upload 组件将图片上传成功后，点击图片的缩略图，理应可以在当前页面弹出  Modal，预览图片。但实际的结果是，浏览器一定会卡死。</p>
+<p>定位问题发现，原因竟然是：图片上传成功后， upload 会将其转为 base64编码。base64这个字符串太大了，点击图片预览的时候，浏览器在解析一大串字符串，然后就卡死了。详细过程描述如下。</p>
+<p>上方代码中，我们可以把 handleChange(file, fileList)方法中的 <code>file</code>、以及 <code>fileList</code>打印出来看看。 <code>file</code>指的是当前正在上传的 单个 img，<code>fileList</code>是已上传的全部 img 列表。 当我上传完 两张图片后， 打印结果如下：</p>
+<p>file的打印的结果如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;rc-upload-1551084269812-5&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;width&quot;</span>: <span class="number">600</span>,</span><br><span class="line">    <span class="attr">&quot;height&quot;</span>: <span class="number">354</span>,</span><br><span class="line">    <span class="attr">&quot;lastModified&quot;</span>: <span class="number">1546701318000</span>,</span><br><span class="line">    <span class="attr">&quot;lastModifiedDate&quot;</span>: <span class="string">&quot;2019-01-05T15:15:18.000Z&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;e30e7b9680634b2c888c8bb513cc595d.jpg&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;size&quot;</span>: <span class="number">31731</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/jpeg&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;percent&quot;</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">&quot;originFileObj&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;rc-upload-1551084269812-5&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;width&quot;</span>: <span class="number">600</span>,</span><br><span class="line">        <span class="attr">&quot;height&quot;</span>: <span class="number">354</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;done&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;thumbUrl&quot;</span>: <span class="string">&quot;data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAHQ9qKKlbimcXrIH9o2vH/AC2T+ddPj98v+9RRWsuhnHdk0ar9qb5R0Pb6VPB/qh9aKKiRr0Irnt/vUDr+NFFJCRqWxJik5Pb+dLJ938aKK06mYSdKKKKBH//Z&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;response&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;retCode&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;imgUrl&quot;</span>: <span class="string">&quot;http://qianguyihao.com/opfewfwj098902kpkpkkj976fe.jpg&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;photoid&quot;</span>: <span class="number">271850</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>fileList 的打印结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;rc-upload-1551084269812-3&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;width&quot;</span>: <span class="number">1000</span>,</span><br><span class="line">        <span class="attr">&quot;height&quot;</span>: <span class="number">667</span>,</span><br><span class="line">        <span class="attr">&quot;lastModified&quot;</span>: <span class="number">1501414799000</span>,</span><br><span class="line">        <span class="attr">&quot;lastModifiedDate&quot;</span>: <span class="string">&quot;2017-07-30T11:39:59.000Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;29381f30e924b89914e91b33.jpg&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;size&quot;</span>: <span class="number">135204</span>,</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/jpeg&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;percent&quot;</span>: <span class="number">100</span>,</span><br><span class="line">        <span class="attr">&quot;originFileObj&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;rc-upload-1551084269812-3&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;width&quot;</span>: <span class="number">1000</span>,</span><br><span class="line">            <span class="attr">&quot;height&quot;</span>: <span class="number">667</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;done&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;thumbUrl&quot;</span>: <span class="string">&quot;data:image/jpeg;base64,/E3ju1tlaK1fzJOnHQU3LsLV7HO6Zrk11MZJ7luT0A4FZuRagi9quvzQQ4iuEJ7ZpqTG4djDsPFl2Lg733f8C4q+YhQ8zoYfGSqoMmfwo5huLL0HjiyPDSYPvxRdC1XQvxeLrB8fvl/OnoLmL9vrdvvYS3NGFVe2YsASOh71JfQyrqV2mXLHOcccVSIYEnDyZO9XXB9KYH//Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;response&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;retCode&quot;</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">&quot;msg&quot;</span>: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;imgUrl&quot;</span>: <span class="string">&quot;http://qianguyihao.com/hfwpjouiurewnmbhepr689.jpg&quot;</span>,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;rc-upload-1551084269812-5&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;width&quot;</span>: <span class="number">600</span>,</span><br><span class="line">        <span class="attr">&quot;height&quot;</span>: <span class="number">354</span>,</span><br><span class="line">        <span class="attr">&quot;lastModified&quot;</span>: <span class="number">1546701318000</span>,</span><br><span class="line">        <span class="attr">&quot;lastModifiedDate&quot;</span>: <span class="string">&quot;2019-01-05T15:15:18.000Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;e30e7b9680634b2c888c8bb513cc595d.jpg&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;size&quot;</span>: <span class="number">31731</span>,</span><br><span class="line">        <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;image/jpeg&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;percent&quot;</span>: <span class="number">100</span>,</span><br><span class="line">        <span class="attr">&quot;originFileObj&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;rc-upload-1551084269812-5&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;width&quot;</span>: <span class="number">600</span>,</span><br><span class="line">            <span class="attr">&quot;height&quot;</span>: <span class="number">354</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;done&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;thumbUrl&quot;</span>: <span class="string">&quot;data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAHQ9qKKlbimcXrIH9o2vH/AC2T+ddPj98v+9RRWsuhnHdk0ar9qb5R0Pb6VPB/qh9aKKiRr0Irnt/vUDr+NFFJCRqWxJik5Pb+dLJ938aKK06mYSdKKKKBH//Z&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;response&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;retCode&quot;</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="attr">&quot;imgUrl&quot;</span>: <span class="string">&quot;http://qianguyihao.com/opfewfwj098902kpkpkkj976fe.jpg&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;photoid&quot;</span>: <span class="number">271850</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>上方的json数据中，需要做几点解释：</p>
+<p>（1）<code>response</code> 字段里面的数据，就是请求接口后，后台返回给前端的数据，里面包含了图片的url链接。</p>
+<p>（2）<code>status</code> 字段里存放的是图片上传的实时状态，包括上传中、上传完成、上传失败。</p>
+<p>（3）<code>thumbUrl</code>字段里面存放的是图片的base64编码。</p>
+<p>这个base64编码非常非常长。当点击图片预览的时候，其实就是加载的 thumbUrl 这个字段里的资源，难怪浏览器会卡死。</p>
+<p><strong>解决办法</strong>：在 handleChange方法里，图片上传成功后，将 thumbUrl 字段里面的 base64 编码改为真实的图片url。代码实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">handleChange = <span class="function">(<span class="params">&#123; file, fileList &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(file)); <span class="comment">// file 是当前正在上传的 单个 img</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.stringify(fileList)); <span class="comment">// fileList 是已上传的全部 img 列表</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 【重要】将 图片的base64替换为图片的url。 这一行一定不会能少。</span></span><br><span class="line">  <span class="comment">// 图片上传成功后，fileList数组中的 thumbUrl 中保存的是图片的base64字符串，这种情况，导致的问题是：图片上传成功后，点击图片缩略图，浏览器会会卡死。而下面这行代码，可以解决该bug。</span></span><br><span class="line">  fileList.forEach(<span class="function"><span class="params">imgItem</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (imgItem &amp;&amp; imgItem.status == <span class="string">&#x27;done&#x27;</span> &amp;&amp; imgItem.response &amp;&amp; imgItem.response.imgUrl) &#123;</span><br><span class="line">      imgItem.thumbUrl = imgItem.response.imgUrl;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">    <span class="attr">imgList</span>: fileList,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="新需求：编辑现有页面"><a href="#新需求：编辑现有页面" class="headerlink" title="新需求：编辑现有页面"></a>新需求：编辑现有页面</h2><p>上面一段的代码中，我们是在新建的页面中，从零开始上传图片。</p>
+<p>现在有个新的需求：如何编辑现有的页面呢？也就是说，现有的页面在初始化时，是默认有几张图片的。当我编辑这个页面时，可以对现有的图片做增删，也能增加新的图片。而且要保证：新建页面和编辑现有页面，是共用一套代码。</p>
+<p>我看到upload 组件有提供 <code>defaultFileList</code> 的属性。我试了下，这个<code>defaultFileList</code> 的属性根本没法儿用。</p>
+<p>那就只有手动实现了。我的model层代码，是用 redux 写的。整体的实现思路如下：（这个也是在真正在实战中用到的代码）</p>
+<p>（1）PicturesWall.js：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Upload, Icon, Modal, Form &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> FormItem = Form.Item;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PicturesWall</span> <span class="keyword">extends</span> <span class="title">PureComponent</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    <span class="attr">previewVisible</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">previewImage</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 页面初始化的时候，从接口拉取默认的图片数据</span></span><br><span class="line">  <span class="function"><span class="title">componentDidMount</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; dispatch &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    dispatch(&#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;mymodel/getAllInfo&#x27;</span>,</span><br><span class="line">      <span class="attr">payload</span>: &#123; <span class="attr">params</span>: xxx &#125;,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleChange = <span class="function">(<span class="params">&#123; file, fileList &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; dispatch &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    <span class="comment">// 【重要】将 图片的base64替换为图片的url。 这一行一定不会能少。</span></span><br><span class="line">    <span class="comment">// 图片上传成功后，fileList数组中的 thumbUrl 中保存的是图片的base64字符串，这种情况，导致的问题是：图片上传成功后，点击图片缩略图，浏览器会会卡死。而下面这行代码，可以解决该bug。</span></span><br><span class="line">    fileList.forEach(<span class="function"><span class="params">imgItem</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (imgItem &amp;&amp; imgItem.status == <span class="string">&#x27;done&#x27;</span> &amp;&amp; imgItem.response &amp;&amp; imgItem.response.imgUrl) &#123;</span><br><span class="line">        imgItem.thumbUrl = imgItem.response.imgUrl;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    dispatch(&#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="string">&#x27;mymodel/setImgList&#x27;</span>,</span><br><span class="line">      <span class="attr">payload</span>: fileList,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  handleCancel = <span class="function">() =&gt;</span> <span class="built_in">this</span>.setState(&#123; <span class="attr">previewVisible</span>: <span class="literal">false</span> &#125;);</span><br><span class="line"></span><br><span class="line">  handlePreview = <span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(&#123;</span><br><span class="line">      <span class="attr">previewImage</span>: file.url || file.thumbUrl,</span><br><span class="line">      <span class="attr">previewVisible</span>: <span class="literal">true</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 参考链接：https://www.jianshu.com/p/f356f050b3c9</span></span><br><span class="line">  handleBeforeUpload = <span class="function"><span class="params">file</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//限制图片 格式、size、分辨率</span></span><br><span class="line">    <span class="keyword">const</span> isJPG = file.type === <span class="string">&#x27;image/jpeg&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isJPEG = file.type === <span class="string">&#x27;image/jpeg&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isGIF = file.type === <span class="string">&#x27;image/gif&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isPNG = file.type === <span class="string">&#x27;image/png&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> isLt2M = file.size / <span class="number">1024</span> / <span class="number">1024</span> &lt; <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!(isJPG || isJPEG || isGIF || isPNG)) &#123;</span><br><span class="line">      Modal.error(&#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;只能上传JPG 、JPEG 、GIF、 PNG格式的图片~&#x27;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!isLt2M) &#123;</span><br><span class="line">      Modal.error(&#123;</span><br><span class="line">        <span class="attr">title</span>: <span class="string">&#x27;超过2M限制，不允许上传~&#x27;</span>,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 参考链接：https://github.com/ant-design/ant-design/issues/8779</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (!(isJPG || isJPEG || isGIF || isPNG)) &#123;</span><br><span class="line">        reject(file);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        resolve(file &amp;&amp; <span class="built_in">this</span>.checkImageWH(file));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//返回一个 promise：检测通过则返回resolve；失败则返回reject，并阻止图片上传</span></span><br><span class="line">  <span class="function"><span class="title">checkImageWH</span>(<span class="params">file</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> self = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">let</span> filereader = <span class="keyword">new</span> FileReader();</span><br><span class="line">      filereader.onload = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> src = e.target.result;</span><br><span class="line">        <span class="keyword">const</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">        image.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">          <span class="comment">// 获取图片的宽高，并存放到file对象中</span></span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;file width :&#x27;</span> + <span class="built_in">this</span>.width);</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;file height :&#x27;</span> + <span class="built_in">this</span>.height);</span><br><span class="line">          file.width = <span class="built_in">this</span>.width;</span><br><span class="line">          file.height = <span class="built_in">this</span>.height;</span><br><span class="line">          resolve();</span><br><span class="line">        &#125;;</span><br><span class="line">        image.onerror = reject;</span><br><span class="line">        image.src = src;</span><br><span class="line">      &#125;;</span><br><span class="line">      filereader.readAsDataURL(file);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  handleSubmit = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; dispatch, form &#125; = <span class="built_in">this</span>.props;</span><br><span class="line">    e.preventDefault();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">mymodel</span>: &#123; imgList &#125;, <span class="comment">// 从props中拿默认的图片数据</span></span><br><span class="line">    &#125; = <span class="built_in">this</span>.props;</span><br><span class="line"></span><br><span class="line">    form.validateFieldsAndScroll(<span class="function">(<span class="params">err, values</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// values 是form表单里的参数</span></span><br><span class="line">      <span class="comment">// 点击按钮后，将表单提交给后台</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">      <span class="comment">// start 问题描述：当编辑现有页面时，如果针对已经存在的默认图片不做修改，则不会触发 upload 的 onChange方法。此时提交表单，表单里的 myImg 字段是空的。</span></span><br><span class="line">      <span class="comment">// 解决办法：如果发现存在默认图片，则追加到表单中</span></span><br><span class="line">      <span class="keyword">if</span> (!values.myImg) &#123;</span><br><span class="line"></span><br><span class="line">        values.myImg = &#123; <span class="attr">fileList</span>: [] &#125;;</span><br><span class="line"></span><br><span class="line">        values.myImg.fileList = imgList;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// end</span></span><br><span class="line"></span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;mymodel/submitFormData&#x27;</span>,</span><br><span class="line">        <span class="attr">payload</span>: values,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; previewVisible, previewImage &#125; = <span class="built_in">this</span>.state; <span class="comment">//  从 state 中拿数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> &#123;</span><br><span class="line">      <span class="attr">mymodel</span>: &#123; imgList &#125;, <span class="comment">// 从props中拿到的图片数据</span></span><br><span class="line">    &#125; = <span class="built_in">this</span>.props;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> uploadButton = (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Icon</span> <span class="attr">type</span>=<span class="string">&quot;plus&quot;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;ant-upload-text&quot;</span>&gt;</span>Upload<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;clearfix&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Form</span> <span class="attr">onSubmit</span>=<span class="string">&#123;this.handleSubmit&#125;</span> <span class="attr">hideRequiredMark</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">marginTop:</span> <span class="attr">8</span> &#125;&#125;&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">FormItem</span> <span class="attr">label</span>=<span class="string">&quot;图片上传&quot;</span> &#123;<span class="attr">...formItemLayout</span>&#125;&gt;</span></span></span><br><span class="line"><span class="xml">            &#123;getFieldDecorator(&#x27;myImg&#x27;)(</span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;<span class="name">Upload</span></span></span></span><br><span class="line"><span class="tag"><span class="xml">                <span class="attr">action</span>=<span class="string">&quot;//jsonplaceholder.typicode.com/posts/&quot;</span> // 这个是图片上传的接口请求，实际开发中，要替换成你自己的业务接口</span></span></span><br><span class="line"><span class="tag"><span class="xml">                <span class="attr">data</span>=<span class="string">&#123;file</span> =&gt;</span> (&#123;</span></span><br><span class="line"><span class="xml">                  // data里存放的是接口的请求参数</span></span><br><span class="line"><span class="xml">                  param1: myParam1,</span></span><br><span class="line"><span class="xml">                  param2: myParam2,</span></span><br><span class="line"><span class="xml">                  photoCotent: file, // file 是当前正在上传的图片</span></span><br><span class="line"><span class="xml">                  photoWidth: file.height, // 通过  handleBeforeUpload 获取 图片的宽高</span></span><br><span class="line"><span class="xml">                  photoHeight: file.width,</span></span><br><span class="line"><span class="xml">                &#125;)&#125;</span></span><br><span class="line"><span class="xml">                listType=&quot;picture-card&quot;</span></span><br><span class="line"><span class="xml">                fileList=&#123;imgList&#125;  // 改为从 props 里拿图片数据，而不是从 state</span></span><br><span class="line"><span class="xml">                onPreview=&#123;this.handlePreview&#125; // 点击图片缩略图，进行预览</span></span><br><span class="line"><span class="xml">                beforeUpload=&#123;this.handleBeforeUpload&#125; // 上传之前，对图片的格式做校验，并获取图片的宽高</span></span><br><span class="line"><span class="xml">                onChange=&#123;this.handleChange&#125; // 每次上传图片时，都会触发这个方法</span></span><br><span class="line"><span class="xml">              &gt;</span></span><br><span class="line"><span class="xml">                &#123;this.state.imgList.length &gt;= 9 ? null : uploadButton&#125;</span></span><br><span class="line"><span class="xml">              <span class="tag">&lt;/<span class="name">Upload</span>&gt;</span></span></span><br><span class="line"><span class="xml">            )&#125;</span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;/<span class="name">FormItem</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">Form</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">Modal</span> <span class="attr">visible</span>=<span class="string">&#123;previewVisible&#125;</span> <span class="attr">footer</span>=<span class="string">&#123;null&#125;</span> <span class="attr">onCancel</span>=<span class="string">&#123;this.handleCancel&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">          <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;example&quot;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;</span> <span class="attr">width:</span> &#x27;<span class="attr">100</span>%&#x27; &#125;&#125; <span class="attr">src</span>=<span class="string">&#123;previewImage&#125;</span> /&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;/<span class="name">Modal</span>&gt;</span></span></span><br><span class="line"><span class="xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> PicturesWall;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（2）mymodel.js:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* eslint-disable */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; routerRedux &#125; <span class="keyword">from</span> <span class="string">&#x27;dva/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; message, Modal &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">  getGoodsInfo,</span><br><span class="line">  getAllGoods,</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">&#x27;../services/api&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; trim, getCookie &#125; <span class="keyword">from</span> <span class="string">&#x27;../utils/utils&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">namespace</span>: <span class="string">&#x27;mymodel&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">state</span>: &#123;</span><br><span class="line">    <span class="attr">form</span>: &#123;&#125;,</span><br><span class="line">    <span class="attr">list</span>: [],</span><br><span class="line">    <span class="attr">listDetail</span>: [],</span><br><span class="line">    <span class="attr">goodsList</span>: [],</span><br><span class="line">    <span class="attr">goodsListDetail</span>: [],</span><br><span class="line">    <span class="attr">pagination</span>: &#123;</span><br><span class="line">      <span class="attr">pageSize</span>: <span class="number">10</span>,</span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span>,</span><br><span class="line">      <span class="attr">current</span>: <span class="number">1</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">imgList</span>: [], <span class="comment">//图片</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">subscriptions</span>: &#123;</span><br><span class="line">    <span class="function"><span class="title">setup</span>(<span class="params">&#123; dispatch, history &#125;</span>)</span> &#123;</span><br><span class="line">      history.listen(<span class="function"><span class="params">location</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (location.pathname !== <span class="string">&#x27;/xx/xxx&#x27;</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (!location.state || !location.state.xxxId) <span class="keyword">return</span>;</span><br><span class="line">        dispatch(&#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;fetch&#x27;</span>,</span><br><span class="line">          <span class="attr">payload</span>: location.state,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">effects</span>: &#123;</span><br><span class="line">    <span class="comment">// 接口。获取所有工厂店的列表 (步骤02)</span></span><br><span class="line">    *<span class="function"><span class="title">getAllInfo</span>(<span class="params">&#123; payload &#125;, &#123; select, call, put &#125;</span>)</span> &#123;</span><br><span class="line">      <span class="keyword">yield</span> put(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;form&#x27;</span>,</span><br><span class="line">        payload,</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;params:&#x27;</span> + <span class="built_in">JSON</span>.stringify(payload));</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> params = &#123;&#125;;</span><br><span class="line">      params = payload;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> response = <span class="keyword">yield</span> call(getGoodsInfo, params);</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;smyhvae response:&#x27;</span> + <span class="built_in">JSON</span>.stringify(response));</span><br><span class="line">      <span class="keyword">if</span> (response.error) <span class="keyword">return</span>;</span><br><span class="line">      <span class="keyword">yield</span> put(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;allInfo&#x27;</span>,</span><br><span class="line">        <span class="attr">payload</span>:</span><br><span class="line">          (response.data &amp;&amp;</span><br><span class="line">            response.data.map(<span class="function"><span class="params">item</span> =&gt;</span> (&#123;</span><br><span class="line">              <span class="attr">xx1</span>: item.yy1,</span><br><span class="line">              <span class="attr">xx2</span>: item.yy2,</span><br><span class="line">            &#125;))) ||</span><br><span class="line">          [],</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// response 里包含了接口返回给前端的默认图片数据</span></span><br><span class="line">      <span class="keyword">if</span> (response &amp;&amp; response.data &amp;&amp; response.data[<span class="number">0</span>] &amp;&amp; response.data[<span class="number">0</span>].my_jpg) &#123;</span><br><span class="line">        <span class="keyword">let</span> tempImgList = response.data[<span class="number">0</span>].my_jpg.split(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">        <span class="keyword">let</span> imgList = [];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (tempImgList.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          tempImgList.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            imgList.push(&#123;</span><br><span class="line">              <span class="attr">uid</span>: item,</span><br><span class="line">              <span class="attr">name</span>: <span class="string">&#x27;xxx.png&#x27;</span>,</span><br><span class="line">              <span class="attr">status</span>: <span class="string">&#x27;done&#x27;</span>,</span><br><span class="line">              <span class="attr">thumbUrl</span>: item,</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 通过  redux的方式 将 默认图片 传给 imgList</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;smyhvae payload imgList:&#x27;</span> + <span class="built_in">JSON</span>.stringify(imgList));</span><br><span class="line">        <span class="keyword">yield</span> put(&#123;</span><br><span class="line">          <span class="attr">type</span>: <span class="string">&#x27;setImgList&#x27;</span>,</span><br><span class="line">          <span class="attr">payload</span>: imgList,</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    *<span class="function"><span class="title">setImgList</span>(<span class="params">&#123; payload &#125;, &#123; call, put &#125;</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;model setImgList&#x27;</span>);</span><br><span class="line">      <span class="keyword">yield</span> put(&#123;</span><br><span class="line">        <span class="attr">type</span>: <span class="string">&#x27;getImgList&#x27;</span>,</span><br><span class="line">        payload,</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="attr">reducers</span>: &#123;</span><br><span class="line">    <span class="function"><span class="title">allInfo</span>(<span class="params">state, action</span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...state,</span><br><span class="line">        <span class="attr">list</span>: action.payload,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="title">getImgList</span>(<span class="params">state, action</span>)</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        ...state,</span><br><span class="line">        <span class="attr">imgList</span>: action.payload,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，可以规避 upload 组件的一些bug；而且可以在上传前，通过校验图片的尺寸、大小等，如果不满足条件，则弹出modal弹窗，阻止上传。</p>
+<p>大功告成。本文感谢 ld 同学的支持。</p>
+<p>更多内容，可以看本人的另外一篇文章：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/qianguyihao/p/13093592.html">AntD框架的upload组件上传图片时使用customRequest方法自定义上传行为</a></li>
+</ul>
+<h2 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues/8779">beforeUpload返回false后，文件仍然为上传中的状态</a></li>
+</ul>
+<h2 id="最后一段"><a href="#最后一段" class="headerlink" title="最后一段"></a>最后一段</h2><p>有人说，前端开发，连卖菜的都会。可如果真的遇到技术难题，还是得找个靠谱的前端同学才行。这不，来看看前端码农日常：</p>
+<p><img src="http://img.smyhvae.com/20190302_1339_2.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/13-React%E5%9F%BA%E7%A1%80/08-Ant%20Design%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" rel="next" title="08-Ant Design的基本使用">
+                <i class="fa fa-chevron-left"></i> 08-Ant Design的基本使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/13-React%E5%9F%BA%E7%A1%80/10-AntD%E6%A1%86%E6%9E%B6%E7%9A%84upload%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%97%B6%E4%BD%BF%E7%94%A8customRequest%E6%96%B9%E6%B3%95%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8A%E4%BC%A0%E8%A1%8C%E4%B8%BA/" rel="prev" title="10-AntD框架的upload组件上传图片时使用customRequest方法自定义上传行为">
+                10-AntD框架的upload组件上传图片时使用customRequest方法自定义上传行为 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-AntD-%E7%9A%84-upload-%E7%BB%84%E4%BB%B6%E5%81%9A%E5%9B%BE%E7%89%87%E7%9A%84%E4%B8%8A%E4%BC%A0"><span class="nav-number">2.</span> <span class="nav-text">使用 AntD 的 upload 组件做图片的上传</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8A%E4%BC%A0%E5%90%8E%EF%BC%8C%E7%82%B9%E5%87%BB%E5%9B%BE%E7%89%87%E9%A2%84%E8%A7%88%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8D%A1%E6%AD%BB%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">上传后，点击图片预览，浏览器卡死的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E9%9C%80%E6%B1%82%EF%BC%9A%E7%BC%96%E8%BE%91%E7%8E%B0%E6%9C%89%E9%A1%B5%E9%9D%A2"><span class="nav-number">4.</span> <span class="nav-text">新需求：编辑现有页面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">其他问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E4%B8%80%E6%AE%B5"><span class="nav-number">6.</span> <span class="nav-text">最后一段</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

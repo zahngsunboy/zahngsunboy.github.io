@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="JS 有哪些数据类型 基本数据类型：string、number、bigint、bool、undefined、null  引用数据类型：object、symbol。   另外，object 包括：数组、函数、正则、日期等对象。NaN属于number类型。 注意，数据类型里，没有数组。因为数组属于object（一旦说数组、函数、正则、日期、NaN是数据类型，直接0分）。 Promise 怎么使用the">
+<meta property="og:type" content="article">
+<meta property="og:title" content="天伟小站">
+<meta property="og:url" content="http://example.com/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%A7%AF%E7%B4%AF/JS%E7%9B%B8%E5%85%B3/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="JS 有哪些数据类型 基本数据类型：string、number、bigint、bool、undefined、null  引用数据类型：object、symbol。   另外，object 包括：数组、函数、正则、日期等对象。NaN属于number类型。 注意，数据类型里，没有数组。因为数组属于object（一旦说数组、函数、正则、日期、NaN是数据类型，直接0分）。 Promise 怎么使用the">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-12-01T02:00:54.358Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.663Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/15-前端面试/面试题积累/JS相关/"/>
+
+
+
+
+
+  <title> | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%A7%AF%E7%B4%AF/JS%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:54+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JS-有哪些数据类型"><a href="#JS-有哪些数据类型" class="headerlink" title="JS 有哪些数据类型"></a>JS 有哪些数据类型</h2><ul>
+<li><p>基本数据类型：string、number、bigint、bool、undefined、null</p>
+</li>
+<li><p>引用数据类型：object、symbol。</p>
+</li>
+</ul>
+<p>另外，object 包括：数组、函数、正则、日期等对象。NaN属于number类型。</p>
+<p>注意，数据类型里，没有数组。因为数组属于object（一旦说数组、函数、正则、日期、NaN是数据类型，直接0分）。</p>
+<h2 id="Promise-怎么使用"><a href="#Promise-怎么使用" class="headerlink" title="Promise 怎么使用"></a>Promise 怎么使用</h2><p>then：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(...).then(成功函数, 失败函数)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>链式 then：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(...).then(成功函数, 失败函数).then(成功函数<span class="number">2</span>, 失败函数<span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>如何自己生成 Promise 对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">xxx</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">         <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">             resolve() 或者 reject()</span><br><span class="line">         &#125;,<span class="number">3000</span>)</span><br><span class="line">     &#125;)</span><br><span class="line"> &#125;</span><br><span class="line"> xxx().then(...)</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="ajax手写"><a href="#ajax手写" class="headerlink" title="ajax手写"></a>ajax手写</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line"> xhr.open(<span class="string">&#x27;POST&#x27;</span>, <span class="string">&#x27;/xxxx&#x27;</span>);</span><br><span class="line"> xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">if</span>(xhr.readyState === <span class="number">4</span> &amp;&amp; xhr.status === <span class="number">200</span>)&#123;</span><br><span class="line">         <span class="built_in">console</span>.log(xhr.responseText)</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> xhr.send(<span class="string">&#x27;a=1&amp;b=2&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="闭包是什么"><a href="#闭包是什么" class="headerlink" title="闭包是什么"></a>闭包是什么</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> a = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    a++</span><br><span class="line">    <span class="built_in">console</span>.log(a)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> fn2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = fn1();   <span class="comment">//执行外部函数fn1，返回的是内部函数fn2</span></span><br><span class="line">f() <span class="comment">// 3       //执行fn2</span></span><br><span class="line">f() <span class="comment">// 4       //再次执行fn2</span></span><br><span class="line"><span class="built_in">console</span>.log(a); <span class="comment">// 会报错：a is not defined</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/22486908">JS 中的闭包是什么？</a></li>
+</ul>
+<h2 id="这段代码里的-this-是什么？"><a href="#这段代码里的-this-是什么？" class="headerlink" title="这段代码里的 this 是什么？"></a>这段代码里的 this 是什么？</h2><p>1、fn() 里面的 this 就是 window</p>
+<p>2、fn() 是 strict mode，this 就是 undefined</p>
+<p>3、a.b.c.fn() 里面的 this 就是 a.b.c</p>
+<p>4、new F() 里面的 this 就是新生成的实例</p>
+<p>5、() =&gt; console.log(this) ，这个this指的是外面的 this。</p>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23804247">this 的值到底是什么？</a></li>
+</ul>
+<h2 id="什么是立即执行函数？作用是？"><a href="#什么是立即执行函数？作用是？" class="headerlink" title="什么是立即执行函数？作用是？"></a>什么是立即执行函数？作用是？</h2><p>立即执行函数：</p>
+<p>（1）声明一个匿名函数，（2）马上调用这个匿名函数。如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> name;  <span class="comment">//声明一个局部变量</span></span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&quot;a = &quot;</span> + a);</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="string">&quot;b = &quot;</span> + b);</span><br><span class="line">&#125;)(<span class="number">123</span>, <span class="number">456</span>);</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>作用：</strong>创建一个独立的作用域，防止污染全局变量。</p>
+<p>因为我们只能通过函数的形式声明一个局部变量。当有了ES6之后，我们可以通过let来定义一个局部变量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="keyword">let</span>  name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面这段代码，就相当于立即执行函数。有了let，立即执行函数就毫无意义。</p>
+<p>参考链接：</p>
+<h2 id="ES6-新特性"><a href="#ES6-新特性" class="headerlink" title="ES6 新特性"></a>ES6 新特性</h2><h2 id="async-await-语法了解吗？目的是什么？"><a href="#async-await-语法了解吗？目的是什么？" class="headerlink" title="async/await 语法了解吗？目的是什么？"></a>async/await 语法了解吗？目的是什么？</h2><p>目的：把异步代码写成同步代码的形式。</p>
+<p>我们知道，promise是这样写的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//进来之后，状态为pending</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;111&#x27;</span>);  <span class="comment">//这一行代码是同步的</span></span><br><span class="line">    <span class="comment">//开始执行异步操作（这里开始，写异步的代码，比如ajax请求 or 开启定时器）</span></span><br><span class="line">    <span class="keyword">if</span> (异步的ajax请求成功) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;333&#x27;</span>);</span><br><span class="line">        resolve();<span class="comment">//如果请求成功了，请写resolve()，此时，promise的状态会被自动修改为fulfilled</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject();<span class="comment">//如果请求失败了，请写reject()，此时，promise的状态会被自动修改为rejected</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;222&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用promise的then()</span></span><br><span class="line">promise.then(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//如果promise的状态为fulfilled，则执行这里的代码</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;成功了&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    , <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">//如果promise的状态为rejected，则执行这里的代码</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;失败了&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>有了await之后，可以直接替换掉then。如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">returnPromise</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>( <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">            resolve(<span class="string">&#x27;success&#x27;</span>)</span><br><span class="line">        &#125;,<span class="number">3000</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">returnPromise().then(<span class="function">(<span class="params">result</span>)=&gt;</span>&#123;</span><br><span class="line">    result === <span class="string">&#x27;success&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result = <span class="keyword">await</span> returnPromise()</span><br><span class="line">result === <span class="string">&#x27;success&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何实现深拷贝"><a href="#如何实现深拷贝" class="headerlink" title="如何实现深拷贝"></a>如何实现深拷贝</h2><h3 id="方式一：JSON-来深拷贝"><a href="#方式一：JSON-来深拷贝" class="headerlink" title="方式一：JSON 来深拷贝"></a>方式一：JSON 来深拷贝</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;...&#125;;</span><br><span class="line"><span class="keyword">var</span> b = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(a)); <span class="comment">//先将对象转成json字符串，然后再转成对象</span></span><br></pre></td></tr></table></figure>
+
+<p>缺点：JSON 不支持函数、引用、undefined、RegExp、Date……</p>
+<h3 id="方式二：递归拷贝"><a href="#方式二：递归拷贝" class="headerlink" title="方式二：递归拷贝"></a>方式二：递归拷贝</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">clone</span>(<span class="params">object</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> object2</span><br><span class="line">    <span class="keyword">if</span>(! (object <span class="keyword">instanceof</span> <span class="built_in">Object</span>) )&#123;</span><br><span class="line">        <span class="keyword">return</span> object</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(object <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;</span><br><span class="line">        object2 = []</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(object <span class="keyword">instanceof</span> <span class="built_in">Function</span>)&#123;</span><br><span class="line">        object2 = <span class="built_in">eval</span>(object.toString())</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(object <span class="keyword">instanceof</span> <span class="built_in">Object</span>)&#123;</span><br><span class="line">        object2 = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    你也可以把 <span class="built_in">Array</span> <span class="built_in">Function</span> <span class="built_in">Object</span> 都当做 <span class="built_in">Object</span> 来看待，参考 https:<span class="comment">//juejin.im/post/587dab348d6d810058d87a0a</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> key <span class="keyword">in</span> object)&#123;</span><br><span class="line">        object2[key] = clone(object[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> object2</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何实现数组去重"><a href="#如何实现数组去重" class="headerlink" title="如何实现数组去重"></a>如何实现数组去重</h2><h3 id="方式1：计数排序的逻辑（只能针对正整数）"><a href="#方式1：计数排序的逻辑（只能针对正整数）" class="headerlink" title="方式1：计数排序的逻辑（只能针对正整数）"></a>方式1：计数排序的逻辑（只能针对正整数）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> hashTab = &#123;&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;a.length;i++)&#123;</span><br><span class="line">    <span class="keyword">if</span>(a[i] <span class="keyword">in</span> hashTab)&#123;</span><br><span class="line">        <span class="comment">// 什么也不做</span></span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        hashTab[ a[i] ] = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//hashTab: &#123;4: true, 2: true, 5: true, 6:true, 3: true&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.keys(hashTab)) <span class="comment">// [&#x27;4&#x27;,&#x27;2&#x27;,&#x27;5&#x27;,&#x27;6&#x27;,&#x27;3&#x27;]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="方式二：set"><a href="#方式二：set" class="headerlink" title="方式二：set"></a>方式二：set</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(a));</span><br></pre></td></tr></table></figure>
+
+
+<p>###方式三</p>
+<h2 id="如何用正则实现-string-trim"><a href="#如何用正则实现-string-trim" class="headerlink" title="如何用正则实现 string.trim()"></a>如何用正则实现 string.trim()</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">trim</span>(<span class="params">string</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> string.replace(<span class="regexp">/^\s+|\s+$/g</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JS-原型是什么？"><a href="#JS-原型是什么？" class="headerlink" title="JS 原型是什么？"></a>JS 原型是什么？</h2><p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/23090041">什么是 JS 原型链？</a></li>
+</ul>
+<h2 id="ES-6-中的-class-了解吗？"><a href="#ES-6-中的-class-了解吗？" class="headerlink" title="ES 6 中的 class 了解吗？"></a>ES 6 中的 class 了解吗？</h2><p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes</a></li>
+</ul>
+<h2 id="如何实现继承"><a href="#如何实现继承" class="headerlink" title="如何实现继承"></a>如何实现继承</h2><ul>
+<li><p>构造函数</p>
+</li>
+<li><p>原型链</p>
+</li>
+<li><p>extends</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%A7%AF%E7%B4%AF/JavaScript%E9%AB%98%E7%BA%A7%E9%9D%A2%E8%AF%95%EF%BC%9A%E5%89%8D%E8%A8%80/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/%E9%9D%A2%E8%AF%95%E9%A2%98%E7%A7%AF%E7%B4%AF/MVVM/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">JS 有哪些数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Promise-%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">Promise 怎么使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ajax%E6%89%8B%E5%86%99"><span class="nav-number">3.</span> <span class="nav-text">ajax手写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%AD%E5%8C%85%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">4.</span> <span class="nav-text">闭包是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84-this-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">这段代码里的 this 是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AB%8B%E5%8D%B3%E6%89%A7%E8%A1%8C%E5%87%BD%E6%95%B0%EF%BC%9F%E4%BD%9C%E7%94%A8%E6%98%AF%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">什么是立即执行函数？作用是？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6-%E6%96%B0%E7%89%B9%E6%80%A7"><span class="nav-number">7.</span> <span class="nav-text">ES6 新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#async-await-%E8%AF%AD%E6%B3%95%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E7%9B%AE%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">async&#x2F;await 语法了解吗？目的是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">9.</span> <span class="nav-text">如何实现深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%B8%80%EF%BC%9AJSON-%E6%9D%A5%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">9.1.</span> <span class="nav-text">方式一：JSON 来深拷贝</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9A%E9%80%92%E5%BD%92%E6%8B%B7%E8%B4%9D"><span class="nav-number">9.2.</span> <span class="nav-text">方式二：递归拷贝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">10.</span> <span class="nav-text">如何实现数组去重</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F1%EF%BC%9A%E8%AE%A1%E6%95%B0%E6%8E%92%E5%BA%8F%E7%9A%84%E9%80%BB%E8%BE%91%EF%BC%88%E5%8F%AA%E8%83%BD%E9%92%88%E5%AF%B9%E6%AD%A3%E6%95%B4%E6%95%B0%EF%BC%89"><span class="nav-number">10.1.</span> <span class="nav-text">方式1：计数排序的逻辑（只能针对正整数）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E5%BC%8F%E4%BA%8C%EF%BC%9Aset"><span class="nav-number">10.2.</span> <span class="nav-text">方式二：set</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%94%A8%E6%AD%A3%E5%88%99%E5%AE%9E%E7%8E%B0-string-trim"><span class="nav-number">11.</span> <span class="nav-text">如何用正则实现 string.trim()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-%E5%8E%9F%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">JS 原型是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ES-6-%E4%B8%AD%E7%9A%84-class-%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F"><span class="nav-number">13.</span> <span class="nav-text">ES 6 中的 class 了解吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF"><span class="nav-number">14.</span> <span class="nav-text">如何实现继承</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

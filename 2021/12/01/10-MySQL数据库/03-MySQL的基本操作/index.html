@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SQL 的一些简单语法规则结束符SQL 指令需要语句结束符，默认是英文分号;。 当然，还有另外两个结束符：  \g 与英文分号;等效。  \G：将查到的结构旋转90度变成纵向。   反引号&#96;&#96;SQL语句中如果用到了关键字或者保留字，需要使用反引号&#96;&#96;（Tab键上面的符号）来包裹，让系统忽略。 MySQL 数据库的操作分类根据数据库的对象层级，可以将SQL的基础操作分为四类：  数据库（DB）操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="03-MySQL的基本操作">
+<meta property="og:url" content="http://example.com/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/03-MySQL%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="SQL 的一些简单语法规则结束符SQL 指令需要语句结束符，默认是英文分号;。 当然，还有另外两个结束符：  \g 与英文分号;等效。  \G：将查到的结构旋转90度变成纵向。   反引号&#96;&#96;SQL语句中如果用到了关键字或者保留字，需要使用反引号&#96;&#96;（Tab键上面的符号）来包裹，让系统忽略。 MySQL 数据库的操作分类根据数据库的对象层级，可以将SQL的基础操作分为四类：  数据库（DB）操作">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-12-01T02:00:25.909Z">
+<meta property="article:modified_time" content="2021-11-28T04:47:39.627Z">
+<meta property="article:author" content="张天伟">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/12/01/10-MySQL数据库/03-MySQL的基本操作/"/>
+
+
+
+
+
+  <title>03-MySQL的基本操作 | 天伟小站</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">天伟小站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">盐城工学院</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/03-MySQL%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">03-MySQL的基本操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:25+08:00">
+                2021-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="SQL-的一些简单语法规则"><a href="#SQL-的一些简单语法规则" class="headerlink" title="SQL 的一些简单语法规则"></a>SQL 的一些简单语法规则</h2><h3 id="结束符"><a href="#结束符" class="headerlink" title="结束符"></a>结束符</h3><p>SQL 指令需要语句结束符，默认是英文分号<code>;</code>。</p>
+<p>当然，还有另外两个结束符：</p>
+<ul>
+<li><p><code>\g</code> 与英文分号<code>;</code>等效。</p>
+</li>
+<li><p><code>\G</code>：将查到的结构旋转90度变成纵向。</p>
+</li>
+</ul>
+<h3 id="反引号"><a href="#反引号" class="headerlink" title="反引号``"></a>反引号``</h3><p>SQL语句中如果用到了关键字或者保留字，需要使用反引号``（Tab键上面的符号）来包裹，让系统忽略。</p>
+<h2 id="MySQL-数据库的操作分类"><a href="#MySQL-数据库的操作分类" class="headerlink" title="MySQL 数据库的操作分类"></a>MySQL 数据库的操作分类</h2><p>根据数据库的对象层级，可以将<strong>SQL的基础操作分为四类</strong>：</p>
+<ul>
+<li><p>数据库（DB）操作。</p>
+</li>
+<li><p>数据表（Table）操作。</p>
+</li>
+<li><p>数据字段（Field）操作。</p>
+</li>
+<li><p>数据操作。</p>
+</li>
+</ul>
+<p>下面来详细讲一讲。</p>
+<h2 id="一、数据库（DB）的基本操作"><a href="#一、数据库（DB）的基本操作" class="headerlink" title="一、数据库（DB）的基本操作"></a>一、数据库（DB）的基本操作</h2><p>在终端的任何位置，输入如下命令，即可进入 mysql 命令的执行窗口：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql <span class="operator">-</span>u root <span class="operator">-</span>p</span><br></pre></td></tr></table></figure>
+
+<h3 id="1、创建数据库"><a href="#1、创建数据库" class="headerlink" title="1、创建数据库"></a>1、创建数据库</h3><p><strong>语法格式</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database 数据库名称 [数据库选项];</span><br></pre></td></tr></table></figure>
+
+<p><strong>数据库名称的命名规范</strong>：</p>
+<ul>
+<li>由数字、字母和下划线组成。</li>
+<li>不区分大小写。</li>
+<li>不能以数字开头。</li>
+<li>建议使用下划线法创建复杂的数据库名字。比如 <code>db_qianguyihao</code>。</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<p>创建一个名为 db_qianguyihao1 的数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database db_qianguyihao1;</span><br></pre></td></tr></table></figure>
+
+
+<p>创建一个指定字符集的数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database db_qianguyihao2 charset utf8MB4;</span><br></pre></td></tr></table></figure>
+
+<p>创建一个指定校对集的数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database db_qianguyihao3 charset utf8MB4 collate utf8mb4_general_ci</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2、查看数据库"><a href="#2、查看数据库" class="headerlink" title="2、查看数据库"></a>2、查看数据库</h3><p>查看有哪些数据库：(显示所有的数据库列表)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+
+<p>查看 <code>db_qianguyihao1</code> 这个数据库的具体创建指令是怎样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create database db_qianguyihao1;</span><br></pre></td></tr></table></figure>
+
+<p>备注：由于系统会加工，所以看到的结果不一定是真实的创建指令。</p>
+<h3 id="3、使用指定的数据库"><a href="#3、使用指定的数据库" class="headerlink" title="3、使用指定的数据库"></a>3、使用指定的数据库</h3><p>使用指定的数据库：（也可以理解成：进入指定的数据库）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 语法格式</span><br><span class="line">use database_xxx;</span><br><span class="line"></span><br><span class="line"># 举例</span><br><span class="line">use db_qianguyihao;</span><br></pre></td></tr></table></figure>
+
+<p>假设当前服务器连接中有很多个数据库（db_qianguyihao1、db_qianguyihao2），此时，我输入 <code>use db_qianguyihao2</code>则代表我想使用 <code>db_qianguyihao2</code> 这个数据库。</p>
+<h3 id="4、修改数据库的参数"><a href="#4、修改数据库的参数" class="headerlink" title="4、修改数据库的参数"></a>4、修改数据库的参数</h3><p>我们一般很少修改数据库的名称，一般是去修改数据库的一些选项，比如：</p>
+<ul>
+<li><p>修改字符集</p>
+</li>
+<li><p>修改校对集</p>
+</li>
+</ul>
+<p><strong>语法格式</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter database 数据库名称 [库选项]</span><br></pre></td></tr></table></figure>
+
+<p>举例1、修改数据库的字符集为gbk：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alter database db_qianguyihao1 charset gbk;</span><br></pre></td></tr></table></figure>
+
+<p>举例2、修改数据库的校对集：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> database db_qianguyihao2 charset gbk <span class="keyword">collate</span> gbk_chinese_ci;</span><br></pre></td></tr></table></figure>
+
+<p>备注：因为校对集是和字符集有关的，所以上方指令是在修改字符集的同时，修改校对集。</p>
+<h3 id="5、删除指定的数据库"><a href="#5、删除指定的数据库" class="headerlink" title="5、删除指定的数据库"></a>5、删除指定的数据库</h3><p><strong>语法格式</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop database 数据库名称;</span><br></pre></td></tr></table></figure>
+
+<p>备注：删除数据库时，会清空当前数据库里的所有数据表，所以删除数据库的操作一定要谨慎。</p>
+<h2 id="二、数据表（Table）的基本操作"><a href="#二、数据表（Table）的基本操作" class="headerlink" title="二、数据表（Table）的基本操作"></a>二、数据表（Table）的基本操作</h2><p>注意，我们最好先通过 <code>use xxx_database</code> 命令进入指定的数据库（DB），然后在当前数据库下，进行数据表（Table）的操作。</p>
+<h3 id="1、创建数据表"><a href="#1、创建数据表" class="headerlink" title="1、创建数据表"></a>1、创建数据表</h3><p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> [数据库名].[表名] (</span><br><span class="line">	字段名<span class="number">1</span> 字段类型,</span><br><span class="line">	...</span><br><span class="line">    ...</span><br><span class="line">    字段名<span class="number">2</span> 字段类型</span><br><span class="line">) 表选项;</span><br></pre></td></tr></table></figure>
+
+<p><strong>举例</strong>：</p>
+<p>1、在当前数据库中创建数据表 <code>table_qiangu1</code>，并新增<strong>主键</strong> id 字段：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_qiangu1 (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT <span class="keyword">PRIMARY</span> KEY</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>2、在当前数据库中创建数据表 <code>t_student1</code>，并新增 name、age这连个字段：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_student1(</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">255</span>),</span><br><span class="line">    age <span class="type">int</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3、在指定的数据库 <code>db_2</code> 中创建数据表 <code>t_student2</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> db_2.t_student2(</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">255</span>),</span><br><span class="line">    age <span class="type">int</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>4、在当前数据库中创建数据表 <code>t_student3</code>（含表选项）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_student3(</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">255</span>),</span><br><span class="line">    age <span class="type">int</span></span><br><span class="line">)engine Innodb charset utf8MB4;</span><br></pre></td></tr></table></figure>
+
+<p>举例4中的代码涉及到存储引擎，这里解释一下：</p>
+<p><strong>存储引擎</strong>是指数据存储和管理的方式，MySQL中提供了多种存储引擎，一般使用默认存储引擎 InnoDB。</p>
+<ul>
+<li><p>InnoDB：默认存储引擎；支持事务处理和外键；数据统一管理。</p>
+</li>
+<li><p>MyIsam：不支持事务和外键；数据、表结构、索引独立管理；MySQL5.6以后不再维护。</p>
+</li>
+</ul>
+<p>6、扩展：如果想创建一个与已有表一样的数据表，MySQL提供了一种便捷的复制模式</p>
+<h3 id="2、复制数据表"><a href="#2、复制数据表" class="headerlink" title="2、复制数据表"></a>2、复制数据表</h3><p>如果想创建一个与已有表一样的数据表，MySQL提供了一种便捷的<strong>复制</strong>模式。</p>
+<p><strong>语法格式</strong>：（复制现有的表 <code>table_xx1</code> 到 <code>table_xx2</code>）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> table_xx1 <span class="keyword">like</span> 数据库名.table_xx2;</span><br></pre></td></tr></table></figure>
+
+<p>注意，这种复制模式，<code>table_xx2</code> 只会复制表 <code>table_xx1</code> 中的字段，不会复制表<code>table_xx1</code>中的数据。</p>
+<p><strong>举例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 在当前数据库下，复制现有的表`t_qianguyihao1` 到表 `t_qianguyihao2`</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_qianguyihao1 <span class="keyword">like</span> t_qianguyihao2;</span><br><span class="line"></span><br><span class="line"># 复制现有的表`t_qianguyihao1` 到表 `t_qianguyihao2`，是复制到 `db2`这个数据库中</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_qianguyihao1 <span class="keyword">like</span> db2.t_qianguyihao2;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="3、显示数据表的名称"><a href="#3、显示数据表的名称" class="headerlink" title="3、显示数据表的名称"></a>3、显示数据表的名称</h3><p>在当前数据库下，显示所有的数据表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables;</span><br></pre></td></tr></table></figure>
+
+<p>在指定的数据库中，显示所有的数据表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables <span class="keyword">from</span> db_qianguyihao1;</span><br></pre></td></tr></table></figure>
+
+<p>显示数据表的创建指令：(查看 <code>t_qianguyihao1</code> 这个数据表的具体创建指令是怎样的)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show create table t_qianguyihao1; # 备注：由于系统会加工，所以看到的结果不一定是真实的创建指令。</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4、查询（查找）数据表的名称"><a href="#4、查询（查找）数据表的名称" class="headerlink" title="4、查询（查找）数据表的名称"></a>4、查询（查找）数据表的名称</h3><blockquote>
+<p>根据 表名称 查询数据表，也可以理解成：按条件显示部分数据表。</p>
+</blockquote>
+<p>根据数据表的<strong>表名称</strong>查找数据表时，需要用到关键词<code>like</code>，而且还要涉及到两个符号：</p>
+<ul>
+<li><p><code>%</code> 表示匹配任意<strong>多个字符</strong>。</p>
+</li>
+<li><p><code>_</code> 表示匹配任意<strong>一个字符</strong>（固定位置）。</p>
+</li>
+</ul>
+<p>上面这两个模糊查询的符号，大家要牢记。我们来看看具体的例子。</p>
+<p>语法举例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables like &#x27;%like_&#x27;;	# _表示匹配一个字符（固定位置），%表示匹配N个字符</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>%</code> 符号举例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 查询表名称中，包含 “qiangu” 这个关键字的表（“qiangu”这个关键字的前后可能都有内容）</span><br><span class="line"><span class="keyword">show</span> tables <span class="keyword">like</span> <span class="string">&#x27;%qiangu%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 查询表名称以“qiangu”开头的表（这个命令应该很实用）</span><br><span class="line"><span class="keyword">show</span> tables <span class="keyword">like</span> <span class="string">&#x27;qiangu%&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>_</code>符号举例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 根据 表名称 来查询表，查询条件是：表名称以“qiangu”开头，而且要确保 qiangu 的后面有三个字符（因为我在 qiangu 的后面写了三个下划线）。</span><br><span class="line"><span class="keyword">show</span> tables <span class="keyword">like</span> <span class="string">&#x27;qiangu___&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="5、desc：查看数据表的表结构"><a href="#5、desc：查看数据表的表结构" class="headerlink" title="5、desc：查看数据表的表结构"></a>5、desc：查看数据表的表结构</h3><p>查看数据表的表结构，就是<strong>查看这张表中定义了哪些字段</strong>，以及这些字段是如何定义的。通过这种方式，我们可以清晰地了解数据的存储形式。</p>
+<p>项目开发中，领导在检查我们的工作时，首先看的就是我们的表中定义了哪些字段。所以说，这种方式，还是很实用的。</p>
+<p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 方式<span class="number">1</span></span><br><span class="line"><span class="keyword">desc</span> 表名称;</span><br><span class="line"></span><br><span class="line"># 方式<span class="number">2</span></span><br><span class="line"><span class="keyword">describe</span> 表名称;</span><br><span class="line"></span><br><span class="line"># 方式<span class="number">3</span></span><br><span class="line"><span class="keyword">show</span> columns <span class="keyword">from</span> 表名称;</span><br></pre></td></tr></table></figure>
+
+<p>上面的三种方式，效果都一样，三选一即可。</p>
+<h3 id="6、修改数据表的表名称和表选项"><a href="#6、修改数据表的表名称和表选项" class="headerlink" title="6、修改数据表的表名称和表选项"></a>6、修改数据表的表名称和表选项</h3><p><strong>修改数据表的表名称</strong>：</p>
+<p>在当前数据库下，修改数据表的表名称：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename <span class="keyword">table</span> 原表名 <span class="keyword">to</span> 新表名;</span><br></pre></td></tr></table></figure>
+
+<p>指定某个数据库，然后修改数据表的表名称：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename <span class="keyword">table</span> 数据库名.原表名 <span class="keyword">to</span> 数据库名.新表名;</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改数据表的表名称</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table1 charset gbk;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7、删除数据表"><a href="#7、删除数据表" class="headerlink" title="7、删除数据表"></a>7、删除数据表</h3><p>语法格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> 数据表名称;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="三、字段（Field）的基本操作"><a href="#三、字段（Field）的基本操作" class="headerlink" title="三、字段（Field）的基本操作"></a>三、字段（Field）的基本操作</h2><p>数据表 table 创建好了之后，我们就可以开始在这张表中新增字段了。</p>
+<h3 id="1、新增字段"><a href="#1、新增字段" class="headerlink" title="1、新增字段"></a>1、新增字段</h3><p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> [<span class="keyword">column</span>] 字段名 字段类型 [字段属性] [字段位置];</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li><p>新增字段时，必须制指定字段类型。</p>
+</li>
+<li><p>[column]、 [字段属性]、[字段位置] 这几个都是选填，其他是必填。</p>
+</li>
+<li><p>追加字段时，这个字段的顺序默认排在最后。</p>
+</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<p>新增字段 <code>name</code>:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_qiangu1 <span class="keyword">add</span> name <span class="type">varchar</span>(<span class="number">255</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>新增字段 <code>age</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_qiangu1 <span class="keyword">add</span> age <span class="type">int</span>;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2、新增字段时，设置字段的位置（顺序）"><a href="#2、新增字段时，设置字段的位置（顺序）" class="headerlink" title="2、新增字段时，设置字段的位置（顺序）"></a>2、新增字段时，设置字段的位置（顺序）</h3><p>在新增字段时，它的顺序是默认放在最后面的，当然，我们也可以人工指定它的顺序。</p>
+<p>在修改字段的位置时，我们可以用到下面这两个关键字：</p>
+<ul>
+<li><p><code>first</code> 放到最前面</p>
+</li>
+<li><p><code>after</code> 放到某个字段的后面</p>
+</li>
+</ul>
+<p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> 新字段名 字段类型 字段位置;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>举例1</strong>：</p>
+<p>在 <code>name</code>字段的后面，新增一个 <code>sex</code> 字段：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_qiangu1 <span class="keyword">add</span> sex <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">default</span> <span class="keyword">null</span> comment <span class="string">&#x27;性别&#x27;</span> after name;</span><br></pre></td></tr></table></figure>
+
+<p>注意，上方举例中，如果是新建 varchar 类型的字段，一定要指定 varchar 的长度（比如255），否则报错。</p>
+<p><strong>举例2</strong>：</p>
+<p>新增一个 <code>id</code> 字段，放到最前面：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_qiangu1 <span class="keyword">add</span> id <span class="type">int</span> <span class="keyword">first</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h3 id="3、change：修改现有字段的字段名"><a href="#3、change：修改现有字段的字段名" class="headerlink" title="3、change：修改现有字段的字段名"></a>3、change：修改现有字段的字段名</h3><blockquote>
+<p>修改现有字段的字段名，是通过 change 关键字，不是通过 modify 关键字（后者会报错，执行失败）。</p>
+</blockquote>
+<p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 格式<span class="number">1</span>（精简版）</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 change 原字段名 新字段名 字段类型;</span><br><span class="line"></span><br><span class="line"># 格式<span class="number">2</span>（完整版）</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 change 原字段名 新字段名 字段类型 [字段属性] [位置];</span><br></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><p>修改字段名时，一定要设置新字段的字段类型。</p>
+</li>
+<li><p>虽然 change 关键字也可以修改现有字段的字段属性、字段位置，但我们一般是通过 modify 关键字来做（下面会讲）。</p>
+</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<p>修改字段名 <code>sex</code> 为 <code>sexy</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_qiangu2 change sex sexy <span class="type">varchar</span>(<span class="number">255</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、modify：修改现有字段的的字段类型、字段位置、字段属性"><a href="#4、modify：修改现有字段的的字段类型、字段位置、字段属性" class="headerlink" title="4、modify：修改现有字段的的字段类型、字段位置、字段属性"></a>4、modify：修改现有字段的的字段类型、字段位置、字段属性</h3><p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 modify 现有字段的字段名 现有字段的字段类型 [字段属性] [位置]；</span><br></pre></td></tr></table></figure>
+
+<p><strong>举例1</strong>、针对现有的字段 <code>name</code> 和 <code>age</code>，更换这两个字段的顺序：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 注意，这里的 age 后面一定要跟上它的字段类型，否则执行失败</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_qiangu1 modify age <span class="type">int</span> after name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改字段的默认值"><a href="#修改字段的默认值" class="headerlink" title="修改字段的默认值"></a>修改字段的默认值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 若本身存在默认值，则先删除</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">alter</span> <span class="keyword">column</span> 字段名 <span class="keyword">drop</span> <span class="keyword">default</span>;</span><br><span class="line"></span><br><span class="line"># 若本身不存在则可以直接设定</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">alter</span> <span class="keyword">column</span> 字段名 <span class="keyword">set</span> <span class="keyword">default</span> 默认值;</span><br></pre></td></tr></table></figure>
+<h3 id="5、删除字段"><a href="#5、删除字段" class="headerlink" title="5、删除字段"></a>5、删除字段</h3><blockquote>
+<p> 删除字段的同时，会删除字段对应的数据。删除字段的操作不可逆，请谨慎操作。</p>
+</blockquote>
+<p>语法格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> 字段名;</span><br></pre></td></tr></table></figure>
+
+<p>举例：（删除 t_qiangu1 表中的 age 这个字段）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_qiangu1 <span class="keyword">drop</span> age;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="四、数据的基本操作"><a href="#四、数据的基本操作" class="headerlink" title="四、数据的基本操作"></a>四、数据的基本操作</h2><h3 id="1、新增数据"><a href="#1、新增数据" class="headerlink" title="1、新增数据"></a>1、新增数据</h3><p><strong>方式1、全字段插入</strong>：</p>
+<p>语法格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名 <span class="keyword">values</span>(值<span class="number">1</span>, 值<span class="number">2</span>, ... 最后一个值);</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<ul>
+<li>值的顺序必须与所有字段的顺序一致。</li>
+<li>值的数据类型也必须与字段定义的数据类型一致。</li>
+</ul>
+<p>举例（给 t_qiangu1 这个表中插入一条完整的数据）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_qiangu1 <span class="keyword">values</span>(<span class="number">3</span>, <span class="string">&#x27;qianguyihao&#x27;</span>, <span class="number">28</span>);</span><br></pre></td></tr></table></figure>
+
+<p><strong>方式1、部分字段插入</strong>：</p>
+<p>语法格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> 表名 (字段<span class="number">1</span>, 字段<span class="number">2</span>, 字段<span class="number">3</span>) <span class="keyword">values</span>(值<span class="number">1</span>, 值<span class="number">2</span>, 值<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>-字段的顺序可以随意，但值的顺序必须要与前面的字段顺序<strong>一一对应</strong>，数据类型也要一致。</p>
+<p>举例（给 t_qiangu1 这个表中的指定字段插入数据）：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_qiangu1 (id, name) <span class="keyword">values</span>(<span class="number">4</span>, <span class="string">&#x27;xusong&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2、查询数据"><a href="#2、查询数据" class="headerlink" title="2、查询数据"></a>2、查询数据</h3><blockquote>
+<p>查询数据的操作，占sql日常操作的95%以上。</p>
+</blockquote>
+<p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> xxx <span class="keyword">from</span> 表名;</span><br></pre></td></tr></table></figure>
+
+<p><strong>举例</strong>：</p>
+<p>查询表中的所有数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t_qiangu1;</span><br></pre></td></tr></table></figure>
+
+<p>查询表中 name、age 这两个字段的数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name, age <span class="keyword">from</span> t_qiangu2;</span><br></pre></td></tr></table></figure>
+
+<p>查询表中 id=2 的数据：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t_qiangu3 <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、修改数据"><a href="#3、修改数据" class="headerlink" title="3、修改数据"></a>3、修改数据</h3><p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 <span class="keyword">set</span> (字段<span class="number">1</span> <span class="operator">=</span> 新值<span class="number">1</span>, 字段<span class="number">2</span> <span class="operator">=</span> 新值<span class="number">2</span>) [<span class="keyword">where</span> 条件筛选];</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：</p>
+<ul>
+<li><p>我们通常是结合 where 条件语句来修改数据。</p>
+</li>
+<li><p><strong>修改数据之前，要先保证表里面有数据</strong>。如果这张表是空表，那么，执行这个命令后，等于没执行。</p>
+</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<p>将表中，name 这个字段的值全部修改为<code>千古壹号</code>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update t_qiangu1 <span class="keyword">set</span> name <span class="operator">=</span> <span class="string">&#x27;千古壹号&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>id = 3 的这条记录中，修改 name 和 age 这两个字段的值：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update t_qiangu1 <span class="keyword">set</span> name <span class="operator">=</span> <span class="string">&#x27;许嵩&#x27;</span>, age <span class="operator">=</span> <span class="string">&#x27;34&#x27;</span> <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、删除数据"><a href="#4、删除数据" class="headerlink" title="4、删除数据"></a>4、删除数据</h3><blockquote>
+<p>删除字段的操作不可逆，请谨慎操作。</p>
+</blockquote>
+<p><strong>语法格式</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 [<span class="keyword">where</span> 条件];</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释</strong>：</p>
+<ul>
+<li><p>执行删除操作之后，匹配到的<strong>整条记录</strong>，都会删除。</p>
+</li>
+<li><p><strong>删除数据之前，要先保证表里面有数据</strong>。如果这张表是空表，那么，执行这个命令后，等于没执行。</p>
+</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<p>删除表中<code>id = 2</code>的记录：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> t_qiangu1 <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div></div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/02-MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E5%92%8CNavicat%E8%BD%AF%E4%BB%B6%E4%BD%BF%E7%94%A8/" rel="next" title="02-MySQL的安装和Navicat软件使用">
+                <i class="fa fa-chevron-left"></i> 02-MySQL的安装和Navicat软件使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/04-MySQL%E5%AD%97%E6%AE%B5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="04-MySQL字段的数据类型">
+                04-MySQL字段的数据类型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">260</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL-%E7%9A%84%E4%B8%80%E4%BA%9B%E7%AE%80%E5%8D%95%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="nav-number">1.</span> <span class="nav-text">SQL 的一些简单语法规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9D%9F%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">结束符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8D%E5%BC%95%E5%8F%B7"><span class="nav-number">1.2.</span> <span class="nav-text">反引号&#96;&#96;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%93%8D%E4%BD%9C%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">MySQL 数据库的操作分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%88DB%EF%BC%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">一、数据库（DB）的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">1、创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.2.</span> <span class="nav-text">2、查看数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BD%BF%E7%94%A8%E6%8C%87%E5%AE%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.3.</span> <span class="nav-text">3、使用指定的数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8F%82%E6%95%B0"><span class="nav-number">3.4.</span> <span class="nav-text">4、修改数据库的参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%88%A0%E9%99%A4%E6%8C%87%E5%AE%9A%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">3.5.</span> <span class="nav-text">5、删除指定的数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%95%B0%E6%8D%AE%E8%A1%A8%EF%BC%88Table%EF%BC%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">4.</span> <span class="nav-text">二、数据表（Table）的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">4.1.</span> <span class="nav-text">1、创建数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%A4%8D%E5%88%B6%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">4.2.</span> <span class="nav-text">2、复制数据表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E6%98%BE%E7%A4%BA%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">4.3.</span> <span class="nav-text">3、显示数据表的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E6%9F%A5%E8%AF%A2%EF%BC%88%E6%9F%A5%E6%89%BE%EF%BC%89%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E5%90%8D%E7%A7%B0"><span class="nav-number">4.4.</span> <span class="nav-text">4、查询（查找）数据表的名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81desc%EF%BC%9A%E6%9F%A5%E7%9C%8B%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E8%A1%A8%E7%BB%93%E6%9E%84"><span class="nav-number">4.5.</span> <span class="nav-text">5、desc：查看数据表的表结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6%E3%80%81%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%9A%84%E8%A1%A8%E5%90%8D%E7%A7%B0%E5%92%8C%E8%A1%A8%E9%80%89%E9%A1%B9"><span class="nav-number">4.6.</span> <span class="nav-text">6、修改数据表的表名称和表选项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7%E3%80%81%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE%E8%A1%A8"><span class="nav-number">4.7.</span> <span class="nav-text">7、删除数据表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E5%AD%97%E6%AE%B5%EF%BC%88Field%EF%BC%89%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">5.</span> <span class="nav-text">三、字段（Field）的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%96%B0%E5%A2%9E%E5%AD%97%E6%AE%B5"><span class="nav-number">5.1.</span> <span class="nav-text">1、新增字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%96%B0%E5%A2%9E%E5%AD%97%E6%AE%B5%E6%97%B6%EF%BC%8C%E8%AE%BE%E7%BD%AE%E5%AD%97%E6%AE%B5%E7%9A%84%E4%BD%8D%E7%BD%AE%EF%BC%88%E9%A1%BA%E5%BA%8F%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">2、新增字段时，设置字段的位置（顺序）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81change%EF%BC%9A%E4%BF%AE%E6%94%B9%E7%8E%B0%E6%9C%89%E5%AD%97%E6%AE%B5%E7%9A%84%E5%AD%97%E6%AE%B5%E5%90%8D"><span class="nav-number">5.3.</span> <span class="nav-text">3、change：修改现有字段的字段名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81modify%EF%BC%9A%E4%BF%AE%E6%94%B9%E7%8E%B0%E6%9C%89%E5%AD%97%E6%AE%B5%E7%9A%84%E7%9A%84%E5%AD%97%E6%AE%B5%E7%B1%BB%E5%9E%8B%E3%80%81%E5%AD%97%E6%AE%B5%E4%BD%8D%E7%BD%AE%E3%80%81%E5%AD%97%E6%AE%B5%E5%B1%9E%E6%80%A7"><span class="nav-number">5.4.</span> <span class="nav-text">4、modify：修改现有字段的的字段类型、字段位置、字段属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E6%AE%B5%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">5.5.</span> <span class="nav-text">修改字段的默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%88%A0%E9%99%A4%E5%AD%97%E6%AE%B5"><span class="nav-number">5.6.</span> <span class="nav-text">5、删除字段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%95%B0%E6%8D%AE%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">四、数据的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%96%B0%E5%A2%9E%E6%95%B0%E6%8D%AE"><span class="nav-number">6.1.</span> <span class="nav-text">1、新增数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE"><span class="nav-number">6.2.</span> <span class="nav-text">2、查询数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE"><span class="nav-number">6.3.</span> <span class="nav-text">3、修改数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="nav-number">6.4.</span> <span class="nav-text">4、删除数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
