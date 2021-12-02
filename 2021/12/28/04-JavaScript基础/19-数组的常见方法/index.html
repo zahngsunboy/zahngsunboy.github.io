@@ -1,91 +1,32 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="JavaScript基础," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="数组的方法清单数组的类型相关   方法 描述 备注    Array.isArray() 判断是否为数组    toString() 将数组转换为字符串    Array.from(arrayLike) 将伪数组转化为真数组    Array.of(value1, value2, value3) 创建数组：将一系列值转换成数组    注意，获取数组的长度是用length属性，不是方法。关于 le">
+  <meta name="description" content="数组的方法清单数组的类型相关   方法 描述 备注    Array.isArray() 判断是否为数组    toString() 将数组转换为字符串    Array.from(arrayLike) 将伪数组转化为真数组    Array.of(value1, value2, value3) 创建数组：将一系列值转换成数组    注意，获取数组的长度是用length属性，不是方法。关于 le">
 <meta property="og:type" content="article">
 <meta property="og:title" content="19-数组的常见方法">
 <meta property="og:url" content="http://example.com/2021/12/28/04-JavaScript%E5%9F%BA%E7%A1%80/19-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95/index.html">
 <meta property="og:site_name" content="天伟小站">
 <meta property="og:description" content="数组的方法清单数组的类型相关   方法 描述 备注    Array.isArray() 判断是否为数组    toString() 将数组转换为字符串    Array.from(arrayLike) 将伪数组转化为真数组    Array.of(value1, value2, value3) 创建数组：将一系列值转换成数组    注意，获取数组的长度是用length属性，不是方法。关于 le">
-<meta property="og:locale">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://img.smyhvae.com/20180402_1116.png">
 <meta property="og:image" content="http://img.smyhvae.com/20180402_1121.png">
 <meta property="og:image" content="http://img.smyhvae.com/20180402_1125.png">
@@ -100,39 +41,18 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://img.smyhvae.com/20180402_1116.png">
 
+<link rel="canonical" href="http://example.com/2021/12/28/04-JavaScript%E5%9F%BA%E7%A1%80/19-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '',
-    scheme: 'Gemini',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: '博主'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
   };
 </script>
-
-
-
-  <link rel="canonical" href="http://example.com/2021/12/28/04-JavaScript基础/19-数组的常见方法/"/>
-
-
-
-
 
   <title>19-数组的常见方法 | 天伟小站</title>
   
@@ -142,212 +62,165 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-<meta name="generator" content="Hexo 5.4.0"></head>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+</head>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">天伟小站</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">盐城工学院</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天伟小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">盐城工学院</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            首页
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
-          <a href="/tags/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            标签
-          </a>
-        </li>
-      
-        
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
-          <a href="/categories/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/28/04-JavaScript%E5%9F%BA%E7%A1%80/19-%E6%95%B0%E7%BB%84%E7%9A%84%E5%B8%B8%E8%A7%81%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="天伟小站">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">19-数组的常见方法</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          19-数组的常见方法
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-12-28T13:01:00+08:00">
-                2021-12-28
-              </time>
-            
+              <span class="post-meta-item-text">发表于</span>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
+              <time title="创建时间：2021-12-28 13:01:00" itemprop="dateCreated datePublished" datetime="2021-12-28T13:01:00+08:00">2021-12-28</time>
             </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-02 12:52:32" itemprop="dateModified" datetime="2021-12-02T12:52:32+08:00">2021-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <p><ArticleTopAd></ArticleTopAd></p>
@@ -1069,298 +942,152 @@
 <p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
 <p><img src="http://img.smyhvae.com/20190101.png"></p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div></div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt=" 微信支付"/>
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt=" 支付宝"/>
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2021/12/27/04-JavaScript%E5%9F%BA%E7%A1%80/18-%E6%95%B0%E7%BB%84%E7%AE%80%E4%BB%8B/" rel="next" title="18-数组简介">
-                <i class="fa fa-chevron-left"></i> 18-数组简介
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript%E5%9F%BA%E7%A1%80/" rel="tag"># JavaScript基础</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/12/29/04-JavaScript%E5%9F%BA%E7%A1%80/20-%E5%87%BD%E6%95%B0/" rel="prev" title="20-函数">
-                20-函数 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/27/04-JavaScript%E5%9F%BA%E7%A1%80/18-%E6%95%B0%E7%BB%84%E7%AE%80%E4%BB%8B/" rel="prev" title="18-数组简介">
+      <i class="fa fa-chevron-left"></i> 18-数组简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/12/29/04-JavaScript%E5%9F%BA%E7%A1%80/20-%E5%87%BD%E6%95%B0/" rel="next" title="20-函数">
+      20-函数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name"></p>
-              <p class="site-description motion-element" itemprop="description"></p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/%7C%7C%20archive">
-              
-                  <span class="site-state-item-count">260</span>
-                  <span class="site-state-item-name">日志</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-categories">
-                <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
-                  <span class="site-state-item-name">分类</span>
-                </a>
-              </div>
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
-                  <span class="site-state-item-name">标签</span>
-                </a>
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-            <div class="links-of-blogroll motion-element links-of-blogroll-block">
-              <div class="links-of-blogroll-title">
-                <i class="fa  fa-fw fa-link"></i>
-                Links
-              </div>
-              <ul class="links-of-blogroll-list">
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://175.24.123.148/ycitoj/" title="YCITOJ" target="_blank">YCITOJ</a>
-                  </li>
-                
-              </ul>
-            </div>
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95%E6%B8%85%E5%8D%95"><span class="nav-number">1.</span> <span class="nav-text">数组的方法清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%9B%B8%E5%85%B3"><span class="nav-number">1.1.</span> <span class="nav-text">数组的类型相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4"><span class="nav-number">1.2.</span> <span class="nav-text">数组元素的添加和删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%90%88%E5%B9%B6%E5%92%8C%E6%8B%86%E5%88%86"><span class="nav-number">1.3.</span> <span class="nav-text">数组的合并和拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">数组排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.5.</span> <span class="nav-text">查找数组的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">1.6.</span> <span class="nav-text">遍历数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isArray-%EF%BC%9A%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">isArray()：判断是否为数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toString-%EF%BC%9A%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.</span> <span class="nav-text">toString()：数组转换为字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%A1%A5%E5%85%85%EF%BC%9A%E5%B0%86%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">知识点补充：将数组转换为字符串，有哪些方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-from-%EF%BC%9A%E5%B0%86%E4%BC%AA%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%9C%9F%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">Array.from()：将伪数组转换为真数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%95%B0%E7%BB%84%E4%B8%8E%E7%9C%9F%E6%95%B0%E7%BB%84%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.1.</span> <span class="nav-text">伪数组与真数组的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%95%B0%E7%BB%84%E4%B8%BE%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">伪数组举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-of-%EF%BC%9A%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="nav-number">5.</span> <span class="nav-text">Array.of()：创建数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4-1"><span class="nav-number">6.</span> <span class="nav-text">数组元素的添加和删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#push"><span class="nav-number">6.1.</span> <span class="nav-text">push()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop"><span class="nav-number">6.2.</span> <span class="nav-text">pop()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unshift"><span class="nav-number">6.3.</span> <span class="nav-text">unshift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shift"><span class="nav-number">6.4.</span> <span class="nav-text">shift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice"><span class="nav-number">6.5.</span> <span class="nav-text">slice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#splice"><span class="nav-number">6.6.</span> <span class="nav-text">splice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fill"><span class="nav-number">6.7.</span> <span class="nav-text">fill()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%90%88%E5%B9%B6%E5%92%8C%E6%8B%86%E5%88%86-1"><span class="nav-number">7.</span> <span class="nav-text">数组的合并和拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#concat"><span class="nav-number">7.1.</span> <span class="nav-text">concat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-number">7.2.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split"><span class="nav-number">7.3.</span> <span class="nav-text">split()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reverse"><span class="nav-number">8.</span> <span class="nav-text">reverse()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">sort()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%EF%BC%9A%E6%97%A0%E5%8F%82%E6%97%B6"><span class="nav-number">9.1.</span> <span class="nav-text">sort()方法：无参时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%EF%BC%9A%E5%B8%A6%E5%8F%82%E6%97%B6%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99"><span class="nav-number">9.2.</span> <span class="nav-text">sort()方法：带参时，自定义排序规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B%EF%BC%9A%E5%B0%86%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%97%E6%8C%89%E7%85%A7%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">9.3.</span> <span class="nav-text">举例：将数组中的数字按照从小到大排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%E4%B8%BE%E4%BE%8B%EF%BC%9A%E5%B0%86%E6%95%B0%E7%BB%84%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">9.4.</span> <span class="nav-text">sort 方法举例：将数组从小到大排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexOf-%E5%92%8C-lastIndexOf-%EF%BC%9A%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="nav-number">10.</span> <span class="nav-text">indexOf() 和 lastIndexOf()：获取数据的索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#includes"><span class="nav-number">11.</span> <span class="nav-text">includes()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">12.</span> <span class="nav-text">find()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#findIndex"><span class="nav-number">13.</span> <span class="nav-text">findIndex()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#every"><span class="nav-number">14.</span> <span class="nav-text">every()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#some"><span class="nav-number">15.</span> <span class="nav-text">some()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#every-%E5%92%8C-some-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">15.1.</span> <span class="nav-text">every() 和 some() 的使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#valueOf-%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%95%B0%E7%BB%84%E6%9C%AC%E8%BA%AB"><span class="nav-number">16.</span> <span class="nav-text">valueOf()：返回数组本身</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%EF%BC%9A%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">17.</span> <span class="nav-text">概念：数组的遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86"><span class="nav-number">18.</span> <span class="nav-text">for 循环遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach-%E9%81%8D%E5%8E%86"><span class="nav-number">19.</span> <span class="nav-text">forEach() 遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach-%E8%83%BD%E4%B8%8D%E8%83%BD%E6%94%B9%E5%8F%98%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%9F"><span class="nav-number">19.1.</span> <span class="nav-text">forEach() 能不能改变原数组？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E6%96%B9%E6%B3%95"><span class="nav-number">20.</span> <span class="nav-text">map()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9Amap-%E6%96%B9%E6%B3%95%E7%9C%9F%E7%9A%84%E4%B8%8D%E4%BC%9A%E6%94%B9%E5%8F%98%E5%8E%9F%E6%95%B0%E7%BB%84%E5%90%97%EF%BC%9F"><span class="nav-number">20.1.</span> <span class="nav-text">注意：map() 方法真的不会改变原数组吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter"><span class="nav-number">21.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce-%E6%96%B9%E6%B3%95"><span class="nav-number">22.</span> <span class="nav-text">reduce()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-%E8%AF%AD%E6%B3%95"><span class="nav-number">22.1.</span> <span class="nav-text">reduce() 语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8"><span class="nav-number">22.2.</span> <span class="nav-text">reduce() 的常见应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BB%83%E4%B9%A0"><span class="nav-number">23.</span> <span class="nav-text">数组练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#splice-%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">23.1.</span> <span class="nav-text">splice()练习：数组去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%A9%BA%E6%95%B0%E7%BB%84"><span class="nav-number">23.2.</span> <span class="nav-text">清空数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E7%BB%83%E4%B9%A0"><span class="nav-number">23.3.</span> <span class="nav-text">join() 练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse-%E7%BB%83%E4%B9%A0"><span class="nav-number">23.4.</span> <span class="nav-text">reverse() 练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">23.5.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">23.6.</span> <span class="nav-text">练习：数组去重</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">24.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">张天伟</span>
-
-  
-</div>
-
-
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-          <span id="scrollpercent"><span>0</span>%</span>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B9%E6%B3%95%E6%B8%85%E5%8D%95"><span class="nav-number">1.</span> <span class="nav-text">数组的方法清单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%9B%B8%E5%85%B3"><span class="nav-number">1.1.</span> <span class="nav-text">数组的类型相关</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4"><span class="nav-number">1.2.</span> <span class="nav-text">数组元素的添加和删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%90%88%E5%B9%B6%E5%92%8C%E6%8B%86%E5%88%86"><span class="nav-number">1.3.</span> <span class="nav-text">数组的合并和拆分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%8E%92%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">数组排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-number">1.5.</span> <span class="nav-text">查找数组的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84"><span class="nav-number">1.6.</span> <span class="nav-text">遍历数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#isArray-%EF%BC%9A%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">isArray()：判断是否为数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#toString-%EF%BC%9A%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">3.</span> <span class="nav-text">toString()：数组转换为字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A5%E8%AF%86%E7%82%B9%E8%A1%A5%E5%85%85%EF%BC%9A%E5%B0%86%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">知识点补充：将数组转换为字符串，有哪些方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-from-%EF%BC%9A%E5%B0%86%E4%BC%AA%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E7%9C%9F%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">Array.from()：将伪数组转换为真数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%95%B0%E7%BB%84%E4%B8%8E%E7%9C%9F%E6%95%B0%E7%BB%84%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.1.</span> <span class="nav-text">伪数组与真数组的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%AA%E6%95%B0%E7%BB%84%E4%B8%BE%E4%BE%8B"><span class="nav-number">4.2.</span> <span class="nav-text">伪数组举例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-of-%EF%BC%9A%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="nav-number">5.</span> <span class="nav-text">Array.of()：创建数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4-1"><span class="nav-number">6.</span> <span class="nav-text">数组元素的添加和删除</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#push"><span class="nav-number">6.1.</span> <span class="nav-text">push()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop"><span class="nav-number">6.2.</span> <span class="nav-text">pop()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unshift"><span class="nav-number">6.3.</span> <span class="nav-text">unshift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shift"><span class="nav-number">6.4.</span> <span class="nav-text">shift()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#slice"><span class="nav-number">6.5.</span> <span class="nav-text">slice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#splice"><span class="nav-number">6.6.</span> <span class="nav-text">splice()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fill"><span class="nav-number">6.7.</span> <span class="nav-text">fill()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%90%88%E5%B9%B6%E5%92%8C%E6%8B%86%E5%88%86-1"><span class="nav-number">7.</span> <span class="nav-text">数组的合并和拆分</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#concat"><span class="nav-number">7.1.</span> <span class="nav-text">concat()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join"><span class="nav-number">7.2.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#split"><span class="nav-number">7.3.</span> <span class="nav-text">split()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reverse"><span class="nav-number">8.</span> <span class="nav-text">reverse()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95"><span class="nav-number">9.</span> <span class="nav-text">sort()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%EF%BC%9A%E6%97%A0%E5%8F%82%E6%97%B6"><span class="nav-number">9.1.</span> <span class="nav-text">sort()方法：无参时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%EF%BC%9A%E5%B8%A6%E5%8F%82%E6%97%B6%EF%BC%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99"><span class="nav-number">9.2.</span> <span class="nav-text">sort()方法：带参时，自定义排序规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BE%E4%BE%8B%EF%BC%9A%E5%B0%86%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%95%B0%E5%AD%97%E6%8C%89%E7%85%A7%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">9.3.</span> <span class="nav-text">举例：将数组中的数字按照从小到大排序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort-%E6%96%B9%E6%B3%95%E4%B8%BE%E4%BE%8B%EF%BC%9A%E5%B0%86%E6%95%B0%E7%BB%84%E4%BB%8E%E5%B0%8F%E5%88%B0%E5%A4%A7%E6%8E%92%E5%BA%8F"><span class="nav-number">9.4.</span> <span class="nav-text">sort 方法举例：将数组从小到大排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#indexOf-%E5%92%8C-lastIndexOf-%EF%BC%9A%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E7%B4%A2%E5%BC%95"><span class="nav-number">10.</span> <span class="nav-text">indexOf() 和 lastIndexOf()：获取数据的索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#includes"><span class="nav-number">11.</span> <span class="nav-text">includes()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#find"><span class="nav-number">12.</span> <span class="nav-text">find()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#findIndex"><span class="nav-number">13.</span> <span class="nav-text">findIndex()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#every"><span class="nav-number">14.</span> <span class="nav-text">every()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#some"><span class="nav-number">15.</span> <span class="nav-text">some()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#every-%E5%92%8C-some-%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">15.1.</span> <span class="nav-text">every() 和 some() 的使用场景</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#valueOf-%EF%BC%9A%E8%BF%94%E5%9B%9E%E6%95%B0%E7%BB%84%E6%9C%AC%E8%BA%AB"><span class="nav-number">16.</span> <span class="nav-text">valueOf()：返回数组本身</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%EF%BC%9A%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">17.</span> <span class="nav-text">概念：数组的遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for-%E5%BE%AA%E7%8E%AF%E9%81%8D%E5%8E%86"><span class="nav-number">18.</span> <span class="nav-text">for 循环遍历</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#forEach-%E9%81%8D%E5%8E%86"><span class="nav-number">19.</span> <span class="nav-text">forEach() 遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#forEach-%E8%83%BD%E4%B8%8D%E8%83%BD%E6%94%B9%E5%8F%98%E5%8E%9F%E6%95%B0%E7%BB%84%EF%BC%9F"><span class="nav-number">19.1.</span> <span class="nav-text">forEach() 能不能改变原数组？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-%E6%96%B9%E6%B3%95"><span class="nav-number">20.</span> <span class="nav-text">map()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%EF%BC%9Amap-%E6%96%B9%E6%B3%95%E7%9C%9F%E7%9A%84%E4%B8%8D%E4%BC%9A%E6%94%B9%E5%8F%98%E5%8E%9F%E6%95%B0%E7%BB%84%E5%90%97%EF%BC%9F"><span class="nav-number">20.1.</span> <span class="nav-text">注意：map() 方法真的不会改变原数组吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#filter"><span class="nav-number">21.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reduce-%E6%96%B9%E6%B3%95"><span class="nav-number">22.</span> <span class="nav-text">reduce()方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-%E8%AF%AD%E6%B3%95"><span class="nav-number">22.1.</span> <span class="nav-text">reduce() 语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce-%E7%9A%84%E5%B8%B8%E8%A7%81%E5%BA%94%E7%94%A8"><span class="nav-number">22.2.</span> <span class="nav-text">reduce() 的常见应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%BB%83%E4%B9%A0"><span class="nav-number">23.</span> <span class="nav-text">数组练习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#splice-%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">23.1.</span> <span class="nav-text">splice()练习：数组去重</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%85%E7%A9%BA%E6%95%B0%E7%BB%84"><span class="nav-number">23.2.</span> <span class="nav-text">清空数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-%E7%BB%83%E4%B9%A0"><span class="nav-number">23.3.</span> <span class="nav-text">join() 练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reverse-%E7%BB%83%E4%B9%A0"><span class="nav-number">23.4.</span> <span class="nav-text">reverse() 练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0"><span class="nav-number">23.5.</span> <span class="nav-text">练习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D"><span class="nav-number">23.6.</span> <span class="nav-text">练习：数组去重</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E5%85%AC%E4%BC%97%E5%8F%B7"><span class="nav-number">24.</span> <span class="nav-text">我的公众号</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">张天伟</p>
+  <div class="site-description" itemprop="description">欢迎访问！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">260</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
 
 
 
@@ -1368,119 +1095,25 @@
 
 
 
+
+      </div>
+    </footer>
+  </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
+<script src="/js/utils.js"></script>
 
-  
+<script src="/js/motion.js"></script>
 
 
+<script src="/js/schemes/pisces.js"></script>
 
 
-
-
-
-
-
-
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -1491,16 +1124,15 @@
 
 
 
-  
 
-  
 
-  
 
-  
-  
 
-  
+
+
+
+
+
 
   
 
