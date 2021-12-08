@@ -158,6 +158,92 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/13-React%E5%9F%BA%E7%A1%80/11-React%20Navive%E5%88%9D%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/13-React%E5%9F%BA%E7%A1%80/11-React%20Navive%E5%88%9D%E8%AF%86/" class="post-title-link" itemprop="url">11-React Navive初识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 10:00:49" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:49+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><p>官方文档：<a target="_blank" rel="noopener" href="https://reactnative.cn/docs/getting-started.html">https://reactnative.cn/docs/getting-started.html</a></p>
+<h3 id="安装Node、homebrew、Watchman"><a href="#安装Node、homebrew、Watchman" class="headerlink" title="安装Node、homebrew、Watchman"></a>安装Node、homebrew、Watchman</h3><p>安装 homebrew：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>安装 watchman：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
+
+
+<p>Watchman则是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager 可以快速捕捉文件的变化从而实现实时刷新）。</p>
+<h3 id="安装-React-Native-的命令行工具（react-native-cli）"><a href="#安装-React-Native-的命令行工具（react-native-cli）" class="headerlink" title="安装 React Native 的命令行工具（react-native-cli）"></a>安装 React Native 的命令行工具（react-native-cli）</h3><p>安装 react-native-cli：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure>
+
+
+<p>React Native 的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。</p>
+<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native init MyApp --version 0.44.3</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译并运行-React-Native-应用"><a href="#编译并运行-React-Native-应用" class="headerlink" title="编译并运行 React Native 应用"></a>编译并运行 React Native 应用</h3><p>在 ios 模拟器上运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native run-ios</span><br></pre></td></tr></table></figure>
+
+<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>官网文档：<a target="_blank" rel="noopener" href="https://reactnative.cn/docs/debugging.html">https://reactnative.cn/docs/debugging.html</a></p>
+<h3 id="访问-App-内的开发菜单"><a href="#访问-App-内的开发菜单" class="headerlink" title="访问 App 内的开发菜单"></a>访问 App 内的开发菜单</h3><p>如果是在 iOS 模拟器中运行，还可以按下<code>Command + D</code>快捷键，Android 模拟器对应的则是Command⌘ + M（windows 上可能是 F1 或者 F2），或是直接在命令行中运行adb shell input keyevent 82来发送菜单键命令。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/13-React%E5%9F%BA%E7%A1%80/10-AntD%E6%A1%86%E6%9E%B6%E7%9A%84upload%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E6%97%B6%E4%BD%BF%E7%94%A8customRequest%E6%96%B9%E6%B3%95%E8%87%AA%E5%AE%9A%E4%B9%89%E4%B8%8A%E4%BC%A0%E8%A1%8C%E4%B8%BA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1270,240 +1356,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/13-React%E5%9F%BA%E7%A1%80/01-React%E4%BB%8B%E7%BB%8D/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="张天伟">
-      <meta itemprop="description" content="欢迎访问！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天伟小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/13-React%E5%9F%BA%E7%A1%80/01-React%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">01-React介绍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-01 10:00:49" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:49+08:00">2021-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><ArticleTopAd></ArticleTopAd></p>
-<h2 id="虚拟DOM和diff算法"><a href="#虚拟DOM和diff算法" class="headerlink" title="虚拟DOM和diff算法"></a>虚拟DOM和diff算法</h2><blockquote>
-<p>在学习 React 之前，我们需要先了解两个概念：虚拟DOM、diff算法。</p>
-</blockquote>
-<h3 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h3><p><strong>问题描述</strong>：</p>
-<p>假设我们的数据发生一点点的变化，也会被强制重建整颗DOM树，这么做，会涉及到很多元素的重绘和重排，导致性能浪费严重。</p>
-<p><strong>解决上述问题的思路</strong>：</p>
-<p>实现按需更新页面上的元素即可。也就是说，把 需要修改的元素，所对应的 DOM 元素重新构建；其他没有变化的数据，所对应的 DOM 节点不需要被强制更新。</p>
-<p><strong>具体实现方案</strong>：（如何按需更新页面上的元素）</p>
-<p>只需要拿到 页面更新前的 内存中的DOM树，同时再拿到 页面更新前的 新渲染出来的 内存DOM树；然后，对比这两颗新旧DOM树，找到那些需要被重新创建和修改的元素即可。这样就能实现 DOM 的<strong>按需更新</strong>。</p>
-<p><strong>如何拿到这两棵DOM树</strong>：（即：如何从浏览器的内存住哪个获取到 浏览器私有的那两颗DOM树？）</p>
-<p>如果要拿到浏览器私有的DOM树，那我们必须调用浏览器提供的相关JS的API才行。但是问题来了，浏览器并没有提供这样的API。既然如此，那我们可以自己<strong>模拟</strong>这两颗 新旧DOM树。</p>
-<p><strong>如何自己模拟这两颗 新旧DOM树</strong>：（即：如何自己模拟一个DOM节点？）</p>
-<p>这里涉及到手动模拟DOM树的原理：使用 JS 创建一个对象，用和这个对象来模拟每一个DOM节点；然后在每个DOM节点中，又提供了类似于 children 这样的属性来描述当前DOM的子节点。这样的话，当DOM节点形成了嵌套关系，就模拟出了一颗 DOM 树。</p>
-<p><strong>总结</strong>：</p>
-<ul>
-<li><p>虚拟DOM的<strong>本质</strong>：使用 JS 对象模拟DOM树。</p>
-</li>
-<li><p>虚拟DOM的<strong>目的</strong>：为了实现 DOM 节点的高效更新。</p>
-</li>
-</ul>
-<p>React内部已经帮我们实现了虚拟DOM，初学者掌握如何调用即可。</p>
-<h3 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h3><p>怎么实现 两颗新旧DOM树的对比 呢？这里就涉及到了 diff算法。常见的 diff算法如下：</p>
-<ul>
-<li><p>tree diff：新旧DOM树，逐层对比的方式，就叫做 tree diff。每当我们从前到后，把所有层的节点对比完后，必然能够找到那些 需要被更新的元素。</p>
-</li>
-<li><p>component diff：在对比每一层的时候，组件之间的对比，叫做 component diff。当对比组件的时候，如果两个组件的类型相同，则暂时认为这个组件不需要被更新，如果组件的类型不同，则立即将旧组件移除，新建一个组件，替换到被移除的位置。</p>
-</li>
-<li><p>element diff：在组件中，每个元素之间也要进行对比，那么，元素级别的对比，叫做 element diff。</p>
-</li>
-<li><p>key：key这个属性，可以把 页面上的 DOM节点 和 虚拟DOM中的对象，做一层关联关系。</p>
-</li>
-</ul>
-<h2 id="React-介绍"><a href="#React-介绍" class="headerlink" title="React 介绍"></a>React 介绍</h2><h3 id="React-是什么"><a href="#React-是什么" class="headerlink" title="React 是什么"></a>React 是什么</h3><ul>
-<li><p>Facebook 开源的一个JS库。</p>
-</li>
-<li><p>一个用于动态构建用户界面的JS库。</p>
-</li>
-</ul>
-<h3 id="React-的特点"><a href="#React-的特点" class="headerlink" title="React 的特点"></a>React 的特点</h3><ul>
-<li><p>Declarative（声明式编码）</p>
-</li>
-<li><p>Component-Based（组件化编码）</p>
-</li>
-<li><p>Learn Once, Write Anywhere（支持客户端、服务器端渲染）</p>
-</li>
-<li><p>高效的DOM Diff算法，最小化页面重绘</p>
-</li>
-<li><p>单向数据流</p>
-</li>
-</ul>
-<h3 id="React高效的原因"><a href="#React高效的原因" class="headerlink" title="React高效的原因"></a>React高效的原因</h3><ul>
-<li><p>虚拟(virtual)DOM，不总是直接操作DOM</p>
-</li>
-<li><p>高效的DOM Diff算法，最小化页面重绘（即“局部渲染”）。</p>
-</li>
-</ul>
-<p>虚拟DOM指的是：在真实DOM的上一层<strong>映射</strong>一层虚拟DOM。我们操作的是映射关系，而不是真实的DOM。假设页面的样式做了修改（比如新增了一个标签），此时修改的是虚拟DOM的样式，真实的DOM并未发生变化。那什么时候，真实的DOM会发生变化呢？ 当我把所有的内容操作完之后，转化为真实的DOM，此时要打包统一的渲染页面，于是真实的DOM发生变化，然后渲染一次。 这样做的话，可以减少页面的渲染次数。</p>
-<h3 id="相关网址"><a href="#相关网址" class="headerlink" title="相关网址"></a>相关网址</h3><ul>
-<li><p>官网：<a target="_blank" rel="noopener" href="https://reactjs.org/">https://reactjs.org/</a></p>
-</li>
-<li><p>GitHub 地址：<a target="_blank" rel="noopener" href="https://github.com/facebook/react">https://github.com/facebook/react</a>  截至2019-02-08，React项目已经有 121k 的star。</p>
-</li>
-</ul>
-<p>官网截图：</p>
-<p>20190208_1057.png</p>
-<p>上方截图中，有一个特性是“Learn Once, Write Anywhere”。这里的 “Anywhere” 其实指的是两个地方：一个是浏览器端，一个是服务器端。后者指的是，<strong>React支持在服务器端渲染页面</strong>。</p>
-<h3 id="生态介绍"><a href="#生态介绍" class="headerlink" title="生态介绍"></a>生态介绍</h3><ul>
-<li><p>Vue生态：Vue + Vue-Router + Vuex + Axios + Babel + Webpack</p>
-</li>
-<li><p>React生态：React + React-Router + Redux + Axios + Babel + Webpack</p>
-</li>
-</ul>
-<h2 id="React-模块化、组件化"><a href="#React-模块化、组件化" class="headerlink" title="React 模块化、组件化"></a>React 模块化、组件化</h2><h3 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h3><ul>
-<li><p>理解：向外提供特定功能的js程序, 一般就是一个js文件</p>
-</li>
-<li><p>理由：js代码更多更复杂</p>
-</li>
-<li><p>作用：简化js的编写，阅读，提高运行效率</p>
-</li>
-</ul>
-<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><ul>
-<li><p>理解：用来实现特定功能效果的代码集合(html/css/js)</p>
-</li>
-<li><p>理由：一个界面的功能更复杂</p>
-</li>
-<li><p>作用：复用，简化项目编码，提高运行效率</p>
-</li>
-</ul>
-<h3 id="模块化与组件化"><a href="#模块化与组件化" class="headerlink" title="模块化与组件化"></a>模块化与组件化</h3><ul>
-<li><p>模块化：当应用的js都以模块来编写的, 这个应用就是一个模块化的应用</p>
-</li>
-<li><p>组件化：当应用是以多组件的方式实现功能, 这上应用就是一个组件化的应用</p>
-</li>
-</ul>
-<h3 id="面相对象与面向过程的区别"><a href="#面相对象与面向过程的区别" class="headerlink" title="面相对象与面向过程的区别"></a>面相对象与面向过程的区别</h3><p>面向对象编程：</p>
-<ul>
-<li><p>重点是对象</p>
-</li>
-<li><p>更加关心的是干活的人</p>
-</li>
-</ul>
-<p>面向过程编程：</p>
-<ul>
-<li><p>更加关心的是干活的过程</p>
-</li>
-<li><p>谁去干活儿不关心</p>
-</li>
-</ul>
-<h2 id="React-环境搭建：写第一个Hello-World"><a href="#React-环境搭建：写第一个Hello-World" class="headerlink" title="React 环境搭建：写第一个Hello World"></a>React 环境搭建：写第一个Hello World</h2><h3 id="react-js-和-react-dom-js"><a href="#react-js-和-react-dom-js" class="headerlink" title="react.js 和 react-dom.js"></a>react.js 和 react-dom.js</h3><p>为了通过 React 写一个Hello World程序，我们需要先安装几个包：</p>
-<ul>
-<li><p>react.js: React的核心库。这个包，是专门用来创建React组件、组件生命周期等。</p>
-</li>
-<li><p>react-dom.js: 操作DOM的扩展库。这个包，主要封装了和 DOM 操作相关的包（比如，把组件渲染到页面上）。</p>
-</li>
-<li><p>babel.min.js: 将 JSX语法 解析为 纯JS语法代码。</p>
-</li>
-</ul>
-<h3 id="方式一：本地引入相关的js库"><a href="#方式一：本地引入相关的js库" class="headerlink" title="方式一：本地引入相关的js库"></a>方式一：本地引入相关的js库</h3><p>入门的时候，我们建议采取方式一。</p>
-<p>如果是本地引入的话，可以这样写：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 引入React相关的js库 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./libs/react.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./libs/react-dom.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./libs/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>如果是通过CDN的方式引入的话，可以使用网站 <a target="_blank" rel="noopener" href="https://www.bootcdn.cn/">https://www.bootcdn.cn/</a> 提供的CDN链接。</p>
-<p><strong>完整代码举例</strong>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入React相关的js库 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./libs/react.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./libs/react-dom.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">src</span>=<span class="string">&quot;./libs/babel.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myContainer&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 注意，这一行的 type 是写 &quot;text/babel&quot;，而不是 &quot;text/javascript&quot; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/babel&quot;</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//页面中的真实容器元素</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> containDiv = <span class="built_in">document</span>.getElementById(<span class="string">&quot;myContainer&quot;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//1、创建虚拟DOM对象</span></span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> vDom = <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello, React!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>; <span class="comment">// 不是字符串, 不能加引号</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">      <span class="comment">//2、渲染虚拟DOM对象（将虚拟DOM对象渲染到页面元素中）</span></span></span><br><span class="line"><span class="javascript">      ReactDOM.render(vDom, containDiv); <span class="comment">// 参数1：虚拟DOM对象；参数2：页面中的容器</span></span></span><br><span class="line"><span class="javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>代码运行后，页面上的DOM结构如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;myContainer&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>Hello, React!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-
-<p><strong>代码解释</strong>：</p>
-<p>render的中文含义是“渲染”。render 方法的语法如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ReactDOM.render(要渲染的虚拟DOM对象, 容器 container：要渲染到页面上的哪个位置);</span><br></pre></td></tr></table></figure>
-
-<p>【工程文件下载】</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://download.csdn.net/download/smyhvae/10951736">2019-02-08-ReactDemo.zip</a></li>
-</ul>
-<h3 id="方式二：npm-install"><a href="#方式二：npm-install" class="headerlink" title="方式二：npm install"></a>方式二：npm install</h3><p>实际开发中，我们一般都是通过 npm install 的方式来安装 react 相关的包。</p>
-<p>首先，新建一个空的文件夹<code>2019-02-08-ReactDemo</code>，作为项目的根目录。然后在根目录下执行如下命令，进行<strong>项目初始化</strong>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init --yes</span><br></pre></td></tr></table></figure>
-
-<p>上方命令执行完成后，会生成<code>package.json</code>文件。</p>
-<p>然后继续执行如下命令，安装 react.js 和 react-dom.js 这两个包：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i react react-dom</span><br></pre></td></tr></table></figure>
-
-<p>完整代码举例：</p>
-<p>index.html:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-<p>main.js:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// JS打包入口文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 react 中，如要要创建 DOM 元素，只能使用 React 提供的 JS API 来创建，不能【直接】像 Vue 中那样，手写 HTML 元素</span></span><br><span class="line"><span class="comment">// React.createElement() 方法，用于创建 虚拟DOM 对象，它接收 3个及以上的参数</span></span><br><span class="line"><span class="comment">//     参数1： 是个字符串类型的参数，表示要创建的元素类型</span></span><br><span class="line"><span class="comment">//     参数2： 是一个属性对象，表示 创建的这个元素上，有哪些属性</span></span><br><span class="line"><span class="comment">//     参数3： 从第三个参数的位置开始，后面可以放好多的虚拟DOM对象，这写参数，表示当前元素的子节点</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// &lt;div title=&quot;this is a div&quot; id=&quot;mydiv&quot;&gt;这是一个div&lt;/div&gt;</span></span><br><span class="line"><span class="keyword">var</span> myDiv = React.createElement(<span class="string">&#x27;div&#x27;</span>, &#123; <span class="attr">title</span>: <span class="string">&#x27;this is a div&#x27;</span>, <span class="attr">id</span>: <span class="string">&#x27;mydiv&#x27;</span> &#125;, <span class="string">&#x27;这是一个div&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ReactDOM.render(&#x27;要渲染的虚拟DOM元素&#x27;, &#x27;要渲染到页面上的哪个位置&#x27;);</span></span><br><span class="line">ReactDOM.render(myDiv, <span class="built_in">document</span>.getElementById(<span class="string">&#x27;app&#x27;</span>));</span><br></pre></td></tr></table></figure>
-
-
-<p>上方代码中，createElement()方法介绍如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">React.createElement(需要创建的元素类型, 有哪些属性, 子节点)</span><br></pre></td></tr></table></figure>
-
-
-<p>【工程文件下载】</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://download.csdn.net/download/smyhvae/10951196">2019-02-09-ReactDemo.zip</a></li>
-</ul>
-<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<font color=#0000ff><strong>更多技能</strong></font>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
-<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
-<p><img src="http://img.smyhvae.com/20160401_01.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/16/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><span class="page-number current">17</span><a class="page-number" href="/page/18/">18</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/18/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1569,7 +1425,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">260</span>
+          <span class="site-state-item-count">261</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

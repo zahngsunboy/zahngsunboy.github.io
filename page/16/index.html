@@ -158,6 +158,219 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/02-CSS%E7%9B%92%E6%A8%A1%E5%9E%8B%E5%8F%8ABFC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/02-CSS%E7%9B%92%E6%A8%A1%E5%9E%8B%E5%8F%8ABFC/" class="post-title-link" itemprop="url">02-CSS盒模型及BFC</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 10:00:54" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:54+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="题目：谈一谈你对CSS盒模型的认识"><a href="#题目：谈一谈你对CSS盒模型的认识" class="headerlink" title="题目：谈一谈你对CSS盒模型的认识"></a>题目：谈一谈你对CSS盒模型的认识</h2><p>专业的面试，一定会问 CSS 盒模型。对于这个题目，我们要回答一下几个方面：</p>
+<p>（1）基本概念：content、padding、margin。</p>
+<p>（2）标准盒模型、IE盒模型的区别。不要漏说了IE盒模型，通过这个问题，可以筛选一部分人。</p>
+<p>（3）CSS如何设置这两种模型（即：如何设置某个盒子为其中一个模型）？如果回答了上面的第二条，还会继续追问这一条。</p>
+<p>（4）JS如何设置、获取盒模型对应的宽和高？这一步，已经有很多人答不上来了。</p>
+<p>（5）实例题：根据盒模型解释<strong>边距重叠</strong>。</p>
+<p>前四个方面是逐渐递增，第五个方面，却鲜有人知。</p>
+<p>（6）BFC（边距重叠解决方案）或IFC。</p>
+<p>如果能回答第五条，就会引出第六条。BFC是面试频率较高的。</p>
+<p><strong>总结</strong>：以上几点，从上到下，知识点逐渐递增，知识面从理论、CSS、JS，又回到CSS理论。</p>
+<p>接下来，我们把上面的六条，依次讲解。</p>
+<h2 id="标准盒模型和IE盒子模型"><a href="#标准盒模型和IE盒子模型" class="headerlink" title="标准盒模型和IE盒子模型"></a>标准盒模型和IE盒子模型</h2><p>标准盒子模型：</p>
+<p><img src="http://img.smyhvae.com/2015-10-03-css-27.jpg"></p>
+<p>IE盒子模型：</p>
+<p><img src="http://img.smyhvae.com/2015-10-03-css-30.jpg"></p>
+<p>上图显示：</p>
+<p>在 CSS 盒子模型 (Box Model) 规定了元素处理元素的几种方式：</p>
+<ul>
+<li>width和height：<strong>内容</strong>的宽度、高度（不是盒子的宽度、高度）。</li>
+<li>padding：内边距。</li>
+<li>border：边框。</li>
+<li>margin：外边距。</li>
+</ul>
+<p>CSS盒模型和IE盒模型的区别：</p>
+<ul>
+<li><p>在 <font color="#0000FF"><strong>标准盒子模型</strong></font>中，<font color="#0000FF"><strong>width 和 height 指的是内容区域</strong></font>的宽度和高度。增加内边距、边框和外边距不会影响内容区域的尺寸，但是会增加元素框的总尺寸。</p>
+</li>
+<li><p><font color="#0000FF"><strong>IE盒子模型</strong></font>中，<font color="#0000FF"><strong>width 和 height 指的是内容区域+border+padding</strong></font>的宽度和高度。</p>
+</li>
+</ul>
+<h2 id="CSS如何设置这两种模型"><a href="#CSS如何设置这两种模型" class="headerlink" title="CSS如何设置这两种模型"></a>CSS如何设置这两种模型</h2><p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 设置当前盒子为 标准盒模型（默认） */</span></span><br><span class="line">box-sizing: content-box;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* 设置当前盒子为 IE盒模型 */</span></span><br><span class="line">box-sizing: border-box;</span><br></pre></td></tr></table></figure>
+
+
+<p>备注：盒子默认为标准盒模型。</p>
+<h2 id="JS如何设置、获取盒模型对应的宽和高"><a href="#JS如何设置、获取盒模型对应的宽和高" class="headerlink" title="JS如何设置、获取盒模型对应的宽和高"></a>JS如何设置、获取盒模型对应的宽和高</h2><h3 id="方式一：通过DOM节点的-style-样式获取"><a href="#方式一：通过DOM节点的-style-样式获取" class="headerlink" title="方式一：通过DOM节点的 style 样式获取"></a>方式一：通过DOM节点的 style 样式获取</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.style.width/height;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：通过这种方式，只能获取<strong>行内样式</strong>，不能获取<code>内嵌</code>的样式和<code>外链</code>的样式。</p>
+<p>这种方式有局限性，但应该了解。</p>
+<h3 id="方式二（通用型）"><a href="#方式二（通用型）" class="headerlink" title="方式二（通用型）"></a>方式二（通用型）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.getComputedStyle(element).width/height;</span><br></pre></td></tr></table></figure>
+
+
+<p>方式二能兼容 Chrome、火狐。是通用型方式。</p>
+<h3 id="方式三（IE独有的）"><a href="#方式三（IE独有的）" class="headerlink" title="方式三（IE独有的）"></a>方式三（IE独有的）</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.currentStyle.width/height;</span><br></pre></td></tr></table></figure>
+
+<p>和方式二相同，但这种方式只有IE独有。获取到的即时运行完之后的宽高（三种css样式都可以获取）。</p>
+<h3 id="方式四"><a href="#方式四" class="headerlink" title="方式四"></a>方式四</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">element.getBoundingClientRect().width/height;</span><br></pre></td></tr></table></figure>
+
+<p>此 api 的作用是：获取一个元素的绝对位置。绝对位置是视窗 viewport 左上角的绝对位置。</p>
+<p>此 api 可以拿到四个属性：left、top、width、height。</p>
+<p><strong>总结：</strong></p>
+<p>上面的四种方式，要求能说出来区别，以及哪个的通用型更强。</p>
+<h2 id="margin塌陷-margin重叠"><a href="#margin塌陷-margin重叠" class="headerlink" title="margin塌陷/margin重叠"></a>margin塌陷/margin重叠</h2><p><strong>标准文档流中，竖直方向的margin不叠加，只取较大的值作为margin</strong>(水平方向的margin是可以叠加的，即水平方向没有塌陷现象)。</p>
+<p>PS：如果不在标准流，比如盒子都浮动了，那么两个盒子之间是没有margin重叠的现象的。</p>
+<p>我们来看几个例子。</p>
+<h3 id="兄弟元素之间"><a href="#兄弟元素之间" class="headerlink" title="兄弟元素之间"></a>兄弟元素之间</h3><p>如下图所示：</p>
+<p><img src="http://img.smyhvae.com/20170805_0904_2.png"></p>
+<h3 id="子元素和父元素之间"><a href="#子元素和父元素之间" class="headerlink" title="子元素和父元素之间"></a>子元素和父元素之间</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        * &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.father</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: green;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="comment">/* 给儿子设置margin-top为10像素 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-class">.son</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-top</span>: <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;son&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，儿子的height是 100px，magin-top 是10px。注意，此时父亲的 height 是100，而不是110。因为儿子和父亲在竖直方向上，共一个margin。</p>
+<p>儿子这个盒子：</p>
+<p><img src="http://img.smyhvae.com/20180305_2216.png"></p>
+<p>父亲这个盒子：</p>
+<p><img src="http://img.smyhvae.com/20180305_2217.png"></p>
+<p>上方代码中，如果我们给父亲设置一个属性：<code>overflow: hidden</code>，就可以避免这个问题，此时父亲的高度是110px，这个用到的就是BFC（下一段讲解）。</p>
+<h3 id="善于使用父亲的padding，而不是儿子的margin"><a href="#善于使用父亲的padding，而不是儿子的margin" class="headerlink" title="善于使用父亲的padding，而不是儿子的margin"></a>善于使用父亲的padding，而不是儿子的margin</h3><blockquote>
+<p>其实，这一小段讲的内容与上一小段相同，都是讲父子之间的margin重叠。</p>
+</blockquote>
+<p>我们来看一个奇怪的现象。现在有下面这样一个结构：（div中放一个p）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;p&gt;&lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面的结构中，我们尝试通过给儿子<code>p</code>一个<code>margin-top:50px;</code>的属性，让其与父亲保持50px的上边距。结果却看到了下面的奇怪的现象：</p>
+<p><img src="http://img.smyhvae.com/20170806_1537.png"></p>
+<p>此时我们给父亲div加一个border属性，就正常了：</p>
+<p><img src="http://img.smyhvae.com/20170806_1544.png"></p>
+<p>如果父亲没有border，那么儿子的margin实际上踹的是“流”，踹的是这“行”。所以，父亲整体也掉下来了。</p>
+<p><strong>margin这个属性，本质上描述的是兄弟和兄弟之间的距离； 最好不要用这个marign表达父子之间的距离。</strong></p>
+<p>所以，如果要表达父子之间的距离，我们一定要善于使用父亲的padding，而不是儿子的margin。</p>
+<h2 id="BFC（边距重叠解决方案）"><a href="#BFC（边距重叠解决方案）" class="headerlink" title="BFC（边距重叠解决方案）"></a>BFC（边距重叠解决方案）</h2><h3 id="BFC的概念"><a href="#BFC的概念" class="headerlink" title="BFC的概念"></a>BFC的概念</h3><p>BFC（Block Formatting Context）：块级格式化上下文。你可以把它理解成一个独立的区域。</p>
+<p>另外还有个概念叫IFC。不过，BFC问得更多。</p>
+<h3 id="BFC-的原理-BFC的布局规则【非常重要】"><a href="#BFC-的原理-BFC的布局规则【非常重要】" class="headerlink" title="BFC 的原理/BFC的布局规则【非常重要】"></a>BFC 的原理/BFC的布局规则【非常重要】</h3><p>BFC 的原理，其实也就是 BFC 的渲染规则（能说出以下四点就够了）。包括：</p>
+<ul>
+<li><p>（1）BFC <strong>内部的</strong>子元素，在垂直方向，<strong>边距会发生重叠</strong>。</p>
+</li>
+<li><p>（2）BFC在页面中是独立的容器，外面的元素不会影响里面的元素，反之亦然。（稍后看<code>举例1</code>）</p>
+</li>
+<li><p>（3）<strong>BFC区域不与旁边的<code>float box</code>区域重叠</strong>。（可以用来清除浮动带来的影响）。（稍后看<code>举例2</code>）</p>
+</li>
+<li><p>（4）计算BFC的高度时，浮动的子元素也参与计算。（稍后看<code>举例3</code>）</p>
+</li>
+</ul>
+<h3 id="如何生成BFC"><a href="#如何生成BFC" class="headerlink" title="如何生成BFC"></a>如何生成BFC</h3><p>有以下几种方法：</p>
+<ul>
+<li><p>方法1：overflow: 不为visible，可以让属性是 hidden、auto。【最常用】</p>
+</li>
+<li><p>方法2：浮动中：float的属性值不为none。意思是，只要设置了浮动，当前元素就创建了BFC。</p>
+</li>
+<li><p>方法3：定位中：只要posiiton的值不是 static或者是relative即可，可以是<code>absolute</code>或<code>fixed</code>，也就生成了一个BFC。</p>
+</li>
+<li><p>方法4：display为inline-block, table-cell, table-caption, flex, inline-flex</p>
+</li>
+</ul>
+<p>参考链接：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000006740129">BFC原理详解</a></li>
+</ul>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/bf927bc1bed4">BFC详解</a></li>
+</ul>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lhb25/p/inside-block-formatting-ontext.html">前端精选文摘：BFC 神奇背后的原理</a></li>
+</ul>
+<p>下面来看几个例子，看看如何生成BFC。</p>
+<h3 id="BFC-的应用"><a href="#BFC-的应用" class="headerlink" title="BFC 的应用"></a>BFC 的应用</h3><p><strong>举例1：</strong>解决 margin 重叠</p>
+<p>当父元素和子元素发生 margin 重叠时，解决办法：<strong>给子元素或父元素创建BFC</strong>。</p>
+<p>比如说，针对下面这样一个 div 结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;son&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的div结构中，如果父元素和子元素发生margin重叠，我们可以给子元素创建一个 BFC，就解决了：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;son&quot;</span> <span class="attr">style</span>=<span class="string">&quot;overflow: hidden&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>因为<strong>第二条：BFC区域是一个独立的区域，不会影响外面的元素</strong>。</p>
+<p><strong>举例2</strong>：BFC区域不与float区域重叠：</p>
+<p>针对下面这样一个div结构；</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.father-layout</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: pink;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.father-layout</span> <span class="selector-class">.left</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">100px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: green;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.father-layout</span> <span class="selector-class">.right</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">150px</span>;  <span class="comment">/*右侧标准流里的元素，比左侧浮动的元素要高*/</span></span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: red;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;father-layout&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;left&quot;</span>&gt;</span></span><br><span class="line">        左侧，生命壹号</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span>&gt;</span></span><br><span class="line">        右侧，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180306_0825.png"></p>
+<p>上图中，由于右侧标准流里的元素，比左侧浮动的元素要高，导致右侧有一部分会跑到左边的下面去。</p>
+<p><strong>如果要解决这个问题，可以将右侧的元素创建BFC</strong>，因为<strong>第三条：BFC区域不与<code>float box</code>区域重叠</strong>。解决办法如下：（将right区域添加overflow属性）</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;right&quot;</span> <span class="attr">style</span>=<span class="string">&quot;overflow: hidden&quot;</span>&gt;</span></span><br><span class="line">    右侧，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，smyhvae，</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+<p><img src="http://img.smyhvae.com/20180306_0827.png"></p>
+<p>上图表明，解决之后，<code>father-layout</code>的背景色显现出来了，说明问题解决了。</p>
+<p><strong>举例3：</strong>清除浮动</p>
+<p>现在有下面这样的结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.father</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: pink;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.son</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: green;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;father&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;son&quot;</span>&gt;</span></span><br><span class="line">        生命壹号</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180306_0840.png"></p>
+<p>上面的代码中，儿子浮动了，但由于父亲没有设置高度，导致看不到父亲的背景色（此时父亲的高度为0）。正所谓<strong>有高度的盒子，才能关住浮动</strong>。</p>
+<p>如果想要清除浮动带来的影响，方法一是给父亲设置高度，然后采用隔墙法。方法二是 BFC：给父亲增加 <code>overflow=hidden</code>属性即可， 增加之后，效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180306_0845.png"></p>
+<p>为什么父元素成为BFC之后，就有了高度呢？这就回到了<strong>第四条：计算BFC的高度时，浮动元素也参与计算</strong>。意思是，<strong>在计算BFC的高度时，子元素的float box也会参与计算</strong>。</p>
+<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<font color=#0000ff><strong>更多技能</strong></font>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
+<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
+<p><img src="http://img.smyhvae.com/2016040102.jpg"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/15-%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/01-%E9%A1%B5%E9%9D%A2%E5%B8%83%E5%B1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2671,96 +2884,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/13-React%E5%9F%BA%E7%A1%80/11-React%20Navive%E5%88%9D%E8%AF%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="张天伟">
-      <meta itemprop="description" content="欢迎访问！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天伟小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/13-React%E5%9F%BA%E7%A1%80/11-React%20Navive%E5%88%9D%E8%AF%86/" class="post-title-link" itemprop="url">11-React Navive初识</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-01 10:00:49" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:49+08:00">2021-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><ArticleTopAd></ArticleTopAd></p>
-<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><p>官方文档：<a target="_blank" rel="noopener" href="https://reactnative.cn/docs/getting-started.html">https://reactnative.cn/docs/getting-started.html</a></p>
-<h3 id="安装Node、homebrew、Watchman"><a href="#安装Node、homebrew、Watchman" class="headerlink" title="安装Node、homebrew、Watchman"></a>安装Node、homebrew、Watchman</h3><p>安装 homebrew：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>安装 watchman：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install watchman</span><br></pre></td></tr></table></figure>
-
-
-<p>Watchman则是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager 可以快速捕捉文件的变化从而实现实时刷新）。</p>
-<h3 id="安装-React-Native-的命令行工具（react-native-cli）"><a href="#安装-React-Native-的命令行工具（react-native-cli）" class="headerlink" title="安装 React Native 的命令行工具（react-native-cli）"></a>安装 React Native 的命令行工具（react-native-cli）</h3><p>安装 react-native-cli：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g react-native-cli</span><br></pre></td></tr></table></figure>
-
-
-<p>React Native 的命令行工具用于执行创建、初始化、更新项目、运行打包服务（packager）等任务。</p>
-<h3 id="创建新项目"><a href="#创建新项目" class="headerlink" title="创建新项目"></a>创建新项目</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native init MyApp --version 0.44.3</span><br></pre></td></tr></table></figure>
-
-<h3 id="编译并运行-React-Native-应用"><a href="#编译并运行-React-Native-应用" class="headerlink" title="编译并运行 React Native 应用"></a>编译并运行 React Native 应用</h3><p>在 ios 模拟器上运行：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">react-native run-ios</span><br></pre></td></tr></table></figure>
-
-<h2 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h2><p>官网文档：<a target="_blank" rel="noopener" href="https://reactnative.cn/docs/debugging.html">https://reactnative.cn/docs/debugging.html</a></p>
-<h3 id="访问-App-内的开发菜单"><a href="#访问-App-内的开发菜单" class="headerlink" title="访问 App 内的开发菜单"></a>访问 App 内的开发菜单</h3><p>如果是在 iOS 模拟器中运行，还可以按下<code>Command + D</code>快捷键，Android 模拟器对应的则是Command⌘ + M（windows 上可能是 F1 或者 F2），或是直接在命令行中运行adb shell input keyevent 82来发送菜单键命令。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2826,7 +2953,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">260</span>
+          <span class="site-state-item-count">261</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

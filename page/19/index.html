@@ -158,6 +158,131 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/11-Node.js/07-Node.js%E6%93%8D%E4%BD%9CMySQL%E6%95%B0%E6%8D%AE%E5%BA%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/11-Node.js/07-Node.js%E6%93%8D%E4%BD%9CMySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-title-link" itemprop="url">07-Node.js操作MySQL数据库</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 10:00:27" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:27+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="Node-js-连接-MySQL"><a href="#Node-js-连接-MySQL" class="headerlink" title="Node.js 连接 MySQL"></a>Node.js 连接 MySQL</h2><p>（1）安装 mysql 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install mysql</span><br></pre></td></tr></table></figure>
+
+<p>（2）引入 mysql 包：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mysql = <span class="built_in">require</span>(<span class="string">&quot;mysql&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>（3）建立连接：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mysql = <span class="built_in">require</span>(<span class="string">&quot;mysql&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">  <span class="attr">host</span>: <span class="string">&quot;localhost&quot;</span>,</span><br><span class="line">  <span class="comment">//port:&quot;3306&quot;, //可选，默认3306</span></span><br><span class="line">  <span class="attr">user</span>: <span class="string">&quot;root&quot;</span>,</span><br><span class="line">  <span class="attr">password</span>: <span class="string">&#x27;xxx&#x27;</span>, <span class="comment">// 这里改成你自己的数据库连接密码</span></span><br><span class="line">  <span class="attr">database</span>: <span class="string">&quot;qiangu_database&quot;</span>,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//创建与数据库进行连接的连接对象</span></span><br><span class="line"><span class="keyword">let</span> connection = mysql.createConnection(options);</span><br><span class="line"></span><br><span class="line"><span class="comment">//建立连接</span></span><br><span class="line">connection.connect(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="comment">// 数据库连接失败</span></span><br><span class="line">    <span class="built_in">console</span>.log(err);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// 数据库连接成功</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;数据库连接成功&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>正常来说，运行程序后，应该会提示<code>数据库连接成功</code>。</p>
+<p>如果在运行时提示错误<code>Client does not support authentication protocol requested by server</code>，解决办法如下：(在终端进入 sql 之后，输入如下命令)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 注意，这里的 <span class="string">&#x27;root&#x27;</span> 请填你的<span class="keyword">user</span>账号， <span class="string">&#x27;localhost&#x27;</span> 请填 你的 host， <span class="string">&#x27;password&#x27;</span> 请填你的密码</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">WITH</span> mysql_native_password <span class="keyword">BY</span> <span class="string">&#x27;password&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 然后执行如下命令</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Node-js-增删改查-MySQL"><a href="#Node-js-增删改查-MySQL" class="headerlink" title="Node.js 增删改查 MySQL"></a>Node.js 增删改查 MySQL</h2><p>针对下面这张表：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200418_1728.png"></p>
+<p>通过 Node.js可以对其进行一些增删改查操作。代码举例如下。</p>
+<h3 id="1、查询表"><a href="#1、查询表" class="headerlink" title="1、查询表"></a>1、查询表</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    <span class="comment">//port:&quot;3306&quot;,//可选，默认3306</span></span><br><span class="line">    <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;xxx&#x27;</span>, <span class="comment">// 这里改成你自己的数据库密码</span></span><br><span class="line">    <span class="attr">database</span>: <span class="string">&#x27;qiangu_database&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建与数据库进行连接的连接对象</span></span><br><span class="line"><span class="keyword">let</span> connection = mysql.createConnection(options);</span><br><span class="line"></span><br><span class="line"><span class="comment">//建立连接</span></span><br><span class="line">connection.connect(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 数据库连接失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 数据库连接成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;数据库连接成功&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 1、查询表</span></span><br><span class="line"><span class="keyword">let</span> strSql1 = <span class="string">&#x27;select * from qiangu_student_table&#x27;</span>;</span><br><span class="line">connection.query(strSql1, <span class="function">(<span class="params">err, result, fields</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 表查询失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 表查询成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;qiangu_student_table 表查询结果：&#x27;</span> + <span class="built_in">JSON</span>.stringify(result));</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;fields:&#x27;</span> + <span class="built_in">JSON</span>.stringify(fields));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>打印结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">qiangu_student_table 表查询结果：</span><br><span class="line">[&#123;<span class="string">&quot;id&quot;</span>:1,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;千古壹号&quot;</span>,<span class="string">&quot;age&quot;</span>:28&#125;,&#123;<span class="string">&quot;id&quot;</span>:2,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;许嵩&quot;</span>,<span class="string">&quot;age&quot;</span>:34&#125;,&#123;<span class="string">&quot;id&quot;</span>:3,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;邓紫棋&quot;</span>,<span class="string">&quot;age&quot;</span>:28&#125;]</span><br><span class="line"></span><br><span class="line">fields:[</span><br><span class="line">    &#123;<span class="string">&quot;catalog&quot;</span>:<span class="string">&quot;def&quot;</span>,<span class="string">&quot;db&quot;</span>:<span class="string">&quot;qiangu_database&quot;</span>,<span class="string">&quot;table&quot;</span>:<span class="string">&quot;qiangu_student_table&quot;</span>,<span class="string">&quot;orgTable&quot;</span>:<span class="string">&quot;qiangu_student_table&quot;</span>,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;id&quot;</span>,<span class="string">&quot;orgName&quot;</span>:<span class="string">&quot;id&quot;</span>,<span class="string">&quot;charsetNr&quot;</span>:63,<span class="string">&quot;length&quot;</span>:11,<span class="string">&quot;type&quot;</span>:3,<span class="string">&quot;flags&quot;</span>:0,<span class="string">&quot;decimals&quot;</span>:0,<span class="string">&quot;zeroFill&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;protocol41&quot;</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;catalog&quot;</span>:<span class="string">&quot;def&quot;</span>,<span class="string">&quot;db&quot;</span>:<span class="string">&quot;qiangu_database&quot;</span>,<span class="string">&quot;table&quot;</span>:<span class="string">&quot;qiangu_student_table&quot;</span>,<span class="string">&quot;orgTable&quot;</span>:<span class="string">&quot;qiangu_student_table&quot;</span>,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;name&quot;</span>,<span class="string">&quot;orgName&quot;</span>:<span class="string">&quot;name&quot;</span>,<span class="string">&quot;charsetNr&quot;</span>:33,<span class="string">&quot;length&quot;</span>:765,<span class="string">&quot;type&quot;</span>:253,<span class="string">&quot;flags&quot;</span>:0,<span class="string">&quot;decimals&quot;</span>:0,<span class="string">&quot;zeroFill&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;protocol41&quot;</span>:<span class="literal">true</span>&#125;,</span><br><span class="line">    &#123;<span class="string">&quot;catalog&quot;</span>:<span class="string">&quot;def&quot;</span>,<span class="string">&quot;db&quot;</span>:<span class="string">&quot;qiangu_database&quot;</span>,<span class="string">&quot;table&quot;</span>:<span class="string">&quot;qiangu_student_table&quot;</span>,<span class="string">&quot;orgTable&quot;</span>:<span class="string">&quot;qiangu_student_table&quot;</span>,<span class="string">&quot;name&quot;</span>:<span class="string">&quot;age&quot;</span>,<span class="string">&quot;orgName&quot;</span>:<span class="string">&quot;age&quot;</span>,<span class="string">&quot;charsetNr&quot;</span>:63,<span class="string">&quot;length&quot;</span>:11,<span class="string">&quot;type&quot;</span>:3,<span class="string">&quot;flags&quot;</span>:0,<span class="string">&quot;decimals&quot;</span>:0,<span class="string">&quot;zeroFill&quot;</span>:<span class="literal">false</span>,<span class="string">&quot;protocol41&quot;</span>:<span class="literal">true</span>&#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 2、删除表</span></span><br><span class="line"><span class="keyword">let</span> strSql2 = <span class="string">&#x27;drop table test2_table&#x27;</span>;</span><br><span class="line">connection.query(strSql2, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 表删除失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 表删除成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;表删除成功：&#x27;</span> + result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">表删除成功：</span><br><span class="line">OkPacket &#123;</span><br><span class="line">    fieldCount: 0,</span><br><span class="line">    affectedRows: 0,</span><br><span class="line">    insertId: 0,</span><br><span class="line">    serverStatus: 2,</span><br><span class="line">    warningCount: 0,</span><br><span class="line">    message: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    protocol41: <span class="literal">true</span>,</span><br><span class="line">    changedRows: 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h3><p>将上方的sql语句换一下即可：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let strSql3 <span class="operator">=</span> <span class="string">&#x27;drop database qiangu_database&#x27;</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="2、新建数据库"><a href="#2、新建数据库" class="headerlink" title="2、新建数据库"></a>2、新建数据库</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    <span class="comment">//port:&quot;3306&quot;,//可选，默认3306</span></span><br><span class="line">    <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;smyhvae001&#x27;</span>,</span><br><span class="line">    <span class="comment">// database: &#x27;qiangu_database&#x27;  // 注意，因为代码里是创建新的数据库，所以这里不需要填其他的数据库名</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建与数据库进行连接的连接对象</span></span><br><span class="line"><span class="keyword">let</span> connection = mysql.createConnection(options);</span><br><span class="line"></span><br><span class="line"><span class="comment">//建立连接</span></span><br><span class="line">connection.connect(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 数据库连接失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 数据库连接成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;数据库连接成功&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建新的数据库</span></span><br><span class="line"><span class="keyword">const</span> strSql4 = <span class="string">&#x27;create database qiangu_database3&#x27;</span>;</span><br><span class="line">connection.query(strSql4, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;新建数据库成功：&#x27;</span> + <span class="built_in">JSON</span>.stringify(result));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据库连接成功</span><br><span class="line">新建数据库成功：&#123;</span><br><span class="line">    <span class="string">&quot;fieldCount&quot;</span>:0,<span class="string">&quot;affectedRows&quot;</span>:1,<span class="string">&quot;insertId&quot;</span>:0,<span class="string">&quot;serverStatus&quot;</span>:2,<span class="string">&quot;warningCount&quot;</span>:0,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;protocol41&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;changedRows&quot;</span>:0</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="3、新建表"><a href="#3、新建表" class="headerlink" title="3、新建表"></a>3、新建表</h3><p>新建表的sql语句举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `qiangu_table5` (</span><br><span class="line">    `id` <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    `name` <span class="type">varchar</span>(<span class="number">255</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `age` <span class="type">int</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>如果是在 js 代码中执行上面这样命令的话，要记得把 sql 语句存放在字符串里的同一行。</p>
+<p>代码举例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> mysql = <span class="built_in">require</span>(<span class="string">&#x27;mysql&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> options = &#123;</span><br><span class="line">    <span class="attr">host</span>: <span class="string">&#x27;localhost&#x27;</span>,</span><br><span class="line">    <span class="comment">//port:&quot;3306&quot;,//可选，默认3306</span></span><br><span class="line">    <span class="attr">user</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;smyhvae001&#x27;</span>,</span><br><span class="line">    <span class="attr">database</span>: <span class="string">&#x27;qiangu_database&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//创建与数据库进行连接的连接对象</span></span><br><span class="line"><span class="keyword">let</span> connection = mysql.createConnection(options);</span><br><span class="line"></span><br><span class="line"><span class="comment">//建立连接</span></span><br><span class="line">connection.connect(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 数据库连接失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 数据库连接成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;数据库连接成功&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 新建表</span></span><br><span class="line"><span class="comment">// 注意，在 js 代码中，sql 语句要存放在字符串里的同一行。</span></span><br><span class="line"><span class="keyword">const</span> strSql5 = <span class="string">&#x27;CREATE TABLE `qianguyihao_table5` (`id` int NOT NULL AUTO_INCREMENT,`name` varchar(255) DEFAULT NULL,`age` int DEFAULT NULL,PRIMARY KEY (`id`));&#x27;</span>;</span><br><span class="line"></span><br><span class="line">connection.query(strSql5, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 新建表失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 新建表成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;qianguyihao 新建表成功：&#x27;</span> + <span class="built_in">JSON</span>.stringify(result));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">数据库连接成功</span><br><span class="line">qianguyihao 新建表成功：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;fieldCount&quot;</span>:0,<span class="string">&quot;affectedRows&quot;</span>:0,<span class="string">&quot;insertId&quot;</span>:0,<span class="string">&quot;serverStatus&quot;</span>:2,<span class="string">&quot;warningCount&quot;</span>:0,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;protocol41&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;changedRows&quot;</span>:0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="在指定的表中插入数据"><a href="#在指定的表中插入数据" class="headerlink" title="在指定的表中插入数据"></a>在指定的表中插入数据</h3><p>在指定的表中插入数据：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在指定的表中插入数据</span></span><br><span class="line"><span class="keyword">const</span> strSql6 = <span class="string">&quot;insert into qianguyihao_table5 (name, age) values (&#x27;千古壹号&#x27;, &#x27;28&#x27;)&quot;</span>;</span><br><span class="line"></span><br><span class="line">connection.query(strSql6, <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 插入数据失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 在指定的表中插入数据成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;qianguyihao 在指定的表中插入数据成功：&#x27;</span> + <span class="built_in">JSON</span>.stringify(result));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>打印结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">qianguyihao 在指定的表中插入数据成功：</span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;fieldCount&quot;</span>:0,<span class="string">&quot;affectedRows&quot;</span>:1,<span class="string">&quot;insertId&quot;</span>:1,<span class="string">&quot;serverStatus&quot;</span>:2,<span class="string">&quot;warningCount&quot;</span>:0,<span class="string">&quot;message&quot;</span>:<span class="string">&quot;&quot;</span>,<span class="string">&quot;protocol41&quot;</span>:<span class="literal">true</span>,<span class="string">&quot;changedRows&quot;</span>:0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果插入的数据是变量（比如是用户提交上来的数据），那么，sql 语句可以这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在指定的表中插入数据（数据作为变量）</span></span><br><span class="line"><span class="keyword">const</span> strSql7 = <span class="string">&quot;insert into qianguyihao_table5 (name, age) values (?, ?)&quot;</span>;</span><br><span class="line"></span><br><span class="line">connection.query(strSql7, [<span class="string">&#x27;许嵩&#x27;</span>, <span class="string">&#x27;34&#x27;</span>], <span class="function">(<span class="params">err, result</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="comment">// 插入数据失败</span></span><br><span class="line">        <span class="built_in">console</span>.log(err);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 在指定的表中插入数据成功</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;qiangauyihao 在指定的表中插入数据成功：&#x27;</span> + <span class="built_in">JSON</span>.stringify(result));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/11-Node.js/06-Node.js%E5%86%85%E7%BD%AE%E6%A8%A1%E5%9D%97%EF%BC%9Apath%E8%B7%AF%E5%BE%84%E6%A8%A1%E5%9D%97/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1956,159 +2081,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/04-MySQL%E5%AD%97%E6%AE%B5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="张天伟">
-      <meta itemprop="description" content="欢迎访问！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天伟小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/04-MySQL%E5%AD%97%E6%AE%B5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="post-title-link" itemprop="url">04-MySQL字段的数据类型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-01 10:00:25" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:25+08:00">2021-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><ArticleTopAd></ArticleTopAd></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MySQL 中的字段，主要有四种数据类型：</p>
-<ul>
-<li><p>整型（整数）</p>
-</li>
-<li><p>小数</p>
-</li>
-<li><p>字符串类型</p>
-</li>
-<li><p>时间日期类型</p>
-</li>
-</ul>
-<p>下面来详细讲一讲。</p>
-<h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2><h3 id="整数类型的分类"><a href="#整数类型的分类" class="headerlink" title="整数类型的分类"></a>整数类型的分类</h3><p>MySQL中，整型有五种：</p>
-<ul>
-<li><p>迷你整型：tinyint，使用<strong>1个字节</strong>存储整数，最多存储256个整数（-128~127）。</p>
-</li>
-<li><p>短整型：smallint，使用<strong>2个字节</strong>存储整数。</p>
-</li>
-<li><p>中整型：mediumint，使用<strong>3个字节</strong>存储整数。</p>
-</li>
-<li><p>标准整型：int，使用<strong>4个字节</strong>存储整数。</p>
-</li>
-<li><p>大整型：bigint，使用<strong>8个字节</strong>存储。</p>
-</li>
-</ul>
-<p><strong>强调</strong>：</p>
-<p>（1）如果你不知道用哪一种，或者懒得计算，那就用标准整型 <code>int</code>吧，这个用的最多。</p>
-<p>（2）整型在 MySQL 中默认是有符号的，即有正负；无符号需要使用 <code>unsigned</code> 修饰整型，代表正整数。</p>
-<p><strong>举例</strong>：</p>
-<p>在指定的表中新增 age 字段，要求 age 是正整数：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_qiangu1 <span class="keyword">add</span> age <span class="type">int</span> unsigned;</span><br></pre></td></tr></table></figure>
-
-<h3 id="设计思路"><a href="#设计思路" class="headerlink" title="设计思路"></a>设计思路</h3><p>如果需要新建整型的字段，设计思路如下：</p>
-<p>（1）确定需要存储的数据是整数。</p>
-<p>（2）预估整数的范围，选择合适的整数类型。</p>
-<p>（3）确定这个整数是否需要包含负数。</p>
-<h3 id="整数类型的取值范围"><a href="#整数类型的取值范围" class="headerlink" title="整数类型的取值范围"></a>整数类型的取值范围</h3><p>todo。参考链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/slyjit/article/details/54290486">https://blog.csdn.net/slyjit/article/details/54290486</a></p>
-<h3 id="整数类型的显示宽度、零填充"><a href="#整数类型的显示宽度、零填充" class="headerlink" title="整数类型的显示宽度、零填充"></a>整数类型的显示宽度、零填充</h3><blockquote>
-<p>我们在很多设计表中，可能会看到比如 <code>int(11)</code>这种数据类型，这里面的 <code>11</code>代表的就是<code>显示宽度</code>。</p>
-</blockquote>
-<p>所谓的<strong>显示宽度</strong>，其实就是显示的时候，看到的最少数字个数。</p>
-<p>比如 int(2) ，表示不管你的数值是多少，最少可以看到两个数字。假如你存的数值是9，没有满两位，就会在前面补零，显示为<code>09</code>；假如你的数值是120，超过了显示宽度，则直接显示原始值，不会做<strong>零填充</strong>。</p>
-<p><strong>显示宽度的注意事项</strong>：</p>
-<ul>
-<li><p>显示宽度只适用于 MySQL 的整数类型。</p>
-</li>
-<li><p>显示宽度只是指明 MySQL 整数类型最少显示的数字个数（可以通过desc查看表字段显示）。</p>
-</li>
-<li><p><strong>显示宽度只是在显示的时候改变数值的样式，不会对原本的值进行更改</strong>。</p>
-</li>
-<li><p>显示宽度和数值类型的取值范围无关。例如int(10) 他的取值范围依然是(-2 147 483 648，2 147 483 647)。</p>
-</li>
-</ul>
-<p><strong>零填充的注意事项</strong>：</p>
-<ul>
-<li><p>要想让显示宽度自动进行<strong>零填充</strong>，必须要配合 <code>ZEROFILL</code>这个关键字一起使用。</p>
-</li>
-<li><p><strong>零填充只能针对正整数</strong>，也就是说，<code>ZEROFILL</code> 要求整型为无符号型。</p>
-</li>
-</ul>
-<p><strong>举例</strong>：</p>
-<p>1、新建一张表，然后在这张表中新增 num1 字段，要求 num1 显示3位，不够3位的自动进行零填充：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 新建一张表</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> table_qiangu1 (</span><br><span class="line">  id <span class="type">int</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT <span class="keyword">PRIMARY</span> KEY</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"># 显示宽度有效（正确写法）</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_qiangu1 <span class="keyword">add</span> num1 <span class="type">int</span>(<span class="number">3</span>) zerofill;</span><br><span class="line"></span><br><span class="line"># 对比：普通写法，显示宽度无效</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_qiangu1 <span class="keyword">add</span> num2 <span class="type">int</span>(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"># 对比：普通写法</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> table_qiangu1 <span class="keyword">add</span> num3 <span class="type">int</span>;</span><br></pre></td></tr></table></figure>
-
-<p>上述命令中，如果把 <code>zerofill</code> 这个关键字去掉，是达不到显示宽度的效果的。执行完上述命令后，我们执行 <code>desc table_qiangu1</code> 命令，对比一下 num1、num2、num3 的字段结构就知道了：</p>
-<p><img src="https://img.smyhvae.com/20200423_1050.png"></p>
-<p>上方截图可以看到，只有 num1 才有显示宽度，它可以进行零填充，num2、num3不行。我们往表中插入整数 <code>6</code>，然后看看显示结果，就一目了然：</p>
-<p><img src="https://img.smyhvae.com/20200423_1055.png"></p>
-<p>参考链接：<a target="_blank" rel="noopener" href="https://juejin.im/post/5b24a2c251882574d73c6f82">MySql数据库 数值类型的显示宽度</a></p>
-<h2 id="小数"><a href="#小数" class="headerlink" title="小数"></a>小数</h2><p>MySQL 中的小数分为两大类：</p>
-<p>浮点型的数据分为两种：</p>
-<ul>
-<li><p>单精度：float，使用4个字节存储，精度范围为6-7位有效数字。</p>
-</li>
-<li><p>双精度：double，使用8个字节存储，精度范围为14-15位有效数字。</p>
-</li>
-</ul>
-<p>注意：</p>
-<ul>
-<li><p>浮点数超过精度范围会自动进行四舍五入。</p>
-</li>
-<li><p>精度可以指定整数和小数部分。比如</p>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/18/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><span class="page-number current">19</span><a class="page-number" href="/page/20/">20</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/20/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2174,7 +2150,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">260</span>
+          <span class="site-state-item-count">261</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
