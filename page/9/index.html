@@ -158,6 +158,130 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/06/03-CSS%E8%BF%9B%E9%98%B6/CSS%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/06/03-CSS%E8%BF%9B%E9%98%B6/CSS%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">CSS的一些小知识</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-06 13:01:00" itemprop="dateCreated datePublished" datetime="2021-12-06T13:01:00+08:00">2021-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-02 12:52:32" itemprop="dateModified" datetime="2021-12-02T12:52:32+08:00">2021-12-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="隐藏盒子的几种方式"><a href="#隐藏盒子的几种方式" class="headerlink" title="隐藏盒子的几种方式"></a>隐藏盒子的几种方式</h2><p>隐藏盒子，有以下几种方式：</p>
+<p>（1）方式一：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">overflow：hidden;   //隐藏盒子超出的部分</span><br></pre></td></tr></table></figure>
+
+
+<p>（2）<strong>方式二</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">display: none;	  隐藏盒子，而且不占位置(用的最多)</span><br></pre></td></tr></table></figure>
+
+<p>比如，点击<code>X</code>，关闭京东首页上方的广告栏。</p>
+<p>（3）方式三：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">visibility: hidden;   //隐藏盒子，占位置。</span><br><span class="line">visibility: visible;   //让盒子重新显示</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>（4）方式四：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opacity: 0;       //设置盒子的透明度（不建议，因为内容也会半透明），占位置</span><br></pre></td></tr></table></figure>
+
+
+<p>（4）方式五：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Position/top/left/...-999px   //把盒子移得远远的，占位置。</span><br></pre></td></tr></table></figure>
+
+<p>（5）方式六：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">margin-left: 1000px;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="设置盒子的半透明"><a href="#设置盒子的半透明" class="headerlink" title="设置盒子的半透明"></a>设置盒子的半透明</h3><p>方式一：<code>opacity: 0.4</code>。优点是方便。缺点是：里面的内容也会半透明。</p>
+<p>方式二：css3的技术来解决半透明。如下：</p>
+<ul>
+<li><p>background: rgba(0,0,0,0.3);</p>
+</li>
+<li><p>background: rgba(0,0,0,.3);</p>
+</li>
+</ul>
+<p>备注：<code>a</code>指的是alpha透明度。</p>
+<h3 id="给标签的形状设置为圆角矩形"><a href="#给标签的形状设置为圆角矩形" class="headerlink" title="给标签的形状设置为圆角矩形"></a>给标签的形状设置为圆角矩形</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">border-radius: 50%;</span><br><span class="line">border-radius: 10px 0 0 10px;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="行高的问题：儿子把父亲撑开"><a href="#行高的问题：儿子把父亲撑开" class="headerlink" title="行高的问题：儿子把父亲撑开"></a>行高的问题：儿子把父亲撑开</h3><p>比如对于下面这样的标签：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">	&lt;a href=&quot;&quot;&gt;&lt;/a&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>前置条件：如果我们给父亲div的行高设为31px，然后给儿子a的行高也设置为31</p>
+<p>结果：当我们给儿子a设置了字体属性之后，会发现，父亲被撑高为32px了。因为font字体自身会比较大，多撑出了一个像素。</p>
+<p>解决办法：<strong>行内元素尽量不要设置font属性</strong>。对于行内元素而言，如果它和父亲都设置了行高，就不要去给自己设置font属性了。要么就，不要同时设置行高。</p>
+<h3 id="背景图不能撑开盒子"><a href="#背景图不能撑开盒子" class="headerlink" title="背景图不能撑开盒子"></a>背景图不能撑开盒子</h3><p>高和行高都可以城开盒子，但背景图不能撑开盒子。</p>
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><h3 id="超链接-lt-a-gt-的href跳转"><a href="#超链接-lt-a-gt-的href跳转" class="headerlink" title="超链接&lt;a&gt;的href跳转"></a>超链接<code>&lt;a&gt;</code>的href跳转</h3><p>一个空白的超链接如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;a href=&quot;&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>当点击超链接时，由于 href 的属性值的不同，可以产生很多种情况：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">href=<span class="string">&quot;&quot;</span>                    //刷新页面</span><br><span class="line"></span><br><span class="line">href=<span class="string">&quot;#&quot;</span>                   //跳转到当前页面的顶部（不会刷新）</span><br><span class="line"></span><br><span class="line">href=<span class="string">&quot;javascript:void(0)&quot;</span>  // 什么都不做</span><br><span class="line"></span><br><span class="line">href=<span class="string">&quot;javascript:;&quot;</span>        // 什么都不做</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/05/03-CSS%E8%BF%9B%E9%98%B6/04-%E5%A6%82%E4%BD%95%E8%AE%A9%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B0%B4%E5%B9%B3%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1602,83 +1726,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/18-%E6%8E%A8%E8%8D%90%E9%93%BE%E6%8E%A5/2019-%E6%8E%A8%E8%8D%90%E6%96%87%E7%AB%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="张天伟">
-      <meta itemprop="description" content="欢迎访问！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天伟小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/18-%E6%8E%A8%E8%8D%90%E9%93%BE%E6%8E%A5/2019-%E6%8E%A8%E8%8D%90%E6%96%87%E7%AB%A0/" class="post-title-link" itemprop="url">未命名</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-01 10:01:06" itemprop="dateCreated datePublished" datetime="2021-12-01T10:01:06+08:00">2021-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>记录平时遇到的优质技术文章，按时间先后排序。</p>
-<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><h3 id="2019-05-11"><a href="#2019-05-11" class="headerlink" title="2019-05-11"></a>2019-05-11</h3><ul>
-<li>《<a target="_blank" rel="noopener" href="https://www.cnblogs.com/shwee/p/9060226.html#dingzhi12">博客园美化教程大集合—-极致个性化你的专属博客（超详细，看这篇就够了）</a>》</li>
-</ul>
-<p>网上写图文教程的人，还真是贴心。</p>
-<h3 id="2019-09-06"><a href="#2019-09-06" class="headerlink" title="2019-09-06"></a>2019-09-06</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://www.yuque.com/sxc/front/kvokg4">https://www.yuque.com/sxc/front/kvokg4</a></li>
-</ul>
-<p>作者在语雀上的系列文章，都值得一看。</p>
-<h3 id="2019-10-05"><a href="#2019-10-05" class="headerlink" title="2019-10-05"></a>2019-10-05</h3><ul>
-<li><a target="_blank" rel="noopener" href="https://www.twblogs.net/a/5d400329bd9eee51fbf962b2">前端学习网站和资源推荐</a></li>
-</ul>
-<p>作者整理的一些基础性的学习资源，还可以。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1761,7 +1808,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1788,7 +1835,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

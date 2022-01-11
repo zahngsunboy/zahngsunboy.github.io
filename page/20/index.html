@@ -158,6 +158,280 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/05-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/05-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">05-MySQL数据库的常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-01 10:00:25" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:25+08:00">2021-12-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="MySQL-的一些简单命令"><a href="#MySQL-的一些简单命令" class="headerlink" title="MySQL 的一些简单命令"></a>MySQL 的一些简单命令</h2><p>我们可以在 Navicat Premium 软件中，创建数据库和表，然后输入查询命令来查询数据。选择菜单栏「查询-&gt;新建查询-&gt;输入 sql 命令-&gt;运行」即可，效果如下：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200417_1750.png"></p>
+<p>我们还可以直接在终端输入命令行来操作。</p>
+<p>注意，在 Mac 终端执行 sql 命令时，命令的末尾必须加上<code>;</code>（英文格式的分号）。效果如下：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200417_1700.png"></p>
+<p>MySQL 命令行的一些简单命令如下。</p>
+<p><strong>以 root 身份进入命令行</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br></pre></td></tr></table></figure>
+
+<p><strong>查看有哪些数据库</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> databases;</span><br></pre></td></tr></table></figure>
+
+<p><strong>选择进入指定的数据库</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use xxx_database;</span><br><span class="line"></span><br><span class="line"># 举例</span><br><span class="line">use qianguyihao_database;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在当前数据库中，查看有哪些表</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在当前数据库中，查询指定表的全部数据</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> xxx_table;</span><br><span class="line"></span><br><span class="line"># 举例</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> qianguyihao_student_table</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除指定的表</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> xxx;</span><br><span class="line"></span><br><span class="line"># 举例</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> qianguyihao_student_table;</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除指定的数据库</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> database qianguyihao_student_table;</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建一个数据库</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> database qianguyihao_database2;</span><br></pre></td></tr></table></figure>
+
+<h2 id="where-条件查询"><a href="#where-条件查询" class="headerlink" title="where 条件查询"></a>where 条件查询</h2><p>使用 <code>where</code> 子句可以对表中的数据进行筛选，结果为 true 的行会出现在查询结果中。</p>
+<p>语法格式如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> 表名 <span class="keyword">where</span> 条件;</span><br></pre></td></tr></table></figure>
+
+<p>上面的语法格式中，<code>条件</code> 具体要怎么写呢？这个可能有很多种情况。我们继续往下看。</p>
+<h3 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a>比较运算符</h3><ul>
+<li><code>=</code> 等于</li>
+<li><code>&gt;</code> 大于</li>
+<li><code>&gt;=</code> 大于等于</li>
+<li><code>&lt;</code> 小于</li>
+<li><code>&lt;=</code> 小于等于</li>
+<li><code>!=</code>：不等于</li>
+<li><code>age &gt; 20</code>：查询 age 大于 30 的数据</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询 age 大于 <span class="number">20</span> 的数据</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> qianguyihao_table <span class="keyword">WHERE</span> age <span class="operator">&gt;</span> <span class="number">20</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h3><ul>
+<li><p>AND</p>
+</li>
+<li><p>OR</p>
+</li>
+<li><p>NOT</p>
+</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 查询 age 在<span class="number">20</span>至<span class="number">30</span>之间的数据</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> qianguyihao_table <span class="keyword">WHERE</span> age <span class="keyword">BETWEEN</span> <span class="number">20</span> <span class="keyword">AND</span> <span class="number">30</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h3><ul>
+<li><p><code>in</code> 表示在一个非连续的范围内。</p>
+</li>
+<li><p><code>between ... and ...</code> 表示在一个连续的范围内</p>
+</li>
+</ul>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 查询 name 为 千古壹号 或者 许嵩的数据</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> qianguyihao_table <span class="keyword">WHERE</span> name <span class="keyword">IN</span> [<span class="string">&#x27;千古壹号&#x27;</span>, <span class="string">&#x27;许嵩&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> qianguyihao_table <span class="keyword">WHERE</span> age <span class="keyword">BETWEEN</span> <span class="number">20</span> <span class="keyword">AND</span> <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模糊查询"><a href="#模糊查询" class="headerlink" title="模糊查询"></a>模糊查询</h3><ul>
+<li><code>like</code><ul>
+<li><code>%</code> 表示任意多个任意字符</li>
+<li><code>_</code> 表示一个任意字符</li>
+</ul>
+</li>
+</ul>
+<p><code>%</code> 符号举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 查询标题中包含“前端”这两个字的数据（“前端”这两个字的前后可能都有内容）</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> qianguyihao_table <span class="keyword">where</span> `title` <span class="keyword">like</span> &quot;%前端%&quot;;</span><br><span class="line"></span><br><span class="line"># 查询标题以“前端”开头的数据</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> qianguyihao_table <span class="keyword">where</span> `title` <span class="keyword">like</span> &quot;前端%&quot;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>_</code>符号举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 查询标题，查询条件是：标题中至少有五个字符，而且，这五个字符中，前两个字符一定是“千古”开头的。</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> qianguyihao_table <span class="keyword">WHERE</span> `title` <span class="keyword">LIKE</span> &quot;千古___&quot;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="NULL-的判断"><a href="#NULL-的判断" class="headerlink" title="NULL 的判断"></a>NULL 的判断</h3><ul>
+<li><p><code>is null</code> 判断为空</p>
+</li>
+<li><p><code>is not null</code> 判断为非空</p>
+</li>
+</ul>
+<p>注意，<code>is null</code> 和<strong>空字符串</strong><code>&quot;&quot;</code> 是有区别的。学过 js 基础之后，你应该知道：空字符串并非 null，只不过是里面的值为空而已；空字符串也是会占有内存空间的。</p>
+<p>举例：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> qianguyihao_table <span class="keyword">where</span> name <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">NULL</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="join-联表查询"><a href="#join-联表查询" class="headerlink" title="join 联表查询"></a>join 联表查询</h2><h3 id="联表查询命令"><a href="#联表查询命令" class="headerlink" title="联表查询命令"></a>联表查询命令</h3><ul>
+<li><p><code>tableA inner join tableB</code>：表 A 与表 B 匹配的行会出现在结果中。</p>
+</li>
+<li><p><code>tableA left join tableB</code>：表 A 与表 B 匹配的行会出现在结果中。表 A 中独有的数据，对应表 B 中用 null 填充。</p>
+</li>
+<li><p><code>tableA right join tableB</code>：表 A 与表 B 匹配的行会出现在结果中。表 B 中独有的数据，对应表 A 中用 null 填充。</p>
+</li>
+</ul>
+<p>光是这样看，不好理解，我们来举个例子。</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>现在有下面这两张表：作者表 author、图书表 book。</p>
+<p><strong>表 1</strong>、作者表 author：</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">authorId</th>
+<th align="left">authorName</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">11</td>
+<td align="left">王小波</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">12</td>
+<td align="left">吴军</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">88</td>
+<td align="left">千古壹号</td>
+</tr>
+</tbody></table>
+<p><strong>表 2</strong>、图书表 book：</p>
+<table>
+<thead>
+<tr>
+<th align="left">id</th>
+<th align="left">bookId</th>
+<th align="left">bookName</th>
+<th>authorId</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">201</td>
+<td align="left">黄金时代</td>
+<td>11</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">202</td>
+<td align="left">白银时代</td>
+<td>11</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">203</td>
+<td align="left">青铜时代</td>
+<td>11</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">204</td>
+<td align="left">浪潮之巅</td>
+<td>12</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">205</td>
+<td align="left">硅谷之谜</td>
+<td>12</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">206</td>
+<td align="left">数学之美</td>
+<td>12</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">777</td>
+<td align="left">设计心理学</td>
+<td>99</td>
+</tr>
+</tbody></table>
+<p>注意，表2中的每本图书都有对应的 authorId，这个 authorId 就是对应表1中的 authorId。<strong>通过 authorId 把两张表关联起来</strong>。</p>
+<p>通过联表查询上面的两张表，我们来对比一下查询结果。</p>
+<p><strong>情况 0</strong>：（inner join）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> author <span class="keyword">INNER</span> <span class="keyword">JOIN</span> book;</span><br></pre></td></tr></table></figure>
+
+<p>查询结果：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200418_2300.png"></p>
+<p>上面这种查询，没有意义，因为没有加任何查询条件。</p>
+<p><strong>情况 1</strong>：（inner join）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> author <span class="keyword">INNER</span> <span class="keyword">JOIN</span> book <span class="keyword">ON</span> author.authorId <span class="operator">=</span> book.authorId;</span><br></pre></td></tr></table></figure>
+
+<p>查询结果：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200418_2305.png"></p>
+<p>上面这行命令，跟下面这行命令等价：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> author, book <span class="keyword">WHERE</span> author.authorId <span class="operator">=</span> book.authorId;</span><br></pre></td></tr></table></figure>
+
+<p><strong>情况 2</strong>：（left join）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> author <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> book <span class="keyword">ON</span> author.authorId <span class="operator">=</span> book.authorId;</span><br></pre></td></tr></table></figure>
+
+<p>查询结果：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200418_2310.png"></p>
+<p><strong>情况 3</strong>：（right join）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> author <span class="keyword">RIGHT</span> <span class="keyword">JOIN</span> book <span class="keyword">ON</span> author.authorId <span class="operator">=</span> book.authorId;</span><br></pre></td></tr></table></figure>
+
+<p>查询结果：</p>
+<p><img src="https://github.com/qianguyihao/Web/blob/master/img/20200418_2315.png"></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/qmhball/article/details/8000003">Mysql 联表查询</a></li>
+</ul>
+<h2 id="自关联查询"><a href="#自关联查询" class="headerlink" title="自关联查询"></a>自关联查询</h2><p>涉及到层级关系时可以用自关联查询。</p>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>当一个查询结果是另一个查询的条件时，这个查询称之为子查询。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/10-MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/04-MySQL%E5%AD%97%E6%AE%B5%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1192,232 +1466,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/09-%E7%A7%BB%E5%8A%A8Web%E5%BC%80%E5%8F%91/01-Bootstrap%E5%85%A5%E9%97%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="张天伟">
-      <meta itemprop="description" content="欢迎访问！">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="天伟小站">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/12/01/09-%E7%A7%BB%E5%8A%A8Web%E5%BC%80%E5%8F%91/01-Bootstrap%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">01-Bootstrap入门</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-12-01 10:00:10" itemprop="dateCreated datePublished" datetime="2021-12-01T10:00:10+08:00">2021-12-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-28 12:47:39" itemprop="dateModified" datetime="2021-11-28T12:47:39+08:00">2021-11-28</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><ArticleTopAd></ArticleTopAd></p>
-<h2 id="Bootstrap-介绍"><a href="#Bootstrap-介绍" class="headerlink" title="Bootstrap 介绍"></a>Bootstrap 介绍</h2><p>Bootstrap 是非常流行的前端框架。特点是：灵活简洁、代码优雅、美观大方。它是由Twitter的两名工程师 Mark Otto 和 Jacob Thornton 在2011年开发的。</p>
-<p>简单来说，Bootstrap 让 Web 开发<strong>更简单、更快捷</strong>。使用 Bootstrap 框架并不代表我们再开发时不用自己写 CSS 样式，而是不用写绝大多数常见的样式。</p>
-<p>PS：<a target="_blank" rel="noopener" href="http://amazeui.org/">Amaze UI</a> 这个框架其实跟 Bootstrap 很像。</p>
-<h3 id="官网网站"><a href="#官网网站" class="headerlink" title="官网网站"></a>官网网站</h3><ul>
-<li><p>官方网站：<a target="_blank" rel="noopener" href="https://getbootstrap.com/">https://getbootstrap.com/</a></p>
-</li>
-<li><p>中文网站：<a target="_blank" rel="noopener" href="http://www.bootcss.com/">http://www.bootcss.com/</a></p>
-</li>
-</ul>
-<p>V3版本：</p>
-<p><img src="http://img.smyhvae.com/20180225_1033.png"></p>
-<p>V4版本：</p>
-<p><img src="http://img.smyhvae.com/20180225_1043.png"></p>
-<p>列举几个用 Bootstrap 做的网站：</p>
-<ul>
-<li><p><a target="_blank" rel="noopener" href="http://www.youzhan.org/">Bootstrap 优站精选</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="https://mobirise.com/">https://mobirise.com/</a></p>
-</li>
-<li><p><a target="_blank" rel="noopener" href="http://snappa.io/">http://snappa.io/</a></p>
-</li>
-</ul>
-<h3 id="Bootstrap-版本"><a href="#Bootstrap-版本" class="headerlink" title="Bootstrap 版本"></a>Bootstrap 版本</h3><p>目前市面上使用的最多的是 3.x.x 版本。各个版本的介绍：</p>
-<p>2.3.2版本：</p>
-<ul>
-<li><p>2013年之后，停止维护；</p>
-</li>
-<li><p>支持更广泛的浏览器</p>
-</li>
-<li><p>代码不够简洁， 功能不够多。</p>
-</li>
-</ul>
-<p>3.x.x 版本：</p>
-<ul>
-<li><p>目前最新的稳定版本。</p>
-</li>
-<li><p>不支持 IE7 和早期的 Firefox</p>
-</li>
-<li><p>支持 IE8，单效果不好。</p>
-</li>
-</ul>
-<p>2015年8月发布 4.0.0-alpha 的内部测试版。</p>
-<p><strong>版本号的普及：</strong></p>
-<ul>
-<li><p>alpha 版：内部测试版。α 是希腊字母的第一个，表示最早的版本，bug很多。主要是给开发和测试人员找 bug 用的。</p>
-</li>
-<li><p>beta 版：公开测试版。 主要是给“部落”用户和忠实用户测试用的。bug依然很多，但比 Alpha 版要稳定。这个阶段的版本还会不断增加新功能，如果你是发烧友，可以下载这个版本。</p>
-</li>
-<li><p>rc 版：候选版本（Release Candidate）。该版本不再增加新的功能。类似于最终发行版之前的预览版（发行的候选版本）。此版本的发布，预示着最终发行版即将到来。作为普通用户，如果很着急，也可以下载 rc 版。</p>
-</li>
-<li><p>stable 版：稳定版。在开源软件中，都有 stable版本，这个是开源软件的最终发行版，用户可以放心大胆地使用。</p>
-</li>
-</ul>
-<h3 id="Bootstrap-库的下载"><a href="#Bootstrap-库的下载" class="headerlink" title="Bootstrap 库的下载"></a>Bootstrap 库的下载</h3><blockquote>
-<p>这里我们以  Bootstrap V3.3.7 为例。</p>
-</blockquote>
-<p>进入<a target="_blank" rel="noopener" href="https://v3.bootcss.com/">中文官网</a>，下载 <code>用于生产环境的 Bootstrap</code>，如下图所示：</p>
-<p><img src="http://img.smyhvae.com/20180225_1052.png"></p>
-<p>下载之后，解压 <code>bootstrap-3.3.7-dist</code> ，有三个文件夹：</p>
-<p><img src="http://img.smyhvae.com/20180225_1053.png"></p>
-<p>将其拷贝到工程文件的lib文件夹下即可。</p>
-<p>PS：<code>dist</code>表示编译之后的文件，这在库文件中是很常见的。</p>
-<p>因为 bootstrap.js依赖jQuery，所以要先引用jquery.js 然后引用bootstrap.js。</p>
-<h3 id="Bootstrap-基础模板的介绍"><a href="#Bootstrap-基础模板的介绍" class="headerlink" title="Bootstrap 基础模板的介绍"></a>Bootstrap 基础模板的介绍</h3><p><a target="_blank" rel="noopener" href="https://v3.bootcss.com/getting-started/">Bootstrap</a>官网提供了基本模板，如下图所示：</p>
-<p><img src="http://img.smyhvae.com/20180225_1119.png"></p>
-<p>其完整版代码 copy 如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">	  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0, user-scalable=no&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>我的网站<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Bootstrap --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;lib/bootstrap/css/bootstrap.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- WARNING: Respond.js doesn&#x27;t work if you view the page via file:// --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--[if lt IE 9]&gt;</span></span><br><span class="line"><span class="comment">      &lt;script src=&quot;https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">      &lt;script src=&quot;https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">    &lt;![endif]--&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>你好，世界！<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- jQuery (necessary for Bootstrap&#x27;s JavaScript plugins) --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- Include all compiled plugins (below), or include individual files as needed --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/bootstrap.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>我们需要对上面的代码进行解释。</p>
-<p><strong>（1）Compatible</strong>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>解释：设置浏览器的兼容模式版本。表示如果在IE浏览器下则使用最新的标准，渲染当前文档。</p>
-<p><strong>（2）viewport 视口</strong>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0, user-scalable=no&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>解释：声明当前网页在移动端浏览器中展示的相关设置。我们在做移动 web 开发时，就用上面这行代码设置 viewport。</p>
-<p>视口的作用：在移动浏览器中，当页面宽度超出设备，浏览器内部虚拟的一个页面容器，将页面容器缩放到设备这么大，然后展示。</p>
-<p>需要注意的是：</p>
-<ul>
-<li>目前大多数手机浏览器的视口（承载页面的容器）宽度都是980；</li>
-<li>此属性为移动端页面视口设置，上方代码设置的值，表示在移动端页面的宽度为设备的宽度，并且不缩放（缩放级别为1）。</li>
-</ul>
-<p>属性解释：</p>
-<ul>
-<li>width:设置viewport的宽度。</li>
-<li>initial-scale：初始化缩放比例。</li>
-<li>minimum-scale:最小缩放比例。</li>
-<li>maximum-scale:最大缩放比例。</li>
-<li>user-scalable:是否允许用户手动缩放（值可以写成yes/no，也可以写成1/0）</li>
-</ul>
-<p>PS：如果设置了不允许用户缩放，那么最小缩放和最大缩放就没有意义了。二者是矛盾的。</p>
-<p><strong>（3）条件注释</strong>：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lt IE 9]&gt;</span></span><br><span class="line"><span class="comment">  &lt;script src=&quot;https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">  &lt;script src=&quot;https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>条件注释的作用：当判断条件满足时，就会执行注释中的HTML代码，不满足时会当做注释忽略掉。</p>
-<p>上方代码的条件注释中，引入了两个脚本：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/aFarkas/html5shiv">html5shiv</a>：让浏览器可以识别 HTML5 的新标签。如header、footer、section等。</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/scottjehl/Respond">respond.js</a>：让低版本浏览器可以使用 CSS3 的媒体查询。</li>
-</ul>
-<p>另外，我们还需要引入下面这个库：</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/jquery/jquery">jQuery</a>：Bootstrap框架中的所有 JS 组件都依赖于 jQuery 实现。</li>
-</ul>
-<p>我们可以把上面这三个库文件拷贝到 lib 文件夹中（注意引用的路径要写正确）。</p>
-<h2 id="使用-Bootstrap-搭建项目"><a href="#使用-Bootstrap-搭建项目" class="headerlink" title="使用 Bootstrap 搭建项目"></a>使用 Bootstrap 搭建项目</h2><h3 id="1、工程文件的目录结构"><a href="#1、工程文件的目录结构" class="headerlink" title="1、工程文件的目录结构"></a>1、工程文件的目录结构</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">├─ Demo ·························· 项目所在目录</span><br><span class="line">└─┬─ /css/ ······················· 我们自己的CSS文件</span><br><span class="line">  ├─ /font/ ······················ 使用到的字体文件</span><br><span class="line">  ├─ /img/ ······················· 使用到的图片文件</span><br><span class="line">  ├─ /js/ ························ 自己写的JS脚步</span><br><span class="line">  ├─ /lib/ ······················· 从第三方下载回来的库【只用不改】</span><br><span class="line">  ├─ /favicon.ico ················ 站点图标</span><br><span class="line">  └─ /index.html ················· 入口文件</span><br></pre></td></tr></table></figure>
-
-<h3 id="2、下载并引入-Bootstrap-库文件"><a href="#2、下载并引入-Bootstrap-库文件" class="headerlink" title="2、下载并引入 Bootstrap 库文件"></a>2、下载并引入 Bootstrap 库文件</h3><p>见上一段的讲解。引入之后，另外还需要引入 html5shiv、respond、jQuery 这三个库文件。</p>
-<h3 id="3、字符集、Viewport设置、浏览器兼容模式"><a href="#3、字符集、Viewport设置、浏览器兼容模式" class="headerlink" title="3、字符集、Viewport设置、浏览器兼容模式"></a>3、字符集、Viewport设置、浏览器兼容模式</h3><p>我们将 Bootstrap 的基础模板代码 copy到项目的index.html中，这其中就包括最前面的三个meta标签：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1, user-scalable=no&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4、favicon（站点图标）"><a href="#4、favicon（站点图标）" class="headerlink" title="4、favicon（站点图标）"></a>4、favicon（站点图标）</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;shortcut icon&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/x-icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5、引入相应的第三方文件"><a href="#5、引入相应的第三方文件" class="headerlink" title="5、引入相应的第三方文件"></a>5、引入相应的第三方文件</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">&lt;!-- 引入 Bootstrap 的核心样式文件（必须） --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;lib/bootstrap/css/bootstrap.css&quot;</span>&gt;</span></span><br><span class="line">   <span class="comment">&lt;!-- 引入我们自己写的 css 样式文件--&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css/my.css&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;lib/jquery/jquery.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;lib/bootstrap/js/bootstrap.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/my.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>注意，先引入第三方的文件，再引入我们自己写的文件。</p>
-<h3 id="6、默认字体"><a href="#6、默认字体" class="headerlink" title="6、默认字体"></a>6、默认字体</h3><p>在我们默认的样式表中将默认字体设置为：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span>&#123;</span><br><span class="line">  <span class="attribute">font-family</span>: <span class="string">&quot;Helvetica Neue&quot;</span>,</span><br><span class="line">                Helvetica,</span><br><span class="line">                Microsoft Yahei,</span><br><span class="line">                Hiragino Sans GB,</span><br><span class="line">                WenQuanYi Micro Hei,</span><br><span class="line">                sans-serif;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="7、完成页面空结构"><a href="#7、完成页面空结构" class="headerlink" title="7、完成页面空结构"></a>7、完成页面空结构</h3><blockquote>
-<p>先划分好页面中的大容器，然后在具体看每一个容器中单独的情况。</p>
-</blockquote>
-<p>完整代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1, user-scalable=no&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>我的网站<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--建议：第三方引用的css库放在上面，我们自己写的文件，都放在下面--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入 Bootstrap 的核心样式文件（必须） --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;lib/bootstrap/css/bootstrap.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 引入我们自己写的 css 样式文件--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;css/main.css&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;shortcut icon&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/x-icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--[if lt IE 9]&gt;</span></span><br><span class="line"><span class="comment">    &lt;script src=&quot;lib/html5shiv/html5shiv.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">    &lt;script src=&quot;lib/respond/respond.min.js&quot;&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="comment">    &lt;![endif]--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 头部区域 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">header</span> <span class="attr">id</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /头部区域 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 广告轮播 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span> <span class="attr">id</span>=<span class="string">&quot;main_ad&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /广告轮播 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 特色介绍 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /特色介绍 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 立即预约 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /立即预约 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 产品推荐 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /产品推荐 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 新闻列表 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /新闻列表 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 合作伙伴 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">section</span>&gt;</span><span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /合作伙伴 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 脚注区域 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /脚注区域 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;lib/jquery/jquery.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;lib/bootstrap/js/bootstrap.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;js/main.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="CSS-样式"><a href="#CSS-样式" class="headerlink" title="CSS 样式"></a>CSS 样式</h2><p>全局 CSS 样式在<a target="_blank" rel="noopener" href="https://v3.bootcss.com/css/">官网</a>有介绍：</p>
-<p><img src="http://img.smyhvae.com/20180225_1710.png"></p>
-<p><strong>如果需要哪个样式，直接根据文档的指引，在相应的元素里加指定的类名即可。</strong></p>
-<p>我们选部分重要的来讲一下。</p>
-<h3 id="布局容器：container-类"><a href="#布局容器：container-类" class="headerlink" title="布局容器：container 类"></a>布局容器：container 类</h3><p>截图如下：</p>
-<p><img src="http://img.smyhvae.com/20180225_1720.png"></p>
-<p><strong>作用</strong>：用于定义一个固定宽度且居中的版心。只不过，这个版心的宽度具有<strong>响应式</strong>的效果。</p>
-<p>也就是说，在 Bootstrap 中，我们一般用 .container 类来表示版心。</p>
-<p>格式举例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;topbar&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">      此处的代码会显示在一个固定宽度且居中的容器中</span></span><br><span class="line"><span class="comment">      该容器的宽度会跟随屏幕的变化而变化</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>这个 container 类我们自己其实也可以写，通过媒体查询即可实现。</p>
-<h3 id="栅格参数"><a href="#栅格参数" class="headerlink" title="栅格参数"></a>栅格参数</h3><p>栅格系统最主要的操作是：利用 css 的响应式去做一套行列布局的预置样式。</p>
-<p>栅格参数如下：</p>
-<p><img src="http://img.smyhvae.com/20180225_1732.png"></p>
-<p>我们尤其要记住各个屏幕的尺寸和<strong>类前缀</strong>。</p>
-<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>一个按钮称之为样式；两个按钮在一起，就可以称之为组件。</p>
-<p>组件在<a target="_blank" rel="noopener" href="https://v3.bootcss.com/components/">官网</a>有介绍：</p>
-<p><img src="http://img.smyhvae.com/20180225_1738.png"></p>
-<p>我们现在需要关注的不是组件怎么用，而是里面有哪些组件，避免<strong>重复造轮子</strong>：别人已经做得很好了，不需要我们再重复。</p>
-<h2 id="JS-组件"><a href="#JS-组件" class="headerlink" title="JS 组件"></a>JS 组件</h2><p>JS 组件在<a target="_blank" rel="noopener" href="https://v3.bootcss.com/javascript/">官网</a>有介绍：</p>
-<p><img src="http://img.smyhvae.com/20180225_1750.png"></p>
-<p>这里面包含了很多带交互的组件。比如轮播图：</p>
-<p><img src="http://img.smyhvae.com/20180225_1841.png"></p>
-<h2 id="博主提供的下载链接"><a href="#博主提供的下载链接" class="headerlink" title="博主提供的下载链接"></a>博主提供的下载链接</h2><p>空结构的工程文件的下载地址：(lib文件夹里包含了Bootstrap相关的各种库和中文文档)</p>
-<ul>
-<li><a target="_blank" rel="noopener" href="http://download.csdn.net/download/smyhvae/10258718">2018-02-25-BootstrapDemo及文档.rar</a></li>
-</ul>
-<p>还是那句话：<strong>如果需要哪个样式，直接根据文档的指引，在相应的元素里加指定的类名即可。</strong></p>
-<h2 id="我的公众号"><a href="#我的公众号" class="headerlink" title="我的公众号"></a>我的公众号</h2><p>想学习<font color=#0000ff><strong>更多技能</strong></font>？不妨关注我的微信公众号：<strong>千古壹号</strong>（id：<code>qianguyihao</code>）。</p>
-<p>扫一扫，你将发现另一个全新的世界，而这将是一场美丽的意外：</p>
-<p><img src="http://img.smyhvae.com/2016040102.jpg"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/12/01/08-%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E5%8A%9F%EF%BC%9ACSS%E5%92%8CDOM%E7%BB%83%E4%B9%A0/07-DOM%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0%EF%BC%9AinnerHTML%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1866,7 +1914,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1893,7 +1941,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
