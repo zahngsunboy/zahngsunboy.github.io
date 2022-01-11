@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="动态创建DOM元素的三种方式 document.write(); 不常用，因为容易覆盖原来的页面。  innerHTML &#x3D; (); 用的比较多。绑定属性和内容比较方便。(节点套节点)  document.createElement(); 用得也比较多，指定数量的时候一般用它。   1、方式一： 1document.write();  这种方式的好处是：比较随意，想创建就创建，可以直接在writ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="07-DOM操作练习：innerHTML的方式创建元素">
+<meta property="og:url" content="http://example.com/2022/03/10/08-%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E5%8A%9F%EF%BC%9ACSS%E5%92%8CDOM%E7%BB%83%E4%B9%A0/07-DOM%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0%EF%BC%9AinnerHTML%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0/index.html">
+<meta property="og:site_name" content="天伟小站">
+<meta property="og:description" content="动态创建DOM元素的三种方式 document.write(); 不常用，因为容易覆盖原来的页面。  innerHTML &#x3D; (); 用的比较多。绑定属性和内容比较方便。(节点套节点)  document.createElement(); 用得也比较多，指定数量的时候一般用它。   1、方式一： 1document.write();  这种方式的好处是：比较随意，想创建就创建，可以直接在writ">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://img.smyhvae.com/20180129_1908.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180129_2017.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180129_2151.png">
+<meta property="og:image" content="http://img.smyhvae.com/20180201_2030.gif">
+<meta property="article:published_time" content="2022-03-10T05:01:00.000Z">
+<meta property="article:modified_time" content="2022-01-11T11:44:45.299Z">
+<meta property="article:author" content="张天伟">
+<meta property="article:tag" content="08-前端基本功：CSS和DOM练习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://img.smyhvae.com/20180129_1908.png">
+
+<link rel="canonical" href="http://example.com/2022/03/10/08-%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E5%8A%9F%EF%BC%9ACSS%E5%92%8CDOM%E7%BB%83%E4%B9%A0/07-DOM%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0%EF%BC%9AinnerHTML%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>07-DOM操作练习：innerHTML的方式创建元素 | 天伟小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">天伟小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">盐城工学院</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/10/08-%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E5%8A%9F%EF%BC%9ACSS%E5%92%8CDOM%E7%BB%83%E4%B9%A0/07-DOM%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0%EF%BC%9AinnerHTML%E7%9A%84%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E5%85%83%E7%B4%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张天伟">
+      <meta itemprop="description" content="欢迎访问！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="天伟小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          07-DOM操作练习：innerHTML的方式创建元素
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-03-10 13:01:00" itemprop="dateCreated datePublished" datetime="2022-03-10T13:01:00+08:00">2022-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-11 19:44:45" itemprop="dateModified" datetime="2022-01-11T19:44:45+08:00">2022-01-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><ArticleTopAd></ArticleTopAd></p>
+<h2 id="动态创建DOM元素的三种方式"><a href="#动态创建DOM元素的三种方式" class="headerlink" title="动态创建DOM元素的三种方式"></a>动态创建DOM元素的三种方式</h2><ul>
+<li><p><code>document.write();</code> 不常用，因为容易覆盖原来的页面。</p>
+</li>
+<li><p><code>innerHTML = ();</code> 用的比较多。绑定属性和内容比较方便。(节点套节点)</p>
+</li>
+<li><p><code>document.createElement();</code> 用得也比较多，指定数量的时候一般用它。</p>
+</li>
+</ul>
+<p><strong>1、方式一：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.write();</span><br></pre></td></tr></table></figure>
+
+<p>这种方式的好处是：比较随意，想创建就创建，可以直接在<code>write</code>里写属性都行。但是会把原来的标签给覆盖掉。所以不建议。</p>
+<p>举例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    smyhvae</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//第一种创建方式：document.write();</span></span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.write(<span class="string">&quot;&lt;li class=&#x27;hehe&#x27;&gt;我是document.write创建的&lt;/li&gt;&quot;</span>);</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180129_1908.png"></p>
+<p><strong>方式二：</strong>innerHTML</p>
+<p>举例如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    smyhvae</span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> ul = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;ul&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//第二种：直接利用元素的innerHTNL方法。（innerText方法不识别标签）</span></span></span><br><span class="line"><span class="javascript">    ul.innerHTML += <span class="string">&quot;&lt;li id=&#x27;li1&#x27;&gt;我是innerHTML创建的&lt;/li&gt;&quot;</span>  <span class="comment">//注意，是用符号“+=”，不是“=”</span></span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>注意，上方代码中，是用是用符号<code>+=</code>，不是<code>=</code>，前者是在原来的基础之上增加，后者是替换。</p>
+<p>效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180129_2017.png"></p>
+<p><strong>3、方式三：</strong>利用DOM的api创建</p>
+<p>利用DOM的api创建节点，有很多种：</p>
+<p>比如：</p>
+<ul>
+<li><p>createElement()</p>
+</li>
+<li><p>appendChild()</p>
+</li>
+<li><p>removeChild()</p>
+</li>
+<li><p>insertBefore()</p>
+</li>
+<li><p>replaceChild()</p>
+</li>
+</ul>
+<p>这个我们在上一篇文章的<code>DOM节点的操作</code>这一段中已经讲到了。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="innerHTML举例：在线用户的获取"><a href="#innerHTML举例：在线用户的获取" class="headerlink" title="innerHTML举例：在线用户的获取"></a>innerHTML举例：在线用户的获取</h2><p>现在要做下面这样一个页面：</p>
+<p><img src="http://img.smyhvae.com/20180129_2151.png"></p>
+<p>上图的意思是，每次刷新页面，都从服务器获取最新的在线人数的名单（我们先用本地的数组来模拟服务器上的数据）。</p>
+<p>它的结构是：div &gt; ul &gt; li。每一个li就是一个头像。</p>
+<p>如果在本地直接添加几个头像的话，代码是：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//往ul中添加li元素以及li元素中的内容</span><br><span class="line">   ul.innerHTML += &#x27;<span class="tag">&lt;<span class="name">li</span>&gt;</span>&#x27;+</span><br><span class="line">                   &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/noavatar_small.gif&quot;</span> <span class="attr">width</span>=<span class="string">&quot;48&quot;</span> <span class="attr">height</span>=<span class="string">&quot;48&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;千古壹号&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>&#x27;+</span><br><span class="line">                   &#x27;<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">title</span>=<span class="string">&quot;千古壹号&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>千古壹号<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>&#x27;+</span><br><span class="line">               &#x27;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>&#x27;;</span><br><span class="line">   ul.innerHTML += &#x27;<span class="tag">&lt;<span class="name">li</span>&gt;</span>&#x27;+</span><br><span class="line">           &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/noavatar_small.gif&quot;</span> <span class="attr">width</span>=<span class="string">&quot;48&quot;</span> <span class="attr">height</span>=<span class="string">&quot;48&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;千古壹号&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>&#x27;+</span><br><span class="line">           &#x27;<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">title</span>=<span class="string">&quot;千古壹号&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>千古壹号<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>&#x27;+</span><br><span class="line">           &#x27;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>&#x27;;</span><br><span class="line">   ul.innerHTML += &#x27;<span class="tag">&lt;<span class="name">li</span>&gt;</span>&#x27;+</span><br><span class="line">           &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;images/noavatar_small.gif&quot;</span> <span class="attr">width</span>=<span class="string">&quot;48&quot;</span> <span class="attr">height</span>=<span class="string">&quot;48&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;千古壹号&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>&#x27;+</span><br><span class="line">           &#x27;<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">title</span>=<span class="string">&quot;千古壹号&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>千古壹号<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>&#x27;+</span><br><span class="line">           &#x27;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>&#x27;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上方代码有两点比较重要：</p>
+<ul>
+<li><p>我们是通过<code>ul.innerHTML += 元素节点</code>的方式来不停地往ul里面加内容，比<code>createElement</code>的方式要方便。</p>
+</li>
+<li><p>元素的内容本身有双引号<code>&quot;</code>，所以我们要用单引号<code>&#39;</code>进行字符串的连接。</p>
+</li>
+</ul>
+<p>但是，当我们从服务器获取在线用户的时候，头像和用户的昵称是动态变化的，所以每个字符串要用变量进行表示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ul.innerHTML += &#x27;<span class="tag">&lt;<span class="name">li</span>&gt;</span>&#x27;+</span><br><span class="line">                    &#x27;<span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">target</span>=<span class="string">&quot;blank&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;&#x27;+users[i].icon+&#x27;&quot;</span> <span class="attr">width</span>=<span class="string">&quot;48&quot;</span> <span class="attr">height</span>=<span class="string">&quot;48&quot;</span> <span class="attr">alt</span>=<span class="string">&quot;&#x27;+users[i].name+&#x27;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span>&#x27;+</span><br><span class="line">                    &#x27;<span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span> <span class="attr">title</span>=<span class="string">&quot;&#x27;+users[i].name+&#x27;&quot;</span> <span class="attr">target</span>=<span class="string">&quot;_blank&quot;</span>&gt;</span>&#x27;+users[i].name+&#x27;<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span>&#x27;+</span><br><span class="line">                &#x27;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>&#x27;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这里我们暂时用本地的数组来代表服务器的数据，最终的完整版代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        * &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">word-wrap</span>: break-word;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.wp</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">730px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0px</span> auto;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.mtn</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-top</span>: <span class="number">5px</span> <span class="meta">!important</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-id">#ct</span> <span class="selector-class">.frame</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.xfs_2</span> <span class="selector-class">.frame-title</span>, <span class="selector-class">.xfs_2</span> <span class="selector-class">.frametitle</span>, <span class="selector-class">.xfs_2</span> <span class="selector-class">.tab-title</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background-color</span>: <span class="number">#A90000</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">background-position</span>: <span class="number">0</span> -<span class="number">99px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.xfs</span> <span class="selector-class">.frame-title</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.frametitle</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.tab-title</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.frame-title</span> <span class="selector-tag">a</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.frametitle</span> <span class="selector-tag">a</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.tab-title</span> <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">color</span>: <span class="number">#FFF</span> <span class="meta">!important</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.xfs</span> <span class="selector-class">.frame-title</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.frametitle</span>, <span class="selector-class">.xfs</span> <span class="selector-class">.tab-title</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="css">            <span class="attribute">background</span>: transparent <span class="built_in">url</span>(<span class="string">images/mu.png</span>) repeat-x <span class="number">0</span> <span class="number">95</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.title</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">32px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-size</span>: <span class="number">14px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">font-weight</span>: <span class="number">700</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">line-height</span>: <span class="number">32px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.block</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">ul</span>, <span class="selector-tag">menu</span>, dir &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="css">            <span class="attribute">list-style</span>: none;</span></span><br><span class="line"><span class="css">            -webkit-<span class="attribute">margin</span>-before: <span class="number">1em</span>;</span></span><br><span class="line"><span class="css">            -webkit-<span class="attribute">margin</span>-after: <span class="number">1em</span>;</span></span><br><span class="line"><span class="css">            -webkit-<span class="attribute">margin</span>-start: <span class="number">0px</span>;</span></span><br><span class="line"><span class="css">            -webkit-<span class="attribute">margin</span>-end: <span class="number">0px</span>;</span></span><br><span class="line"><span class="css">            -webkit-<span class="attribute">padding</span>-start: <span class="number">25px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.mls</span> <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">66px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">85px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.ml</span> <span class="selector-tag">li</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">float</span>: left;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-align</span>: center;</span></span><br><span class="line"><span class="css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">a</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">color</span>: <span class="number">#333</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-decoration</span>: none;</span></span><br><span class="line"><span class="css">            <span class="attribute">font</span>: <span class="number">12px</span>/<span class="number">1.5</span> Tahoma, <span class="string">&#x27;Microsoft Yahei&#x27;</span>, <span class="string">&#x27;Simsun&#x27;</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.mls</span> <span class="selector-tag">p</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin-top</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.ml</span> <span class="selector-tag">p</span>, <span class="selector-class">.ml</span> <span class="selector-tag">span</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">white-space</span>: nowrap;</span></span><br><span class="line"><span class="css">            <span class="attribute">text-overflow</span>: ellipsis;</span></span><br><span class="line"><span class="css">            <span class="attribute">overflow</span>: hidden;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.mls</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">48px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">height</span>: <span class="number">48px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.ml</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">display</span>: block;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0</span> auto;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">a</span> <span class="selector-tag">img</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: none;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wp mtn&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;diy3&quot;</span> <span class="attr">class</span>=<span class="string">&quot;area&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;frameipq7f2&quot;</span> <span class="attr">class</span>=<span class="string">&quot;xfs xfs_2 frame move-span cl frame-1&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">                    <span class="attr">class</span>=<span class="string">&quot;title frame-title&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;titletext&quot;</span>&gt;</span>当前在线用户<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;frameipq7f2_left&quot;</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">class</span>=<span class="string">&quot;column frame-1-c&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">                        <span class="attr">id</span>=<span class="string">&quot;frameipq7f2_left_temp&quot;</span> <span class="attr">class</span>=<span class="string">&quot;move-span temp&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;portal_block_695&quot;</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">class</span>=<span class="string">&quot;block move-span&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">div</span></span></span><br><span class="line"><span class="tag">                            <span class="attr">id</span>=<span class="string">&quot;portal_block_695_content&quot;</span> <span class="attr">class</span>=<span class="string">&quot;dxb_bc&quot;</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;module cl ml mls&quot;</span> <span class="attr">id</span>=<span class="string">&quot;users&quot;</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">                                <span class="comment">&lt;!--&lt;li&gt;--&gt;</span></span><br><span class="line">                                <span class="comment">&lt;!--&lt;a href=&quot;#&quot; target=&quot;_blank&quot;&gt;&lt;img src=&quot;images/noavatar_small.gif&quot; width=&quot;48&quot; height=&quot;48&quot; alt=&quot;千古壹号&quot;&gt;&lt;/a&gt;--&gt;</span></span><br><span class="line">                                <span class="comment">&lt;!--&lt;p&gt;&lt;a href=&quot;#&quot; title=&quot;千古壹号&quot; target=&quot;_blank&quot;&gt;千古壹号&lt;/a&gt;&lt;/p&gt;--&gt;</span></span><br><span class="line">                                <span class="comment">&lt;!--&lt;/li&gt;--&gt;</span></span><br><span class="line"></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//模拟从服务器获取数据</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> users = [</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;smyhvae&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;smyh&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;smyh02&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/75_avatar_small.jpg&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;vae&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/89_avatar_small.jpg&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;today&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;enen&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;oyey&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;dongxiaojie&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;qishi&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;qqtang&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;wawawa&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;haha&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;robot&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;heheda&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;smyhvae1&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;,</span></span><br><span class="line"><span class="javascript">        &#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;lihaile&quot;</span>, <span class="string">&quot;icon&quot;</span>: <span class="string">&quot;images/noavatar_small.gif&quot;</span>&#125;</span></span><br><span class="line"><span class="javascript">    ];</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//需求：页面显示所有的在线用户。</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//思路：模拟服务器获取数据（数组中装着json）.获取ul，把ul的innerHTML属性获取到，然后不间断的往innerHTML属性中赋值。</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//赋值要求：li标签的内容。</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//步骤：(获取元素)</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> div = <span class="built_in">document</span>.getElementById(<span class="string">&quot;users&quot;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> ul = div.firstElementChild || div.firstChild;</span></span><br><span class="line"><span class="javascript">    <span class="comment">//        var ul = div.children[0];</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//1.模拟服务器获取数据（定义数组），通过循环添加元素（定义for）</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//数组中有多少元素，我们就创建多少个li标签</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; users.length; i++) &#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//2.模拟实验的操作方式。</span></span></span><br><span class="line"><span class="javascript">        ul.innerHTML += <span class="string">&#x27;&lt;li&gt;&#x27;</span> +</span></span><br><span class="line"><span class="javascript">            <span class="string">&#x27;&lt;a href=&quot;#&quot; target=&quot;blank&quot;&gt;&lt;img src=&quot;&#x27;</span> + users[i].icon + <span class="string">&#x27;&quot; width=&quot;48&quot; height=&quot;48&quot; alt=&quot;&#x27;</span> + users[i].name + <span class="string">&#x27;&quot;&gt;&lt;/a&gt;&#x27;</span> +</span></span><br><span class="line"><span class="javascript">            <span class="string">&#x27;&lt;p&gt;&lt;a href=&quot;#&quot; title=&quot;&#x27;</span> + users[i].name + <span class="string">&#x27;&quot; target=&quot;_blank&quot;&gt;&#x27;</span> + users[i].name + <span class="string">&#x27;&lt;/a&gt;&lt;/p&gt;&#x27;</span> +</span></span><br><span class="line"><span class="javascript">            <span class="string">&#x27;&lt;/li&gt;&#x27;</span>;</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>工程文件：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://download.csdn.net/download/smyhvae/10237611">2018-02-01-获取在线用户列表demo.rar</a></li>
+</ul>
+<h2 id="innerHTML举例2：模拟百度搜索的下方提示"><a href="#innerHTML举例2：模拟百度搜索的下方提示" class="headerlink" title="innerHTML举例2：模拟百度搜索的下方提示"></a>innerHTML举例2：模拟百度搜索的下方提示</h2><p>要求实现的效果如下：</p>
+<p><img src="http://img.smyhvae.com/20180201_2030.gif"></p>
+<p>在这之前，我们先实现这样一个例子：<strong>判断字符串以某个字符串为开头</strong>。</p>
+<p><strong>判断字符串是否以某个字符串为开头：</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str = <span class="string">&quot;smyhvae&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断str是否以sm为开头？（给定字符串，然后他的索引值为0）</span></span><br><span class="line"><span class="keyword">var</span> num = str.indexOf(<span class="string">&quot;sm&quot;</span>);</span><br><span class="line"><span class="comment">//只有返回值为0，那么字符串才是以参数为开头</span></span><br><span class="line"><span class="comment">//如果在任何位置都查询不到参数，则返回值为-1；</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>代码解释：我们可以通过<code>indexOf(&quot;参数&quot;)</code>来实现。如果返回的索引值为0，说明字符串就是以这个参数开头的。</p>
+<p>为了实现上方gif图的搜索功能，完整版代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="css"></span></span><br><span class="line"><span class="css">        * &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-class">.box</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">500px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">margin</span>: <span class="number">200px</span> auto;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">ul</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">392px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">padding</span>: <span class="number">5px</span>;</span></span><br><span class="line"><span class="css">            <span class="attribute">list-style</span>: none;</span></span><br><span class="line"><span class="css">            <span class="attribute">border</span>: <span class="number">1px</span> solid red;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">li</span><span class="selector-pseudo">:hover</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">background-color</span>: red;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">input</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">400px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css"></span></span><br><span class="line"><span class="css">        <span class="selector-tag">button</span> &#123;</span></span><br><span class="line"><span class="css">            <span class="attribute">width</span>: <span class="number">70px</span>;</span></span><br><span class="line"><span class="css">        &#125;</span></span><br><span class="line"><span class="css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span>&gt;</span>搜索<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;ul&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;li&gt;aaaa&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;li&gt;bbb&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;li&gt;ccc&lt;/li&gt;--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--&lt;/ul&gt;--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//需求：输入内容(输入事件，键盘弹起事件)，模拟服务器获取内容，创建ul，并在其中显示。</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//1.获取事件源</span></span></span><br><span class="line"><span class="javascript">    <span class="comment">//模拟服务器获取内容</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> arr = [<span class="string">&quot;a&quot;</span>, <span class="string">&quot;ab&quot;</span>, <span class="string">&quot;abc&quot;</span>, <span class="string">&quot;abcd&quot;</span>, <span class="string">&quot;aa&quot;</span>, <span class="string">&quot;aaa&quot;</span>];</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> box = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&quot;div&quot;</span>)[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">    <span class="keyword">var</span> inp = box.children[<span class="number">0</span>];</span></span><br><span class="line"><span class="javascript">    <span class="comment">//        var inp = document.getElementsByTagName(&quot;input&quot;)[0];</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">    <span class="comment">//2.绑定事件(输入内容(输入事件，键盘弹起事件))</span></span></span><br><span class="line"><span class="javascript">    inp.onkeyup = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">        <span class="comment">//创建一个字符串，里面添加满了li和对应的内容。</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> newArr = [];</span></span><br><span class="line"><span class="javascript">        <span class="comment">//遍历老数组arr，然后判断每一项，只要是以input的内容为开头的，就添加到新数组newArr中，然后转成字符串。</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">            <span class="comment">//获取输入内容input标签的value属性值。</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (arr[i].indexOf(<span class="built_in">this</span>.value) === <span class="number">0</span>) &#123;  <span class="comment">//【重要】判断老数组arr中的每一项，是否以input的内容为开头</span></span></span><br><span class="line"><span class="javascript">                newArr.push(<span class="string">&quot;&lt;li&gt;&quot;</span> + arr[i] + <span class="string">&quot;&lt;/li&gt;&quot;</span>);</span></span><br><span class="line"><span class="javascript">            &#125;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> str = newArr.join(<span class="string">&quot;&quot;</span>);</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//Bug1：每次创建新的ul之前，如果有就的ul，就先删除旧的ul</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (box.getElementsByTagName(<span class="string">&quot;ul&quot;</span>)[<span class="number">0</span>]) &#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">//只要存在，那么就是object，object类型的数据，只要不是null,对应的boolean值都是true；</span></span></span><br><span class="line"><span class="javascript">            box.removeChild(box.children[<span class="number">2</span>]);</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//Bug2.如果input的内容为空，那么就不能再生成ul了。</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//如果input为空，那就切断函数</span></span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//Bug3.如果arr数组中找不到以input为开头的元素。那就切断函数</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">//newArr的长度为0，就能证明以input内容为开头的元素，在arr中不存在</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">if</span> (<span class="built_in">this</span>.value.length === <span class="number">0</span> || newArr.length === <span class="number">0</span>) &#123;  <span class="comment">//fix bug2、fix bug3</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//切断函数，直接return</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span>;</span></span><br><span class="line"><span class="javascript">        &#125;</span></span><br><span class="line"><span class="javascript"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//3.书写事件驱动程序</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> ul = <span class="built_in">document</span>.createElement(<span class="string">&quot;ul&quot;</span>);</span></span><br><span class="line"><span class="javascript">        <span class="comment">//把创建好的内容添加到ul中。</span></span></span><br><span class="line"><span class="javascript">        ul.innerHTML = str;</span></span><br><span class="line"><span class="javascript">        box.appendChild(ul);</span></span><br><span class="line"><span class="javascript">    &#125;</span></span><br><span class="line"><span class="javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="动态操作表格"><a href="#动态操作表格" class="headerlink" title="动态操作表格"></a>动态操作表格</h2><p>方式1：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">createElement()</span><br></pre></td></tr></table></figure>
+
+<p>方式2：</p>
+<ul>
+<li><p>rows                          (只读，table和textarea能用)</p>
+</li>
+<li><p>insertRow()              (只有table能调用)</p>
+</li>
+<li><p>deleteRow()           (只有table能调用)</p>
+</li>
+<li><p>cells             (只读，table和textarea能用)</p>
+</li>
+<li><p>insertCell()               (只有tr能调用)</p>
+</li>
+<li><p>deleteCell()              (只有tr能调用)</p>
+</li>
+</ul>
+<p>PS：括号里可以带index。用的不多。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/08-%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E5%8A%9F%EF%BC%9ACSS%E5%92%8CDOM%E7%BB%83%E4%B9%A0/" rel="tag"># 08-前端基本功：CSS和DOM练习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/09/08-%E5%89%8D%E7%AB%AF%E5%9F%BA%E6%9C%AC%E5%8A%9F%EF%BC%9ACSS%E5%92%8CDOM%E7%BB%83%E4%B9%A0/05-DOM%E6%93%8D%E4%BD%9C%E7%BB%83%E4%B9%A0%EF%BC%9A%E8%AE%BF%E9%97%AE%E5%85%B3%E7%B3%BB%E7%9A%84%E5%B0%81%E8%A3%85/" rel="prev" title="05-DOM操作练习：访问关系的封装">
+      <i class="fa fa-chevron-left"></i> 05-DOM操作练习：访问关系的封装
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/03/11/09-%E7%A7%BB%E5%8A%A8Web%E5%BC%80%E5%8F%91/01-Bootstrap%E5%85%A5%E9%97%A8/" rel="next" title="01-Bootstrap入门">
+      01-Bootstrap入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BADOM%E5%85%83%E7%B4%A0%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">动态创建DOM元素的三种方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#innerHTML%E4%B8%BE%E4%BE%8B%EF%BC%9A%E5%9C%A8%E7%BA%BF%E7%94%A8%E6%88%B7%E7%9A%84%E8%8E%B7%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">innerHTML举例：在线用户的获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#innerHTML%E4%B8%BE%E4%BE%8B2%EF%BC%9A%E6%A8%A1%E6%8B%9F%E7%99%BE%E5%BA%A6%E6%90%9C%E7%B4%A2%E7%9A%84%E4%B8%8B%E6%96%B9%E6%8F%90%E7%A4%BA"><span class="nav-number">3.</span> <span class="nav-text">innerHTML举例2：模拟百度搜索的下方提示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%93%8D%E4%BD%9C%E8%A1%A8%E6%A0%BC"><span class="nav-number">4.</span> <span class="nav-text">动态操作表格</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">张天伟</p>
+  <div class="site-description" itemprop="description">欢迎访问！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">261</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张天伟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
